@@ -11,9 +11,14 @@
 #define MAX_COMANDO 128
 #define MAX_NOMBRE 20
 
-
 enum _retorno{OK, ERROR, NO_IMPLEMENTADA};
 typedef enum _retorno TipoRet;
+
+enum _calificadorCol{PRIMARY_KEY, NOT_EMPTY, ANY};
+typedef enum _calificadorCol Calificador;
+
+enum _tipoDatoCol{STRING, INT};
+typedef enum _tipoDatoCol TipoDatoCol;
 
 
 #endif

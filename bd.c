@@ -32,9 +32,31 @@ TipoRet dropTable (bd & bd, char *nombreTabla){
 	return NO_IMPLEMENTADA;
 }
 
-TipoRet addCol (bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
-	cout << " - addCol " << nombreTabla << " " << NombreCol << " " << tipoCol << " " << calificadorCol << endl;;
-	return NO_IMPLEMENTADA;
+TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+	cout << " - addCol " << nombreTabla << " " << NombreCol << " " << tipoCol << " " << calificadorCol << endl;
+
+	TipoDatoCol tipo;
+	Calificador cal;
+
+	if (strcmp(tipoCol, "string") == 0){
+        tipo = STRING;
+	} else if (strcmp(tipoCol, "int") == 0){
+        tipo = INT;
+    }else{
+        return ERROR;
+    }
+
+	if (strcmp(calificadorCol, "ANY") == 0){
+        cal = ANY;
+	} else if (strcmp(calificadorCol, "NOT_NULL") == 0){
+        cal = NOT_NULL;
+	} else if (strcmp(calificadorCol, "PRIMARY_KEY") == 0){
+	    cal = PRIMARY_KEY;
+    }else{
+        return ERROR;
+    }
+
+	return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipo, cal);
 }
 
 TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){
