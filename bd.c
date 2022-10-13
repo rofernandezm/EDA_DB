@@ -22,7 +22,7 @@ bd createBD(){
 	return bd;
 }
 
-TipoRet createTable (bd & bd, char *nombreTabla){
+TipoRet createTable(bd & bd, char *nombreTabla){
 	//cout << " - createTable " << nombreTabla << endl
 	return crearTabla_Tablas(bd->ts, nombreTabla);
 }
@@ -38,6 +38,7 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
 	TipoDatoCol tipo;
 	Calificador cal;
 
+	//Valida que el tipo de dato sea correcto
 	if (strcmp(tipoCol, "string") == 0){
         tipo = STRING;
 	} else if (strcmp(tipoCol, "int") == 0){
@@ -45,7 +46,8 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
     }else{
         return ERROR;
     }
-
+	
+	//Valida que el calificador sea correcto
 	if (strcmp(calificadorCol, "ANY") == 0){
         cal = ANY;
 	} else if (strcmp(calificadorCol, "NOT_NULL") == 0){

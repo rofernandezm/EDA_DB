@@ -39,6 +39,10 @@ void imprimirTablas(tablas ts){
 	}
 }
 
+TipoRet addCol_tablas(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+	return addCol_tabla(bd, nombreTabla, NombreCol, tipoCol, calificadorCol);
+}
+
 
 
 
