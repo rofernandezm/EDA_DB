@@ -2,9 +2,10 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
-// bd.c
+// tabla.c
 // Modulo de Implementación de Base de Datos.
 
+#include "bd.h"
 #include "tabla.h"
 #include "columna.h"
 #include "define.h"
@@ -27,7 +28,7 @@ char * nombreTabla(tabla t){
 	return t->nombre;
 }
 
-TipoRet addCol_tabla(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+TipoRet addCol_tabla(tablas ts, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
 	
 	if(nombreTabla->columnaT == NULL){
 		agregarCol(nombreTabla, NombreCol, tipoCol, calificadorCol); //si no hay ninguna columna creada en esa tabla, la crea 

@@ -2,7 +2,7 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
-// bd.c
+// tablas.c
 // Modulo de Implementación de Base de Datos.
 
 #include "tablas.h"
@@ -26,7 +26,7 @@ TipoRet crearTabla_Tablas(tablas & ts, char * nombreTabla){
 		ts->t = crearTabla(nombreTabla);
 		return OK;
 	}else{
-		cout << "Imposible Crear Tabla, ya hay una creada y el sistema soporta solo una\n";
+		cout << "Imposible Crear Tabla, ya exite una creada y el sistema soporta solo una\n";
 		return ERROR;
 	}
 }
@@ -39,8 +39,8 @@ void imprimirTablas(tablas ts){
 	}
 }
 
-TipoRet addCol_tablas(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
-	return addCol_tabla(bd, nombreTabla, NombreCol, tipoCol, calificadorCol);
+TipoRet addCol_tablas(tablas & ts, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+	return addCol_tabla(ts->t, nombreTabla, NombreCol, tipoCol, calificadorCol);
 }
 
 

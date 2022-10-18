@@ -1,12 +1,12 @@
-#ifndef BD_H
-#define BD_H
-
 // Estructuras de Datos y Algoritmos - Curso 2022
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
 // bd.h
 // Modulo de Definición de Base de Datos.
+
+#ifndef BD_H
+#define BD_H
 
 #include "define.h"
 

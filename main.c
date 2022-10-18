@@ -25,7 +25,7 @@ int main()
 
 	bool salir = false;
 	
-	do{/*
+	do{
 		cout << "\tcreateTable(nombreTabla)\n";
 		cout << "\tdropTable(nombreTabla)\n";
 		cout << "\taddCol(nombreTabla, NombreCol, tipoCol, calificadorCol)\n";
@@ -45,7 +45,7 @@ int main()
 		cout << "\tprintMetadata(nombreTabla)\n";
 		cout << "\tundo()\n";
 		cout << "\tredo()\n";
-		cout << "\tsalir()\n\n";*/
+		cout << "\tsalir()\n\n";
 		cout << "> ";
 		fflush( stdin );
 		ejecutado = false;
