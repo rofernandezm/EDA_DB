@@ -2,9 +2,10 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
-// bd.c
+// columna.c
 // Modulo de Implementación de Base de Datos.
 
+#include "tabla.h"
 #include <string.h>
 #include <iostream>
 
