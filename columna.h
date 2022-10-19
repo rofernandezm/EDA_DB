@@ -1,3 +1,10 @@
+// Estructuras de Datos y Algoritmos - Curso 2022
+// Tecnologo en Informatica FIng - DGETP - UTEC
+//
+// Trabajo Obligatorio
+// columna.h
+// Modulo de Implementación de Base de Datos.
+
 #ifndef COLUMNA_H
 #define COLUMNA_H
 

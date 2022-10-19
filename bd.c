@@ -6,7 +6,8 @@
 // Modulo de Implementación de Base de Datos.
 
 #include <iostream>
-
+#include <string.h>
+#include "define.h"
 #include "bd.h"
 #include "tablas.h"
 
@@ -28,7 +29,7 @@ TipoRet createTable(bd & bd, char *nombreTabla){
 }
 
 TipoRet dropTable (bd & bd, char *nombreTabla){
-	//cout << " - dropTable " << nombreTabla << endl;;
+	//cout << " - dropTable " << nombreTabla << endl
 	return NO_IMPLEMENTADA;
 }
 
@@ -50,15 +51,15 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
 	//Valida que el calificador sea correcto
 	if (strcmp(calificadorCol, "ANY") == 0){
         cal = ANY;
-	} else if (strcmp(calificadorCol, "NOT_NULL") == 0){
-        cal = NOT_NULL;
+	} else if (strcmp(calificadorCol, "NOT_EMPTY") == 0){
+        cal = NOT_EMPTY;
 	} else if (strcmp(calificadorCol, "PRIMARY_KEY") == 0){
 	    cal = PRIMARY_KEY;
     }else{
         return ERROR;
     }
 
-	return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipo, cal);
+	return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipoCol, calificadorCol);
 }
 
 TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){
