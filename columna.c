@@ -2,10 +2,7 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
-<<<<<<< HEAD
-=======
 // columna.c
->>>>>>> 2fc3065cabbca3120f4ea1a1c786d655052dadef
 // Modulo de Implementación de Base de Datos.
 
 #include "tabla.h"
