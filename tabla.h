@@ -2,7 +2,6 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
-// bd.c
 // Modulo de Implementación de Base de Datos.
 
 #ifndef TABLA_H
@@ -16,5 +15,8 @@ tabla crearTabla(char * nombreTabla);
 char * nombreTabla(tabla t);
 // Retorna el nombre de t.
 // Pre: t creada previamente.
+
+TipoRet addCol_tabla(char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol);
+//Agrega la columna a la tabla
 
 #endif

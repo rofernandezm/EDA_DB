@@ -2,7 +2,6 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
-// bd.c
 // Modulo de Implementación de Base de Datos.
 
 #include <string.h>
@@ -10,16 +9,15 @@
 
 using namespace std;
 
-struct columna{
+struct nodo_columna{
 	char * nombreColumna;
 	TipoDatoCol * tipo;
-	char * datoStr;
-	int datoInt;
 	Calificador * calif;
+	celda dato;
 	columna sig;
 };
 
-tipoRet agregarCol(tabla &t, char * nombreColumna, TipoDatoCol tipoDato, Calificador calificador){
+columna addCol(tabla &t, char * nombreColumna, TipoDatoCol tipoDato, Calificador calificador){
 	
 	columna col = new(nodo_columna);
 	

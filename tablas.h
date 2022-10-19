@@ -21,4 +21,7 @@ TipoRet crearTabla_Tablas(tablas & ts, char * nombreTabla);
 void imprimirTablas(tablas ts);
 // Imprime las tablas de manera ordenada.
 
+TipoRet addCol_tablas(char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol);
+// Agrega la columna en la tabla
+
 #endif
