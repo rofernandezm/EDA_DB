@@ -2,7 +2,10 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
+<<<<<<< HEAD
+=======
 // tablas.c
+>>>>>>> 2fc3065cabbca3120f4ea1a1c786d655052dadef
 // Modulo de Implementación de Base de Datos.
 
 #include "tablas.h"
@@ -39,8 +42,13 @@ void imprimirTablas(tablas ts){
 	}
 }
 
+<<<<<<< HEAD
+TipoRet addCol_tablas(char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+	return addCol_tabla(nombreTabla, NombreCol, tipoCol, calificadorCol);
+=======
 TipoRet addCol_tablas(tablas & ts, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
 	return addCol_tabla(ts->t, nombreTabla, NombreCol, tipoCol, calificadorCol);
+>>>>>>> 2fc3065cabbca3120f4ea1a1c786d655052dadef
 }
 
 

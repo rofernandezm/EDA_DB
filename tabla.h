@@ -2,7 +2,10 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
+<<<<<<< HEAD
+=======
 // tabla.h
+>>>>>>> 2fc3065cabbca3120f4ea1a1c786d655052dadef
 // Modulo de Implementación de Base de Datos.
 
 #ifndef TABLA_H
@@ -17,6 +20,11 @@ char * nombreTabla(tabla t);
 // Retorna el nombre de t.
 // Pre: t creada previamente.
 
+<<<<<<< HEAD
+TipoRet addCol_tabla(char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol);
+//Agrega la columna a la tabla
+=======
 TipoRet addCol_tabla(tablas ts, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol);
+>>>>>>> 2fc3065cabbca3120f4ea1a1c786d655052dadef
 
 #endif

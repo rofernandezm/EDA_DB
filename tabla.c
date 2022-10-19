@@ -2,7 +2,10 @@
 // Tecnologo en Informatica FIng - DGETP - UTEC
 //
 // Trabajo Obligatorio
+<<<<<<< HEAD
+=======
 // tabla.c
+>>>>>>> 2fc3065cabbca3120f4ea1a1c786d655052dadef
 // Modulo de Implementación de Base de Datos.
 
 #include "bd.h"
@@ -20,7 +23,7 @@ tabla crearTabla(char * nombreTabla){
 	tabla t = new(nodo_tabla);
 	t->nombre = new char[MAX_NOMBRE];
 	strcpy(t->nombre, nombreTabla);
-	// VER COLUMNAS, ETC
+	t->columnaT = NULL;
 	return t;
 }
 
@@ -28,10 +31,14 @@ char * nombreTabla(tabla t){
 	return t->nombre;
 }
 
+<<<<<<< HEAD
+TipoRet addCol_tabla(char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+=======
 TipoRet addCol_tabla(tablas ts, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+>>>>>>> 2fc3065cabbca3120f4ea1a1c786d655052dadef
 	
 	if(nombreTabla->columnaT == NULL){
-		agregarCol(nombreTabla, NombreCol, tipoCol, calificadorCol); //si no hay ninguna columna creada en esa tabla, la crea 
+		addCol(nombreTabla, NombreCol, tipoCol, calificadorCol); //si no hay ninguna columna creada en esa tabla, la crea 
 		return OK;
 	}else{
 		//Si hay alguna columna creada, valida que no exista otra que tenga el mismo nombre
@@ -51,10 +58,10 @@ TipoRet addCol_tabla(tablas ts, char *nombreTabla, char *NombreCol, char *tipoCo
 		}else{ 
 			//Validación del calificador
 			if((nombreTabla->columnaT->datoStr != NULL) && (nombreTabla->columnaT->datoInt != NULL)){ //si las columnas no tienen ningún dato
-				agregarCol(nombreTabla, NombreCol, tipoCol, calificadorCol);
+				addCol(nombreTabla, NombreCol, tipoCol, calificadorCol);
 				return OK;
 			}else if(strcomp(calificadorCol, "ANY") == 0){ //Si la tabla tiene datos y el calificador de la nueva columna es "ANY", la crea
-				agregarCol(nombreTabla, NombreCol, tipoCol, calificadorCol);
+				addCol(nombreTabla, NombreCol, tipoCol, calificadorCol);
 				return OK;
 			}else{ //Si el calificador no es ANY, retorna un error
 				cout << 'El calificador de esta columna no puede ser distinto que ANY';
