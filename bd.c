@@ -59,7 +59,7 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
         return ERROR;
     }
 
-	return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipoCol, calificadorCol);
+	return addCol_tablas(bd->ts,nombreTabla, NombreCol, tipo, cal);
 }
 
 TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){

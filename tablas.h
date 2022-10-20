@@ -22,9 +22,13 @@ TipoRet crearTabla_Tablas(tablas & ts, char * nombreTabla);
 void imprimirTablas(tablas ts);
 // Imprime las tablas de manera ordenada.
 
-TipoRet addCol_tablas(char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol);
+TipoRet addCol_tablas(tablas &ts, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol);
 // Agrega la columna en la tabla
 
+boolean existenTablas(tablas ts);
+// True si exitenTablas, False si no existen
 
+boolean existeTablaNombre_Tablas(tablas ts, char *nombreTabla);
+// True si la tabla nombreTabla existe en ts
 
 #endif

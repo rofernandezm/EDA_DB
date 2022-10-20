@@ -12,7 +12,7 @@
 
 typedef struct nodo_columna * columna;
  
-columna addCol(tabla &t, char * nombreColumna, TipoDatoCol tipoDato, Calificador calificador);
+columna addCol(tabla &t, char *nombreColumna, TipoDatoCol tipoDato, Calificador calificador);
 // Crea una columna de nombre "nombreColumna"
 // Pre: t creada previamente.
 
@@ -24,5 +24,12 @@ TipoRet alterCol (char *nombreTabla, char *nombreCol, char *tipoColNuevo, char n
 
 TipoRet insertInto (char *nombreTabla, char *columnasTupla, char *valoresTupla);
 //Inserta en la tabla nombreTabla una tupla con los valores dados en valoresTupla para las columnas indicadas en columnasTupla
+
+boolean existeColumnaNombre(columna col, char *nombreColumna);
+// True si existe la columna de nombre "nombreColumna"
+
+Calificador getColumnCalif(tabla t, char *NombreCol);
+//retorna el calificador de la columna "NombreCol"
+//Pre: NombreCol debe existir.
 
 #endif
