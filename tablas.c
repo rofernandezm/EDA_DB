@@ -22,10 +22,12 @@ tablas crearTablas(){
 	return NULL;
 }
 
-TipoRet crearTabla_Tablas(tablas & ts, char * nombreTabla){
+TipoRet crearTabla_Tablas(char * nombreTabla){
 	if (!existenTablas(ts)){
 		ts = new(nodo_tablas);
 		ts->t = crearTabla(nombreTabla);
+		ts->iz=crearTablas();
+		ts->de=crearTablas();
 		return OK;
 	}else{
 		cout << "Imposible Crear Tabla, ya exite una creada y el sistema soporta solo una\n";
@@ -53,14 +55,14 @@ boolean existeTablaNombre_Tablas(tablas ts, char *nombreTabla){
 	if(!existenTablas(ts)){
 		return false;
 	}else{
-		return existeTablaNombre_Tabla(ts, char *nombreTabla);
+		return existeTablaNombre_Tabla(ts->t, char *nombreTabla);
 	}
 }
 
 TipoRet addCol_tablas(tablas &ts, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
 	if(existenTablas(ts)){
 		if(existeTablaNombre_Tablas(ts, nombreTabla)){
-			return addCol_tabla(ts, nombreTabla, NombreCol, tipoCol, calificadorCol);
+			return addCol_tabla(ts->t, nombreTabla, NombreCol, tipoCol, calificadorCol);
 		} else{
 			cout << " - No existe la tabla " << nombreTabla << endl;
 			return ERROR;

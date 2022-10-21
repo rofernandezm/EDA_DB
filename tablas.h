@@ -3,13 +3,12 @@
 //
 // Trabajo Obligatorio
 // tablas.h
-// Mo
+// Modulo de Implementación de Base de Datos.
 
 #ifndef TABLAS_H
 #define TABLAS_H
 
 #include "define.h"
-#include "bd.h"
 
 typedef struct nodo_tablas * tablas;
 

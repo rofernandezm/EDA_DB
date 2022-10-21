@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <string.h>
-#include "define.h"
 #include "bd.h"
 #include "tablas.h"
 
