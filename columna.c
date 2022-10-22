@@ -24,17 +24,17 @@ columna iniColumna(){
 	return NULL;
 }
 
-bool existeColumnaNombre(columna *col, char *nombreCol){
-	if(strcmp(col->nombreColumna, nombreCol)==0){
+bool existeColumnaNombre(columna *columna, char *nombreCol){
+	if(strcmp(columna->nombreColumna , nombreCol)==0){
 		return true;
-	}else if(col->sig == NULL) {
+	}else if(columna->sig == NULL) {
 		return false;
 	} else {
-		return existeColumnaNombre(col->sig, nombreCol);
+		return existeColumnaNombre(columna->sig, nombreCol);
 	}
 }
 
-Calificador getColumnCalif(columna col, char *NombreCol){
+Calificador getColumnCalif(columna *col, char *NombreCol){
 	if(strcmp(col->nombreColumna, NombreCol)==0){
 		return col->calif;
 	}else {
