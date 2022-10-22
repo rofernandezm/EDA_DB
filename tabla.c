@@ -14,7 +14,7 @@ using namespace std;
 
 struct nodo_tabla{
 	char * nombre;
-	columna * col;
+	columna col;
 };
 
 tabla crearTabla(char * nombreTabla){
@@ -61,6 +61,16 @@ tabla getTableByName(tabla t, char *nombreTabla){
 }
 
 /*
+void imprimirTablas(tablas ts){
+	if (!existenTablas(ts)){
+		cout << " - No hay tablas" << endl;
+	}else{
+		cout << nombreTabla(ts->t) << endl;
+	}
+}
+/*
+
+/*
 bool isEmptyColumn_Tabla(tabla t, char *NombreCol){
 	if(existeColumnaNombre_Tabla(t, NombreCol)){
 		return isEmptyColumn_Tabla(t->col, NombreCol);
@@ -74,18 +84,20 @@ TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol t
 	if(!existenColumnas(t)){ //Verifica que no existan columnas en la tabla "currentTable"
 
 		t->col = addCol(NombreCol, tipoCol, calificadorCol);
+		//
 		return OK;
 
 	}else if(existeColumnaNombre_Tabla(t, NombreCol)){
 
-		cout << "Ya existe una tabla con este nombre";
+		cout << "Ya existe una columna con el nombre "<< NombreCol << endl;
 		return ERROR; //si la columna ya existía retorna un error
 
 	} else {
 
-		cout << "else";
+		cout << "else" << endl;
 
 		//Existen columnas con distinto nombre
+
 		//Validación del calificador
 		//Se hace funcion para tener calificador?
 		//Se hace funcion para ver si exite primarykey? o se modifca TAD indicando cuando ya lo tiene?
