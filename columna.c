@@ -78,17 +78,32 @@ bool existenTuplas(columna col){
 }
 
 void printMetaData_Column(columna col){
-	/*if(col != NULL){
-		cout << "Columna " << col->nombreColumna << endl;
+
+	if(col != NULL){
+		cout << "Columna " << col->nombreColumna << "\n\tTipo: " << enumToTipo(col) << "\n\tCalificador: " << enumToCalificador(col)  << endl;
 		printMetaData_Column(col->sig);
-	}*/
-	while(col != NULL){
-		cout << "Columna " << col->nombreColumna << endl;
-		col = col->sig;
 	}
 }
 
-// "\n\tTipo: " << col->tipo << "\n\tCalificador: " << col->calif 
+char * enumToTipo(columna col){
+	char * tipo = new(char[10]);
+	if(col->tipo == 0)
+		strcpy(tipo, "String");
+	else
+		strcpy(tipo, "Int");
+	return tipo;
+}
+
+char * enumToCalificador(columna col){
+	char * calif = new(char[15]);
+	if(col->calif == 0)
+		strcpy(calif, "Primary Key");
+	else if(col->calif == 1)
+		strcpy(calif, "Not Empty");
+	else
+		strcpy(calif, "Any");
+	return calif;
+}
 
 
 

@@ -44,7 +44,10 @@ bool existenTuplas(columna col);
 void printMetaData_Column(columna col);
 //Imprime los nombres de las columnas
 
-void enumToChar_Tipo(int i);
-//Recibe un int y retorna el objeto que hay enumerado en esa posicion
+char * enumToTipo(columna col);
+//Recibe una columna y retorna un char con el tipo de dato
+
+char * enumToCalificador(columna col);
+//Recibe una columna y retorna un char con el calificador
 
 #endif

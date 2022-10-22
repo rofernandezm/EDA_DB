@@ -53,12 +53,12 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
 	
 	//Valida que el calificador sea correcto
 	if (strcasecmp(calificadorCol, "ANY") == 0){
-        cal = ANY;
+        	cal = ANY;
 	} else if (strcasecmp(calificadorCol, "NOT_EMPTY") == 0){
-        cal = NOT_EMPTY;
+        	cal = NOT_EMPTY;
 	} else if (strcasecmp(calificadorCol, "PRIMARY_KEY") == 0){
-	    cal = PRIMARY_KEY;
-    }else{
+	   	cal = PRIMARY_KEY;
+    	}else{
 		cout << " - Calificador ingresado es incorrecto" << endl;
         return ERROR;
     }
