@@ -30,16 +30,16 @@ TipoRet crearTabla_Tablas(tablas & ts, char *nombreTabla){
 		ts->de=crearTablas();
 		return OK;
 	}else{
-		cout << "Imposible Crear Tabla, ya exite una creada y el sistema soporta solo una\n";
+		cout << "Imposible Crear Tabla, ya exite una creada y el sistema soporta solo una" << endl;
 		return ERROR;
 	}
 }
 
 void imprimirTablas(tablas ts){
 	if (!existenTablas(ts)){
-		cout << " - No hay tablas\n";
+		cout << " - No hay tablas" << endl;
 	}else{
-		cout << nombreTabla(ts->t);
+		cout << nombreTabla(ts->t) << endl;
 	}
 }
 
@@ -68,7 +68,7 @@ TipoRet addCol_tablas(tablas &ts, char *nombreTabla, char *NombreCol, TipoDatoCo
 			return ERROR;
 		}
 	} else {
-		cout << " - No existen tablas\n";
+		cout << " - No existen tablas" << endl;
 		return ERROR;
 	}
 }
