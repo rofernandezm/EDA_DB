@@ -29,7 +29,7 @@ int main()
 		cout << "\tcreateTable(nombreTabla)\n";
 		//cout << "\tdropTable(nombreTabla)\n";
 		cout << "\taddCol(nombreTabla, NombreCol, tipoCol, calificadorCol)\n";
-		//cout << "\tdropCol(nombreTabla, NombreCol)\n";
+		cout << "\tdropCol(nombreTabla, NombreCol)\n";
 		//cout << "\talterCol(nombreTabla, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo)\n";
 		//cout << "\tinsertInto(nombreTabla, columnasTupla, valoresTupla)\n";
 		//cout << "\tdeleteFrom(nombreTabla, condicionEliminar)\n";

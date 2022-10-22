@@ -113,5 +113,15 @@ void printMetaData_Tabla(tabla t, char *nombreTabla){
 	printMetaData_Column(t->col);
 }
 
+TipoRet dropCol_tabla(tabla t, char *nombreCol){
+	if(!existeColumnaNombre_Tabla(t, nombreCol)){
+		cout << "No existe la columna " << nombreCol << endl;
+		return ERROR;
+	} else {
+		dropCol_col(t->col, nombreCol);
+		return OK;
+	}
+}
+
 
 

@@ -50,4 +50,8 @@ char * enumToTipo(columna col);
 char * enumToCalificador(columna col);
 //Recibe una columna y retorna un char con el calificador
 
+void dropCol_col(columna col, char *nombreCol);
+//Elimina la columna nombreCol
+//Pre: nombreCol tiene que existir
+
 #endif

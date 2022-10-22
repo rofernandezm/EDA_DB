@@ -86,3 +86,15 @@ TipoRet printMetadata(tablas ts, char *nombreTabla){
 		return OK;
 	}
 }
+
+TipoRet dropCol_tablas(tablas ts, char *nombreTabla, char *nombreCol){
+	
+	if(!existeTablaNombre_Tablas(ts, nombreTabla)){
+		//Si no existe la tabla nombreTabla
+		cout << "No existe la tabla " << nombreTabla << endl;
+		return ERROR;
+	}else{
+		return dropCol_tabla(ts->t, nombreCol);
+	}
+
+}

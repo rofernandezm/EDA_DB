@@ -105,6 +105,33 @@ char * enumToCalificador(columna col){
 	return calif;
 }
 
-
+void dropCol_col(columna col, char *nombreCol){
+	//To-Do crear funcion que elimine todos las celdas
+	
+	columna anter = NULL;
+	columna iter = col;
+	
+	while(iter != NULL){
+		if(strcmp(iter->nombreColumna, nombreCol) == 0){
+		//estoy en el elemento que quiero borrar
+			if(anter == NULL){
+			//Si es el primer item de la lista
+				col = col->sig;
+				delete iter;
+				iter = col;
+			}else{
+			//Si es un item del medio
+				anter->sig = iter->sig;
+				delete iter;
+				iter = anter->sig;
+			}
+		}else{
+		//No estoy en la columna que quiero borrar, itero
+			anter = iter;
+			iter = iter->sig;
+		}
+	}
+	
+}
 
 

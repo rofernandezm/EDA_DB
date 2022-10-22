@@ -33,4 +33,7 @@ bool existeTablaNombre_Tablas(tablas ts, char *nombreTabla);
 TipoRet printMetadata(tablas ts, char *nombreTabla);
 //Imprime el esquema de la tabla nombreTabla
 
+TipoRet dropCol_tablas(tablas ts, char *nombreTabla, char *nombreCol);
+//Elimina la columna nombreColumna de la tabla nombreTabla
+
 #endif
