@@ -8,17 +8,30 @@
 #ifndef TABLA_H
 #define TABLA_H
 
+#include "define.h"
+
 typedef struct nodo_tabla * tabla;
 
-tabla crearTabla(tablas ts, char * nombreTabla);
+tabla crearTabla(char * nombreTabla);
 // Crea una tabla de nombre "nombreTabla".
 
 char * nombreTabla(tabla t);
 // Retorna el nombre de t.
 // Pre: t creada previamente.
 
-TipoRet addCol_tabla(char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol);
-//Agrega la columna a la tabla
+bool existeTablaNombre_Tabla(tabla t, char *nombreTabla);
+// True si existe la tabla de nombre "nombreTabla" en ts. Cualquier otro caso False
 
+bool existenColumnas(tabla t);
+// True si existen columnas en la tabla "t". Cualquier otro caso False
+
+bool existeColumnaNombre_Tabla(tabla t, char *NombreCol);
+// True si existe la columna de nombre "NombreCol" en la tabla "t". Cualquier otro caso False
+
+tabla getTableByName(tabla t, char *nombreTabla);
+// Retorna la tabla de nombre "nombreTabla"
+
+TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoCol, Calificador calificadorCol);
+//Agrega la columna a la tabla
 
 #endif
