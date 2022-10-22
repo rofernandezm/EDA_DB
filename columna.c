@@ -20,13 +20,17 @@ struct nodo_columna{
 	columna * sig;
 };
 
-boolean existeColumnaNombre(columna col, char *nombreColumna){
-	if(strcmp(col->nombreColumna, nombreColumna)==0){
+columna iniColumna(){
+	return NULL;
+}
+
+bool existeColumnaNombre(columna *col, char *nombreCol){
+	if(strcmp(col->nombreColumna, nombreCol)==0){
 		return true;
 	}else if(col->sig == NULL) {
 		return false;
 	} else {
-		return existeColumnaNombre(col->sig, nombreColumna);
+		return existeColumnaNombre(col->sig, nombreCol);
 	}
 }
 
@@ -34,17 +38,17 @@ Calificador getColumnCalif(columna col, char *NombreCol){
 	if(strcmp(col->nombreColumna, NombreCol)==0){
 		return col->calif;
 	}else {
-		return getColumnCalif(col->sig, nombreColumna);
+		return getColumnCalif(col->sig, NombreCol);
 	}
 }
 
-columna addCol(char * nombreColumna, TipoDatoCol tipoDato, Calificador calificador){
+columna * addCol(char * nombreCol, TipoDatoCol tipoDato, Calificador calificador){
 	
-	columna col = new(nodo_columna);
+	columna * col = new(nodo_columna);
 	
 	//Asigna el nombre a la columna
 	col->nombreColumna = new char[20]; 
-	strcpy(col->nombreColumna, nombreColumna); 
+	strcpy(col->nombreColumna, nombreCol); 
 	
 	//Asigna el tipo
 	col->tipo = new(TipoDatoCol);

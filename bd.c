@@ -44,6 +44,7 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
 	} else if (strcmp(tipoCol, "int") == 0){
         tipo = INT;
     }else{
+		cout << " - Tipo de dato ingresado es incorrecto\n";
         return ERROR;
     }
 	
@@ -55,10 +56,11 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
 	} else if (strcmp(calificadorCol, "PRIMARY_KEY") == 0){
 	    cal = PRIMARY_KEY;
     }else{
+		cout << " - Calificador ingresado es incorrecto\n";
         return ERROR;
     }
 
-	return addCol_tablas(bd->ts,nombreTabla, NombreCol, tipo, cal);
+	return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipo, cal);
 }
 
 TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){

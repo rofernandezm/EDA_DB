@@ -8,17 +8,19 @@
 #include "tabla.h"
 #include "columna.h"
 #include <string.h>
+#include <iostream>
+
+using namespace std;
 
 struct nodo_tabla{
 	char * nombre;
-	columna * columna;
+	columna * col;
 };
 
 tabla crearTabla(char * nombreTabla){
-	ts->t = new(nodo_tabla);
+	tabla t = new(nodo_tabla);
 	t->nombre = new char[MAX_NOMBRE];
 	strcpy(t->nombre, nombreTabla);
-	t->columna = NULL;
 	return t;
 }
 
@@ -26,7 +28,7 @@ char * nombreTabla(tabla t){
 	return t->nombre;
 }
 
-boolean existeTablaNombre_Tabla(tabla t, char *nombreTabla){
+bool existeTablaNombre_Tabla(tabla t, char *nombreTabla){
 	if(strcmp(t->nombre, nombreTabla)==0){
 		return true;
 	} else{
@@ -34,17 +36,17 @@ boolean existeTablaNombre_Tabla(tabla t, char *nombreTabla){
 	}
 }
 
-boolean existenColumnas(tabla t){
-	if(t->columna==NULL){
+bool existenColumnas(tabla t){
+	if(t->col==NULL){
 		return false;
 	}else{
 		return true;
 	}
 }
 
-boolean existeColumnaNombre_Tabla(tabla t, char *NombreCol){
-	if(existenColumnas(t)){
-		return existeColumnaNombre(t->columna, NombreCol);
+bool existeColumnaNombre_Tabla(tabla t, char *NombreCol){
+	if(existenColumnas(t) and t->col!=NULL){
+		return existeColumnaNombre(t->col, NombreCol);
 	} else{
 		return false;
 	}
@@ -53,33 +55,35 @@ boolean existeColumnaNombre_Tabla(tabla t, char *NombreCol){
 tabla getTableByName(tabla t, char *nombreTabla){
 	if(strcmp(t->nombre, nombreTabla)==0){
 		return t;
+	} else {
+		return NULL;
 	}
 }
 
 /*
-boolean isEmptyColumn_Tabla(tabla t, char *NombreCol){
+bool isEmptyColumn_Tabla(tabla t, char *NombreCol){
 	if(existeColumnaNombre_Tabla(t, NombreCol)){
-		return isEmptyColumn_Tabla(t->columna, NombreCol);
+		return isEmptyColumn_Tabla(t->col, NombreCol);
 	}
 	//Ver error
 }
 */
 
-TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoCol, Calificador calificadorCol){
 	
 	if(!existenColumnas(t)){ //Verifica que no existan columnas en la tabla "currentTable"
 
-		t->columna=addCol(t, NombreCol, tipoCol, calificadorCol);
+		t->col = addCol(NombreCol, tipoCol, calificadorCol);
 		return OK;
 
 	}else if(existeColumnaNombre_Tabla(t, NombreCol)){
 
-		cout << 'Ya existe una tabla con este nombre';
+		cout << "Ya existe una tabla con este nombre";
 		return ERROR; //si la columna ya existía retorna un error
 
 	} else {
 
-		
+		cout << "else";
 
 		//Existen columnas con distinto nombre
 		//Validación del calificador
@@ -135,4 +139,6 @@ TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, char *tipoCol
 		}
 	}
 	*/
+
+	return OK;
 }

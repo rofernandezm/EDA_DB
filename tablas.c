@@ -22,7 +22,7 @@ tablas crearTablas(){
 	return NULL;
 }
 
-TipoRet crearTabla_Tablas(char * nombreTabla){
+TipoRet crearTabla_Tablas(tablas & ts, char *nombreTabla){
 	if (!existenTablas(ts)){
 		ts = new(nodo_tablas);
 		ts->t = crearTabla(nombreTabla);
@@ -43,7 +43,7 @@ void imprimirTablas(tablas ts){
 	}
 }
 
-boolean existenTablas(tablas ts){
+bool existenTablas(tablas ts){
 	if(ts==NULL){
 		return false;
 	}else{
@@ -51,15 +51,15 @@ boolean existenTablas(tablas ts){
 	}
 }
 
-boolean existeTablaNombre_Tablas(tablas ts, char *nombreTabla){
+bool existeTablaNombre_Tablas(tablas ts, char *nombreTabla){
 	if(!existenTablas(ts)){
 		return false;
 	}else{
-		return existeTablaNombre_Tabla(ts->t, char *nombreTabla);
+		return existeTablaNombre_Tabla(ts->t, nombreTabla);
 	}
 }
 
-TipoRet addCol_tablas(tablas &ts, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
+TipoRet addCol_tablas(tablas &ts, char *nombreTabla, char *NombreCol, TipoDatoCol tipoCol, Calificador calificadorCol){
 	if(existenTablas(ts)){
 		if(existeTablaNombre_Tablas(ts, nombreTabla)){
 			return addCol_tabla(ts->t, nombreTabla, NombreCol, tipoCol, calificadorCol);

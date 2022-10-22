@@ -11,9 +11,11 @@
 #include "define.h"
 
 typedef struct nodo_columna * columna;
- 
-columna addCol(char *nombreColumna, TipoDatoCol tipoDato, Calificador calificador);
-// Crea una columna de nombre "nombreColumna"
+
+columna iniColumna();
+
+columna * addCol(char *nombreCol, TipoDatoCol tipoDato, Calificador calificador);
+// Crea una columna de nombre "nombreCol"
 // Pre: t creada previamente.
 
 TipoRet dropCol(char *nombreTabla, char *nombreCol);
@@ -25,8 +27,8 @@ TipoRet alterCol (char *nombreTabla, char *nombreCol, char *tipoColNuevo, char n
 TipoRet insertInto (char *nombreTabla, char *columnasTupla, char *valoresTupla);
 //Inserta en la tabla nombreTabla una tupla con los valores dados en valoresTupla para las columnas indicadas en columnasTupla
 
-boolean existeColumnaNombre(columna col, char *nombreColumna);
-// True si existe la columna de nombre "nombreColumna"
+bool existeColumnaNombre(columna *col, char *nombreCol);
+// True si existe la columna de nombre "nombreCol"
 
 Calificador getColumnCalif(columna col, char *NombreCol);
 //retorna el calificador de la columna "NombreCol"
