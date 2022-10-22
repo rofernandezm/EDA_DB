@@ -9,6 +9,9 @@
 #define TABLA_H
 
 #include "define.h"
+#include "columna.h"
+#include <string.h>
+#include <iostream>
 
 typedef struct nodo_tabla * tabla;
 
@@ -33,5 +36,8 @@ tabla getTableByName(tabla t, char *nombreTabla);
 
 TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoCol, Calificador calificadorCol);
 //Agrega la columna a la tabla
+
+void printMetaData_Tabla(tabla t, char *nombreTabla);
+//Imprime los cabezales de una tabla y sus columnas
 
 #endif

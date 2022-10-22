@@ -20,15 +20,9 @@ struct nodo_columna{
 	columna sig;
 };
 
-columna iniColumna(){
+columna nuevaColumna(){
 	return NULL;
 }
-
-/*
-char * nombreColumna(columna col){
-	return col->nombreColumna;
-}
-*/
 
 bool existeColumnaNombre(columna col, char *nombreCol){
 	if(strcmp(col->nombreColumna , nombreCol)==0){
@@ -40,6 +34,17 @@ bool existeColumnaNombre(columna col, char *nombreCol){
 	}
 }
 
+bool existePrimaryKey_columna(columna col){
+	if(col == NULL)
+		return false;
+	else{
+		if(col->calif == PRIMARY_KEY)
+			return true;
+		else
+			return existePrimaryKey_columna(col->sig);
+	}
+}
+
 Calificador getColumnCalif(columna col, char *NombreCol){
 	if(strcmp(col->nombreColumna, NombreCol)==0){
 		return col->calif;
@@ -48,22 +53,43 @@ Calificador getColumnCalif(columna col, char *NombreCol){
 	}
 }
 
-columna addCol(char * nombreCol, TipoDatoCol tipoDato, Calificador calificador){
+columna addCol(columna col, char * nombreCol, TipoDatoCol tipoDato, Calificador calificador){
 	
-	columna col = new(nodo_columna);
-	
-	//Asigna el nombre a la columna
-	col->nombreColumna = new char[20]; 
-	strcpy(col->nombreColumna, nombreCol); 
-	
-	//Asigna el tipo
-	col->tipo = tipoDato;
-	
-	//Asigna el calificador
-	col->calif = calificador;
-
-	col->dato = NULL; //llamar funcion crearCelda();
-	col->sig = iniColumna();
-
+	if(col == NULL){
+		columna nueva = new(nodo_columna);
+		nueva->nombreColumna = new char[20];
+		strcpy(nueva->nombreColumna, nombreCol);
+		nueva->tipo = tipoDato;
+		nueva->calif = calificador;
+		nueva->dato = NULL; //llamar funcion crearCelda();
+		nueva->sig = NULL;
+		col = nueva;
+	}else{
+		col->sig = addCol(col->sig, nombreCol, tipoDato, calificador);
+	}
 	return col;
 }
+
+bool existenTuplas(columna col){
+	if(col->dato == NULL)
+		return false;
+	else
+		return true;
+}
+
+void printMetaData_Column(columna col){
+	/*if(col != NULL){
+		cout << "Columna " << col->nombreColumna << endl;
+		printMetaData_Column(col->sig);
+	}*/
+	while(col != NULL){
+		cout << "Columna " << col->nombreColumna << endl;
+		col = col->sig;
+	}
+}
+
+// "\n\tTipo: " << col->tipo << "\n\tCalificador: " << col->calif 
+
+
+
+

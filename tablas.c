@@ -23,6 +23,7 @@ tablas crearTablas(){
 }
 
 TipoRet crearTabla_Tablas(tablas & ts, char *nombreTabla){
+
 	if (!existenTablas(ts)){
 		ts = new(nodo_tablas);
 		ts->t = crearTabla(nombreTabla);
@@ -73,9 +74,15 @@ TipoRet addCol_tablas(tablas &ts, char *nombreTabla, char *NombreCol, TipoDatoCo
 	}
 }
 
-
-
-
-
-
-
+TipoRet printMetadata(tablas ts, char *nombreTabla){
+	if (!existenTablas(ts)){
+		cout << " - No hay tablas" << endl;
+		return ERROR;
+	}else if(!existeTablaNombre_Tablas(ts, nombreTabla)){
+		cout << "No existe ninguna tabla con ese nombre"<< endl;
+		return ERROR;
+	}else{
+		printMetaData_Tabla(ts->t, nombreTabla);
+		return OK;
+	}
+}

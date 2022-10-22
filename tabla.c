@@ -8,6 +8,7 @@
 #include "tabla.h"
 #include "columna.h"
 #include <string.h>
+#include <stdio.h>
 #include <iostream>
 
 using namespace std;
@@ -21,6 +22,7 @@ tabla crearTabla(char * nombreTabla){
 	tabla t = new(nodo_tabla);
 	t->nombre = new char[MAX_NOMBRE];
 	strcpy(t->nombre, nombreTabla);
+	t->col = nuevaColumna();
 	return t;
 }
 
@@ -45,7 +47,7 @@ bool existenColumnas(tabla t){
 }
 
 bool existeColumnaNombre_Tabla(tabla t, char *NombreCol){
-	if(existenColumnas(t) and t->col!=NULL){
+	if(existenColumnas(t)){
 		return existeColumnaNombre(t->col, NombreCol);
 	} else{
 		return false;
@@ -68,7 +70,7 @@ void imprimirTablas(tablas ts){
 		cout << nombreTabla(ts->t) << endl;
 	}
 }
-/*
+*/
 
 /*
 bool isEmptyColumn_Tabla(tabla t, char *NombreCol){
@@ -79,78 +81,37 @@ bool isEmptyColumn_Tabla(tabla t, char *NombreCol){
 }
 */
 
-TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoCol, Calificador calificadorCol){
+TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoDato, Calificador calificadorCol){
 	
-	if(!existenColumnas(t)){ //Verifica que no existan columnas en la tabla "currentTable"
-
-		t->col = addCol(NombreCol, tipoCol, calificadorCol);
-		//
+	if(!existenColumnas(t)){ 
+	//Verifica que no existan columnas en la tabla "currentTable"
+		t->col = addCol(t->col, NombreCol, tipoDato, calificadorCol);
 		return OK;
 
 	}else if(existeColumnaNombre_Tabla(t, NombreCol)){
-
+	//Verifica que no existan columnas con el mismo nombre
 		cout << "Ya existe una columna con el nombre "<< NombreCol << endl;
-		return ERROR; //si la columna ya existía retorna un error
-
-	} else {
-
-		cout << "else" << endl;
-
-		//Existen columnas con distinto nombre
-
-		//Validación del calificador
-		//Se hace funcion para tener calificador?
-		//Se hace funcion para ver si exite primarykey? o se modifca TAD indicando cuando ya lo tiene?
-
-
-
-		/*
-		if((nombreTabla->columnaT->datoStr != NULL) && (nombreTabla->columnaT->datoInt != NULL)){ //si las columnas no tienen ningún dato
-			addCol(nombreTabla, NombreCol, tipoCol, calificadorCol);
-			return OK;
-		}else if(strcmp(calificadorCol, "ANY") == 0){ //Si la tabla tiene datos y el calificador de la nueva columna es "ANY", la crea
-			addCol(nombreTabla, NombreCol, tipoCol, calificadorCol);
-			return OK;
-		}else{ //Si el calificador no es ANY, retorna un error
-			cout << 'El calificador de esta columna no puede ser distinto que ANY';
-			return ERROR;
-		}*/
-	}
-
-	/*
-	if(nombreTabla->columnaT == NULL){
-		addCol(nombreTabla, NombreCol, tipoCol, calificadorCol); //si no hay ninguna columna creada en esa tabla, la crea 
-		return OK;
-	}else{
-		//Si hay alguna columna creada, valida que no exista otra que tenga el mismo nombre
-		columna iter = columnaT;
-		bool colRepetida = false;
-		while((colRepetida == false) && (iter != NULL)){
-			if(iter->nombre == NombreCol){ //valida que no exista otra con el mismo nombre
-				colRepetida = true;
-			}else{
-				iter = iter->sig;
-			}
-		}
+		return ERROR; 
 		
-		if(colRepetida == true){
-			cout << 'Ya existe una tabla con este nombre';
-			return ERROR; //si la columna ya existía retorna un error
-		}else{ 
-			//Validación del calificador
-			if((nombreTabla->columnaT->datoStr != NULL) && (nombreTabla->columnaT->datoInt != NULL)){ //si las columnas no tienen ningún dato
-				addCol(nombreTabla, NombreCol, tipoCol, calificadorCol);
-				return OK;
-			}else if(strcmp(calificadorCol, "ANY") == 0){ //Si la tabla tiene datos y el calificador de la nueva columna es "ANY", la crea
-				addCol(nombreTabla, NombreCol, tipoCol, calificadorCol);
-				return OK;
-			}else{ //Si el calificador no es ANY, retorna un error
-				cout << 'El calificador de esta columna no puede ser distinto que ANY';
-				return ERROR;
-			}
-		}
+	}else if((existePrimaryKey_columna(t->col)) && calificadorCol == PRIMARY_KEY){
+	//Verifica si ya existe alguna columna con primary key
+		cout << "No puede haber mas de una primary key por tabla" << endl;
+		return ERROR;
+		
+	}else if(existenTuplas(t->col) && calificadorCol != ANY){
+		cout << "Ya existen datos en esta tabla, el calificador no puede ser distinto que ANY" << endl;
+		return ERROR;
+	}else{
+		addCol(t->col, NombreCol, tipoDato, calificadorCol);
+		return OK;
 	}
-	*/
-
-	return OK;
 }
+
+void printMetaData_Tabla(tabla t, char *nombreTabla){
+	//No se realiza iteracin sobre tablas porque hay una unica tabla
+	cout << "Tabla " << t->nombre << endl;
+	printMetaData_Column(t->col);
+}
+
+
+

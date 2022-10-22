@@ -22,15 +22,18 @@ bd createBD(){
 	return bd;
 }
 
+
 TipoRet createTable(bd & bd, char *nombreTabla){
 	//cout << " - createTable " << nombreTabla << endl
 	return crearTabla_Tablas(bd->ts, nombreTabla);
 }
 
+
 TipoRet dropTable (bd & bd, char *nombreTabla){
 	//cout << " - dropTable " << nombreTabla << endl
 	return NO_IMPLEMENTADA;
 }
+
 
 TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
 	cout << " - addCol " << nombreTabla << " " << NombreCol << " " << tipoCol << " " << calificadorCol << endl;
@@ -39,9 +42,9 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
 	Calificador cal;
 
 	//Valida que el tipo de dato sea correcto
-	if (strcmp(tipoCol, "string") == 0){
+	if (strcasecmp(tipoCol, "string") == 0){
         tipo = STRING;
-	} else if (strcmp(tipoCol, "int") == 0){
+	} else if (strcasecmp(tipoCol, "int") == 0){
         tipo = INT;
     }else{
 		cout << " - Tipo de dato ingresado es incorrecto" << endl;
@@ -49,11 +52,11 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
     }
 	
 	//Valida que el calificador sea correcto
-	if (strcmp(calificadorCol, "ANY") == 0){
+	if (strcasecmp(calificadorCol, "ANY") == 0){
         cal = ANY;
-	} else if (strcmp(calificadorCol, "NOT_EMPTY") == 0){
+	} else if (strcasecmp(calificadorCol, "NOT_EMPTY") == 0){
         cal = NOT_EMPTY;
-	} else if (strcmp(calificadorCol, "PRIMARY_KEY") == 0){
+	} else if (strcasecmp(calificadorCol, "PRIMARY_KEY") == 0){
 	    cal = PRIMARY_KEY;
     }else{
 		cout << " - Calificador ingresado es incorrecto" << endl;
@@ -120,7 +123,7 @@ TipoRet minus_(bd & bd, char * nombreTabla1, char * nombreTabla2, char * nombreT
 
 TipoRet printdatatable (bd bd, char *NombreTabla){
 	//cout << " - printdatatable " << NombreTabla << endl;
-	return NO_IMPLEMENTADA;
+	return printMetadata(bd->ts, NombreTabla);
 }
 
 TipoRet printTables(bd bd){

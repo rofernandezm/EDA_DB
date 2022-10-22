@@ -30,4 +30,7 @@ bool existenTablas(tablas ts);
 bool existeTablaNombre_Tablas(tablas ts, char *nombreTabla);
 // True si la tabla nombreTabla existe en ts
 
+TipoRet printMetadata(tablas ts, char *nombreTabla);
+//Imprime el esquema de la tabla nombreTabla
+
 #endif

@@ -12,9 +12,10 @@
 
 typedef struct nodo_columna * columna;
 
-columna iniColumna();
+columna nuevaColumna();
+//Crea una columna nueva
 
-columna addCol(char *nombreCol, TipoDatoCol tipoDato, Calificador calificador);
+columna addCol(columna col, char * nombreCol, TipoDatoCol tipoDato, Calificador calificador);
 // Crea una columna de nombre "nombreCol"
 // Pre: t creada previamente.
 
@@ -30,8 +31,20 @@ TipoRet insertInto (char *nombreTabla, char *columnasTupla, char *valoresTupla);
 bool existeColumnaNombre(columna col, char *nombreCol);
 // True si existe la columna de nombre "nombreCol"
 
+bool existePrimaryKey_columna(columna col);
+//Retorna true si existe una primary key entre las columnas o false en caso contrario
+
 Calificador getColumnCalif(columna col, char *NombreCol);
 //retorna el calificador de la columna "NombreCol"
 //Pre: NombreCol debe existir.
+
+bool existenTuplas(columna col);
+//Retorna true si existe alguna tupla en la columna, false si no
+
+void printMetaData_Column(columna col);
+//Imprime los nombres de las columnas
+
+void enumToChar_Tipo(int i);
+//Recibe un int y retorna el objeto que hay enumerado en esa posicion
 
 #endif
