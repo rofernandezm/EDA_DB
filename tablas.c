@@ -117,7 +117,7 @@ TipoRet dropTable_Tablas(tablas ts, char *nombreTabla){
 TipoRet alterCol_Tablas(tablas &ts, char *nombreTabla, char *nombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo){
 	if(existenTablas(ts)){
 		if(existeTablaNombre_Tablas(ts, nombreTabla)){
-			return alterCol_Tabla(ts->t, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
+			return alterCol_Tabla(ts->t, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
 		} else{
 			cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
 			return ERROR;
