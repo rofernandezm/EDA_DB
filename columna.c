@@ -141,7 +141,8 @@ void dropCol_col(columna &col, char *nombreCol){
 
 
 void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo) {
-	
+
+	/*
 	if (!existeTablaNombre_Tabla(t->nombre, nombreTabla)){
 	//Si la tabla no exciste
 		
@@ -164,6 +165,6 @@ void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calif
 	}
 	
 	
-	
+	*/
 	
 }

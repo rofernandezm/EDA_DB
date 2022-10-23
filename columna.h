@@ -22,7 +22,7 @@ columna addCol(columna col, char * nombreCol, TipoDatoCol tipoDato, Calificador 
 TipoRet dropCol(char *nombreTabla, char *nombreCol);
 //Elimina la columna nombreCol si existe en la tabla nombreTabla
 
-TipoRet alterCol (char *nombreTabla, char *nombreCol, char *tipoColNuevo, char nombreColNuevo);
+void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
 //Modifica la tabla nombreTabla si esta existe
 
 TipoRet insertInto (char *nombreTabla, char *columnasTupla, char *valoresTupla);
