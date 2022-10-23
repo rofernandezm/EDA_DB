@@ -17,10 +17,10 @@ struct nodo_celda{
 	celda sig;
 };
 
-void eliminarCeldasCol(celda &celda){
+void eliminarCeldas(celda &celda){
 	if(celda->sig == NULL){
 		delete celda;
 	} else{
-		eliminarCeldasCol(celda->sig);
+		eliminarCeldas(celda->sig);
 	}
 }

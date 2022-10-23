@@ -107,7 +107,7 @@ char * enumToCalificador(columna col){
 
 void eliminarCeldas_col(columna col){
 	if(existenTuplas(col)){
-		eliminarCeldasCol(col->dato);
+		eliminarCeldas(col->dato);
 	}
 }
 
