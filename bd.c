@@ -31,7 +31,7 @@ TipoRet createTable(bd & bd, char *nombreTabla){
 
 TipoRet dropTable (bd & bd, char *nombreTabla){
 	//cout << " - dropTable " << nombreTabla << endl
-	return NO_IMPLEMENTADA;
+	return dropTable_Tablas(bd->ts, nombreTabla);
 }
 
 
@@ -72,7 +72,32 @@ TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){
 
 TipoRet alterCol (bd & bd, char * nombreTabla, char * nombreCol, char *tipoColNuevo, char *calificadorColNuevo, char *nombreColNuevo){
 	//cout << " - alterCol " << nombreTabla << " "<< nombreCol << " " << tipoColNuevo  << " " << calificadorColNuevo << " " << nombreColNuevo << endl;;
-	return NO_IMPLEMENTADA;
+	TipoDatoCol tipo;
+	Calificador cal;
+
+	//Valida que el tipo de dato sea correcto
+	if (strcasecmp(tipoColNuevo, "string") == 0){
+        tipo = STRING;
+	} else if (strcasecmp(tipoColNuevo, "int") == 0){
+        tipo = INT;
+    }else{
+		cout << " - Tipo de columna ingresado es incorrecto" << endl;
+        return ERROR;
+    }
+	
+	//Valida que el calificador sea correcto
+	if (strcasecmp(calificadorColNuevo, "ANY") == 0){
+        	cal = ANY;
+	} else if (strcasecmp(calificadorColNuevo, "NOT_EMPTY") == 0){
+        	cal = NOT_EMPTY;
+	} else if (strcasecmp(calificadorColNuevo, "PRIMARY_KEY") == 0){
+	   	cal = PRIMARY_KEY;
+    	}else{
+		cout << " - Calificador ingresado es incorrecto" << endl;
+        return ERROR;
+    }
+
+	return alterCol_Tablas(bd->ts, nombreTabla, nombreCol, tipo, cal, nombreColNuevo);
 }
 
 TipoRet insertInto (bd & bd, char *nombreTabla, char *columnasTupla, char *valoresTupla){
