@@ -54,4 +54,8 @@ void dropCol_col(columna &col, char *nombreCol);
 //Elimina la columna nombreCol
 //Pre: nombreCol tiene que existir
 
+void eliminarCeldas_col(columna col);
+//Elimina las celdas en la columna col
+//Pre: col tiene que existir
+
 #endif

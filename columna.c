@@ -105,15 +105,21 @@ char * enumToCalificador(columna col){
 	return calif;
 }
 
+void eliminarCeldas_col(columna col){
+	if(existenTuplas(col)){
+		eliminarCeldasCol(col->dato);
+	}
+}
+
 void dropCol_col(columna &col, char *nombreCol){
 	//To-Do crear funcion que elimine todos las celdas
-	columna ini=col;
 	columna anter = NULL;
 	columna iter = col;
 	
 	while(iter != NULL){
 		if(strcmp(iter->nombreColumna, nombreCol) == 0){
 		//estoy en el elemento que quiero borrar
+			eliminarCeldas_col(iter);
 			if(anter == NULL){
 			//Si es el primer item de la lista
 				col = col->sig;
