@@ -123,5 +123,21 @@ TipoRet dropCol_tabla(tabla t, char *nombreCol){
 	}
 }
 
+TipoRet dropTable_tabla(tabla t, char *nombreTabla){
+	if(t->col != NULL){
+		eliminarCeldas_col(t->col);
+	}
+	delete t;
+	return OK;
+}
 
+TipoRet alterCol_Tabla(ts->t, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo){
 
+	if(!existeColumnaNombre_Tabla(t, NombreCol)){
+		cout << " - No existe la columna '" << NombreCol << "'" << endl;
+		return ERROR;
+	} else {
+		alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
+		return OK;
+	}
+}

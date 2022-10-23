@@ -35,5 +35,10 @@ TipoRet printMetadata(tablas ts, char *nombreTabla);
 
 TipoRet dropCol_tablas(tablas ts, char *nombreTabla, char *nombreCol);
 //Elimina la columna nombreColumna de la tabla nombreTabla
+//Pre: nombreTabla tiene que existir.
+
+TipoRet dropTable_Tablas(tablas ts, char *nombreTabla);
+//Elimina la tabla nombreTabla y las tuplas en caso de existir
+//Pre: nombreTabla tiene que existir;
 
 #endif

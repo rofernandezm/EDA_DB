@@ -23,8 +23,10 @@ tablas crearTablas(){
 }
 
 TipoRet crearTabla_Tablas(tablas & ts, char *nombreTabla){
-
-	if (!existenTablas(ts)){
+	if(nombreTabla==NULL){
+		cout << " - No se especifico el nombre de la tabla a crear." << endl;
+		return ERROR;
+	}else if (!existenTablas(ts)){
 		ts = new(nodo_tablas);
 		ts->t = crearTabla(nombreTabla);
 		ts->iz=crearTablas();
@@ -97,4 +99,31 @@ TipoRet dropCol_tablas(tablas ts, char *nombreTabla, char *nombreCol){
 		return dropCol_tabla(ts->t, nombreCol);
 	}
 
+}
+
+TipoRet dropTable_Tablas(tablas ts, char *nombreTabla){
+	if(nombreTabla==NULL){
+		cout << " - No se especifico el nombre de la tabla a eliminar." << endl;
+		return ERROR;
+	}else if(!existeTablaNombre_Tablas(ts, nombreTabla)){
+		//Si no existe la tabla nombreTabla
+		cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
+		return ERROR;
+	}else{
+		return dropTable_tabla(ts->t, nombreTabla);
+	}
+}
+
+TipoRet alterCol_Tablas(tablas &ts, char *nombreTabla, char *nombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo){
+	if(existenTablas(ts)){
+		if(existeTablaNombre_Tablas(ts, nombreTabla)){
+			return alterCol_Tabla(ts->t, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
+		} else{
+			cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
+			return ERROR;
+		}
+	} else {
+		cout << " - No existen tablas" << endl;
+		return ERROR;
+	}
 }

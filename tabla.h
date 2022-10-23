@@ -41,7 +41,11 @@ void printMetaData_Tabla(tabla t, char *nombreTabla);
 //Imprime los cabezales de una tabla y sus columnas
 
 TipoRet dropCol_tabla(tabla t, char *nombreCol);
-//Elimina la columna nombreCol de la tabla nombreTabla
+//Elimina la columna nombreCol de la tabla
+//Pre: nombreCol tiene que existir
+
+TipoRet dropTable_tabla(tabla t, char *nombreTabla);
+//Elimina la tabla nombreTabla y las tuplas en caso de existir.
 //Pre: nombreTabla tiene que existir
 
 #endif
