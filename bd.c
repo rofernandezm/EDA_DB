@@ -36,7 +36,7 @@ TipoRet dropTable (bd & bd, char *nombreTabla){
 
 
 TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
-	cout << " - addCol " << nombreTabla << " " << NombreCol << " " << tipoCol << " " << calificadorCol << endl;
+	//cout << " - addCol " << nombreTabla << " " << NombreCol << " " << tipoCol << " " << calificadorCol << endl;
 
 	TipoDatoCol tipo;
 	Calificador cal;
@@ -47,7 +47,7 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
 	} else if (strcasecmp(tipoCol, "int") == 0){
         tipo = INT;
     }else{
-		cout << " - Tipo de dato ingresado es incorrecto" << endl;
+		cout << " - Tipo de columna ingresado es incorrecto" << endl;
         return ERROR;
     }
 	
@@ -122,7 +122,7 @@ TipoRet minus_(bd & bd, char * nombreTabla1, char * nombreTabla2, char * nombreT
 
 TipoRet printdatatable (bd bd, char *NombreTabla){
 	//cout << " - printdatatable " << NombreTabla << endl;
-	return printMetadata(bd->ts, NombreTabla);
+	return NO_IMPLEMENTADA;
 }
 
 TipoRet printTables(bd bd){
@@ -133,7 +133,7 @@ TipoRet printTables(bd bd){
 
 TipoRet printMetadata(bd bd, char *nombreTabla){
 	//cout << " - printMetadata " << nombreTabla << endl;
-	return NO_IMPLEMENTADA;
+	return printMetadata(bd->ts, nombreTabla);
 }
 
 TipoRet undo(bd & bd){

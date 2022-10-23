@@ -16,3 +16,11 @@ struct nodo_celda{
 	int datoInt;
 	celda sig;
 };
+
+void eliminarCeldas(celda &celda){
+	if(celda->sig == NULL){
+		delete celda;
+	} else{
+		eliminarCeldas(celda->sig);
+	}
+}

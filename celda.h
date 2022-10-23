@@ -12,4 +12,8 @@
 
 typedef struct nodo_celda * celda;
 
+void eliminarCeldas(celda &celda);
+//Elimina las celdas en una determinada columna
+//Pre: celda != NULL
+
 #endif
