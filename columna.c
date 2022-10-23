@@ -7,6 +7,8 @@
 
 #include "columna.h"
 #include "celda.h"
+#include "tabla.h"
+#include "tablas.h"
 #include <string.h>
 #include <iostream>
 
@@ -138,5 +140,32 @@ void dropCol_col(columna &col, char *nombreCol){
 		}
 	}
 }
+void alterCol (char *nombreTabla, char *nombreCol, char *tipoColNuevo, char nombreColNuevo) {
+	if (!existeTablaNombre_Tabla(t->nombre, nombreTabla)){
+	//Si la tabla no exciste
+		
+		cout << "La tabla no exciste" << endl;
+		
+	}else if (!existeColumnaNombre(col->nombre,*nombreCol)){
+	// Si la columna no exciste
+		
+		cout << "La columna no exciste" << endl;
+	}else if (nombreCol->calif == PRIMARY_KEY && Col->sig != NULL){
+	//Si nombreCol es PRIMARY_KEY y la tabla tiene más columnas.
+		
+		cout << "No se puede modificar la columna que es Primary Key si exciste al menos otra columna" << endl;
+		
+	}else // caso que modifica
+	{
+		strcpy(nombreColNuevo->nombreCol, nombreCol);
+		strcpy(nombreCol->Col->tipoDato, tipoColNuevo);
+		
+	}
+	
+	
+	
+	
+}
+
 
 
