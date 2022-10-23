@@ -31,7 +31,7 @@ TipoRet crearTabla_Tablas(tablas & ts, char *nombreTabla){
 		ts->de=crearTablas();
 		return OK;
 	}else{
-		cout << "Imposible Crear Tabla, ya exite una creada y el sistema soporta solo una" << endl;
+		cout << " - Imposible crear tabla '" << nombreTabla << "', ya exite una creada y el sistema soporta solo una" << endl;
 		return ERROR;
 	}
 }
@@ -40,7 +40,7 @@ void imprimirTablas(tablas ts){
 	if (!existenTablas(ts)){
 		cout << " - No hay tablas" << endl;
 	}else{
-		cout << nombreTabla(ts->t) << endl;
+		cout << " - " << nombreTabla(ts->t) << endl;
 	}
 }
 
@@ -65,7 +65,7 @@ TipoRet addCol_tablas(tablas &ts, char *nombreTabla, char *NombreCol, TipoDatoCo
 		if(existeTablaNombre_Tablas(ts, nombreTabla)){
 			return addCol_tabla(ts->t, nombreTabla, NombreCol, tipoCol, calificadorCol);
 		} else{
-			cout << " - No existe la tabla " << nombreTabla << endl;
+			cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
 			return ERROR;
 		}
 	} else {
@@ -79,7 +79,7 @@ TipoRet printMetadata(tablas ts, char *nombreTabla){
 		cout << " - No hay tablas" << endl;
 		return ERROR;
 	}else if(!existeTablaNombre_Tablas(ts, nombreTabla)){
-		cout << "No existe ninguna tabla con ese nombre"<< endl;
+		cout << " - No existe ninguna tabla con ese nombre"<< endl;
 		return ERROR;
 	}else{
 		printMetaData_Tabla(ts->t, nombreTabla);
@@ -91,7 +91,7 @@ TipoRet dropCol_tablas(tablas ts, char *nombreTabla, char *nombreCol){
 	
 	if(!existeTablaNombre_Tablas(ts, nombreTabla)){
 		//Si no existe la tabla nombreTabla
-		cout << "No existe la tabla " << nombreTabla << endl;
+		cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
 		return ERROR;
 	}else{
 		return dropCol_tabla(ts->t, nombreCol);

@@ -90,16 +90,16 @@ TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol t
 
 	}else if(existeColumnaNombre_Tabla(t, NombreCol)){
 	//Verifica que no existan columnas con el mismo nombre
-		cout << "Ya existe una columna con el nombre "<< NombreCol << endl;
+		cout << " - Ya existe una columna con el nombre '"<< NombreCol << "'" << endl;
 		return ERROR; 
 		
 	}else if((existePrimaryKey_columna(t->col)) && calificadorCol == PRIMARY_KEY){
 	//Verifica si ya existe alguna columna con primary key
-		cout << "No puede haber mas de una primary key por tabla" << endl;
+		cout << " - No puede haber mas de una columna con calificador 'PRIMARY_KEY' por tabla" << endl;
 		return ERROR;
 		
 	}else if(existenTuplas(t->col) && calificadorCol != ANY){
-		cout << "Ya existen datos en esta tabla, el calificador no puede ser distinto que ANY" << endl;
+		cout << " - Ya existen datos en esta tabla, el calificador no puede ser distinto que ANY" << endl;
 		return ERROR;
 	}else{
 		addCol(t->col, NombreCol, tipoDato, calificadorCol);
@@ -109,13 +109,13 @@ TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol t
 
 void printMetaData_Tabla(tabla t, char *nombreTabla){
 	//No se realiza iteracin sobre tablas porque hay una unica tabla
-	cout << "Tabla " << t->nombre << endl;
+	cout << " - Tabla: " << t->nombre << endl;
 	printMetaData_Column(t->col);
 }
 
 TipoRet dropCol_tabla(tabla t, char *nombreCol){
 	if(!existeColumnaNombre_Tabla(t, nombreCol)){
-		cout << "No existe la columna " << nombreCol << endl;
+		cout << " - No existe la columna '" << nombreCol << "'" << endl;
 		return ERROR;
 	} else {
 		dropCol_col(t->col, nombreCol);

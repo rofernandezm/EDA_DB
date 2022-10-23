@@ -80,7 +80,7 @@ bool existenTuplas(columna col){
 void printMetaData_Column(columna col){
 
 	if(col != NULL){
-		cout << "Columna " << col->nombreColumna << "\n\tTipo: " << enumToTipo(col) << "\n\tCalificador: " << enumToCalificador(col)  << endl;
+		cout << " - Columna: " << "\n\tNombre: " << col->nombreColumna << "\n\tTipo: " << enumToTipo(col) << "\n\tCalificador: " << enumToCalificador(col)  << endl;
 		printMetaData_Column(col->sig);
 	}
 }
@@ -105,9 +105,9 @@ char * enumToCalificador(columna col){
 	return calif;
 }
 
-void dropCol_col(columna col, char *nombreCol){
+void dropCol_col(columna &col, char *nombreCol){
 	//To-Do crear funcion que elimine todos las celdas
-	
+	columna ini=col;
 	columna anter = NULL;
 	columna iter = col;
 	
@@ -131,7 +131,6 @@ void dropCol_col(columna col, char *nombreCol){
 			iter = iter->sig;
 		}
 	}
-	
 }
 
 
