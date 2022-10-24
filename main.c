@@ -55,22 +55,22 @@ int main()
 		pch = strtok (comando,"( ,)");
 
 		if (strcasecmp (pch, "createTable") == 0){
-			pch = strtok (NULL, "( ,)");
-			if (pch != NULL){
+			pch = strtok (NULL, "()");
+			if(strtok (NULL, "( ,)")==NULL){
+				cout << " - ERROR: Faltan Parametros.\n";
+			} else {
 				ret = createTable (bd, pch);
 				ejecutado = true;
 			}
-			else
-				cout << " - ERROR: Faltan Parametros.\n";
 		}
 		else if (strcasecmp (pch, "dropTable") == 0){
-			pch = strtok (NULL, "( ,)");
-			if (pch != NULL){
+			pch = strtok (NULL, "()");
+			if(strtok (NULL, "( ,)")==NULL){
+				cout << " - ERROR: Faltan Parametros.\n";
+			} else {
 				ret = dropTable (bd, pch);
 				ejecutado = true;
 			}
-			else
-				cout << " - ERROR: Faltan Parametros.\n";
 		}
 		else if (strcasecmp (pch, "addCol") == 0){
 			pch = strtok (NULL, "( ,)");
@@ -326,13 +326,13 @@ int main()
 				ejecutado = true;
 		}
 		else if (strcasecmp (pch, "printMetadata") == 0){
-			pch = strtok (NULL, "( ,)");
-			if (pch != NULL){
-				ret =  printMetadata (bd, pch);
+			pch = strtok (NULL, "()");
+			if(strtok (NULL, "( ,)")==NULL){
+				cout << " - ERROR: Faltan Parametros.\n";
+			} else {
+				ret = printMetadata(bd, pch);
 				ejecutado = true;
 			}
-			else
-				cout << " - ERROR: Faltan Parametros.\n";
 		}
 		else if (strcasecmp (pch, "undo") == 0){
 				ret = undo (bd);
