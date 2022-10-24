@@ -25,6 +25,10 @@ char * nombreTabla(tabla t);
 bool existeTablaNombre_Tabla(tabla t, char *nombreTabla);
 // True si existe la tabla de nombre "nombreTabla" en ts. Cualquier otro caso False
 
+bool existeMasDeUnaColumna_tabla(tabla t);
+// True si hay mas de una columna en la tabla, cualquier otro caso, false
+// Pre: Existe al menos 1 columna
+
 bool existenColumnas(tabla t);
 // True si existen columnas en la tabla "t". Cualquier otro caso False
 
@@ -49,5 +53,6 @@ TipoRet dropTable_tabla(tabla t, char *nombreTabla);
 //Pre: nombreTabla tiene que existir
 
 TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
-
+// Modifica la columna nombreCol de una tabla
+// Pre: t tiene que existir 
 #endif

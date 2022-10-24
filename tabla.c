@@ -46,6 +46,11 @@ bool existenColumnas(tabla t){
 	}
 }
 
+bool existeMasDeUnaColumna_tabla(tabla t) {
+	//Pre: Existe al menos 1 columna
+	return existeMasDeUnaColumna_col(t->col);
+}
+
 bool existeColumnaNombre_Tabla(tabla t, char *NombreCol){
 	if(existenColumnas(t)){
 		return existeColumnaNombre(t->col, NombreCol);
@@ -136,8 +141,39 @@ TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Cali
 	if(!existeColumnaNombre_Tabla(t, NombreCol)){
 		cout << " - No existe la columna '" << NombreCol << "'" << endl;
 		return ERROR;
-	} else {
-		alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
-		return OK;
+	}else if (existeColumnaNombre_Tabla(t, nombreColNuevo)) {
+		cout << " - Ya existe la columna con el nombre: '" << nombreColNuevo << "'" << endl;
+		return ERROR;
+	}
+	else {
+		if (existeMasDeUnaColumna_tabla(t) && calificadorColNuevo == PRIMARY_KEY) {
+			cout << "No es posible agregar un 'PRIMARY_KEY' cuando hay mas de una columna" << endl;
+			return ERROR;
+		}else if (existePrimaryKey_columna(t->col) && calificadorColNuevo == PRIMARY_KEY) {
+			cout << "Ya existe una columna con calificador 'PRIMARY_KEY'" << endl;
+			return ERROR;
+		}else if (existenTuplas(t->col)) {
+			// funcion tipo getTipoDato_col (columna col, char *NombreCol)
+			// Evaluar calificador
+			// Evaluar tipo de columna nuevo 
+			// Ver parceo de datos INT to String atoi
+			// de Any puede ir a cualquiera menos a PRIMARY_KEY si existe otra columna o si ya hay PRIMARY_KEY
+		    // VER CASO DATOS EMPTY A CALIF NOT_EMPTY
+			// existePrimaryKey_columna (t->col)
+			// getColumnCalif (t->col, nombreCol)
+			if (getTipoDato_col(t->col, NombreCol) == STRING && tipoColNuevo == INT) {
+				cout << "No es posible modificar Tipo de dato de STRING a INT" << endl;
+				return ERROR;
+			}
+			if (getTipoDato_col(t->col, NombreCol) == INT && tipoColNuevo == STRING) {
+				// ver parseo de datos (atoi) ver el caso de error en col, controlar parseo con un if
+				alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
+				return OK;
+			}
+		}
+		else { // Columna vacia
+			alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
+			return OK;
+		}
 	}
 }
