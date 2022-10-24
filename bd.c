@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <string.h>
-#include "define.h"
 #include "bd.h"
 #include "tablas.h"
 
@@ -23,53 +22,82 @@ bd createBD(){
 	return bd;
 }
 
+
 TipoRet createTable(bd & bd, char *nombreTabla){
 	//cout << " - createTable " << nombreTabla << endl
 	return crearTabla_Tablas(bd->ts, nombreTabla);
 }
 
+
 TipoRet dropTable (bd & bd, char *nombreTabla){
 	//cout << " - dropTable " << nombreTabla << endl
-	return NO_IMPLEMENTADA;
+	return dropTable_Tablas(bd->ts, nombreTabla);
 }
 
+
 TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
-	cout << " - addCol " << nombreTabla << " " << NombreCol << " " << tipoCol << " " << calificadorCol << endl;
+	//cout << " - addCol " << nombreTabla << " " << NombreCol << " " << tipoCol << " " << calificadorCol << endl;
 
 	TipoDatoCol tipo;
 	Calificador cal;
 
 	//Valida que el tipo de dato sea correcto
-	if (strcmp(tipoCol, "string") == 0){
+	if (strcasecmp(tipoCol, "string") == 0){
         tipo = STRING;
-	} else if (strcmp(tipoCol, "int") == 0){
+	} else if (strcasecmp(tipoCol, "int") == 0){
         tipo = INT;
     }else{
+		cout << " - Tipo de columna ingresado es incorrecto" << endl;
         return ERROR;
     }
 	
 	//Valida que el calificador sea correcto
-	if (strcmp(calificadorCol, "ANY") == 0){
-        cal = ANY;
-	} else if (strcmp(calificadorCol, "NOT_EMPTY") == 0){
-        cal = NOT_EMPTY;
-	} else if (strcmp(calificadorCol, "PRIMARY_KEY") == 0){
-	    cal = PRIMARY_KEY;
-    }else{
+	if (strcasecmp(calificadorCol, "ANY") == 0){
+        	cal = ANY;
+	} else if (strcasecmp(calificadorCol, "NOT_EMPTY") == 0){
+        	cal = NOT_EMPTY;
+	} else if (strcasecmp(calificadorCol, "PRIMARY_KEY") == 0){
+	   	cal = PRIMARY_KEY;
+    	}else{
+		cout << " - Calificador ingresado es incorrecto" << endl;
         return ERROR;
     }
 
-	return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipoCol, calificadorCol);
+	return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipo, cal);
 }
 
 TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){
-	//cout << " - dropCol " << nombreTabla << " " << NombreCol << endl;;
-	return NO_IMPLEMENTADA;
+	return dropCol_tablas(bd->ts, nombreTabla, NombreCol);
 }
 
 TipoRet alterCol (bd & bd, char * nombreTabla, char * nombreCol, char *tipoColNuevo, char *calificadorColNuevo, char *nombreColNuevo){
 	//cout << " - alterCol " << nombreTabla << " "<< nombreCol << " " << tipoColNuevo  << " " << calificadorColNuevo << " " << nombreColNuevo << endl;;
-	return NO_IMPLEMENTADA;
+	TipoDatoCol tipo;
+	Calificador cal;
+
+	//Valida que el tipo de dato sea correcto
+	if (strcasecmp(tipoColNuevo, "string") == 0){
+        tipo = STRING;
+	} else if (strcasecmp(tipoColNuevo, "int") == 0){
+        tipo = INT;
+    }else{
+		cout << " - Tipo de columna ingresado es incorrecto" << endl;
+        return ERROR;
+    }
+	
+	//Valida que el calificador sea correcto
+	if (strcasecmp(calificadorColNuevo, "ANY") == 0){
+        cal = ANY;
+	} else if (strcasecmp(calificadorColNuevo, "NOT_EMPTY") == 0){
+        cal = NOT_EMPTY;
+	} else if (strcasecmp(calificadorColNuevo, "PRIMARY_KEY") == 0){
+	   	cal = PRIMARY_KEY;
+    } else{
+		cout << " - Calificador ingresado es incorrecto" << endl;
+        return ERROR;
+    }
+
+	return alterCol_Tablas(bd->ts, nombreTabla, nombreCol, tipo, cal, nombreColNuevo);
 }
 
 TipoRet insertInto (bd & bd, char *nombreTabla, char *columnasTupla, char *valoresTupla){
@@ -130,7 +158,7 @@ TipoRet printTables(bd bd){
 
 TipoRet printMetadata(bd bd, char *nombreTabla){
 	//cout << " - printMetadata " << nombreTabla << endl;
-	return NO_IMPLEMENTADA;
+	return printMetadata(bd->ts, nombreTabla);
 }
 
 TipoRet undo(bd & bd){
