@@ -15,6 +15,14 @@ typedef struct nodo_columna * columna;
 columna nuevaColumna();
 //Crea una columna nueva
 
+bool existeMasDeUnaColumna_col(columna col);
+//Pre: existe una columna
+// True si hay mas de 1 columna, cualquier otro caso false
+
+TipoDatoCol getTipoDato_col(columna col, char* NombreCol);
+// Pre: Tiene que existir NombreCol
+// Retorna el tipo de dato de la columna NombreCol
+
 columna addCol(columna col, char * nombreCol, TipoDatoCol tipoDato, Calificador calificador);
 // Crea una columna de nombre "nombreCol"
 // Pre: t creada previamente.
@@ -57,5 +65,8 @@ void dropCol_col(columna &col, char *nombreCol);
 void eliminarCeldas_col(columna col);
 //Elimina las celdas en la columna col
 //Pre: col tiene que existir
+
+void alterCol_col(columna& col, char* NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char* nombreColNuevo);
+// Modifica el nombre, tipo y calificador de la Columna NombreCol
 
 #endif

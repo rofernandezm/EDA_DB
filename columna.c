@@ -24,6 +24,25 @@ columna nuevaColumna(){
 	return NULL;
 }
 
+bool existeMasDeUnaColumna_col (columna col){
+	if (col->sig != NULL) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+TipoDatoCol getTipoDato_col(columna col, char* NombreCol) {
+	// Pre: Tiene que existir NombreCol
+	if(strcmp(col->nombreColumna, NombreCol) == 0) {
+		return col->tipo;
+	}
+	else {
+		return getTipoDato_col(col-> sig, NombreCol);
+	}
+}
+
 bool existeColumnaNombre(columna col, char *nombreCol){
 	if(strcmp(col->nombreColumna , nombreCol)==0){
 		return true;
@@ -142,7 +161,11 @@ void dropCol_col(columna &col, char *nombreCol){
 
 void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo) {
 
-	/*
+
+
+
+
+	/* CONSULTAR POR GUIA RAZONAMIENTO
 	if (!existeTablaNombre_Tabla(t->nombre, nombreTabla)){
 	//Si la tabla no exciste
 		

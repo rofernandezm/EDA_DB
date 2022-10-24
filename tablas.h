@@ -42,5 +42,6 @@ TipoRet dropTable_Tablas(tablas ts, char *nombreTabla);
 //Pre: nombreTabla tiene que existir;
 
 TipoRet alterCol_Tablas(tablas &ts, char *nombreTabla, char *nombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
-
+//Modifica la columna nombreCol
+//Pre: nombreTabla tiene que existir
 #endif
