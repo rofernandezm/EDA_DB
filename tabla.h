@@ -55,4 +55,7 @@ TipoRet dropTable_tabla(tabla t, char *nombreTabla);
 TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
 // Modifica la columna nombreCol de una tabla
 // Pre: t tiene que existir 
+
+TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla);
+//Inserta los valoresTupla en las columnasTupla
 #endif
