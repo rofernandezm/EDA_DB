@@ -29,9 +29,14 @@ TipoRet createTable(bd & bd, char *nombreTabla){
 }
 
 
-TipoRet dropTable (bd & bd, char *nombreTabla){
+TipoRet dropTable(bd & bd, char *nombreTabla){
 	//cout << " - dropTable " << nombreTabla << endl
-	return dropTable_Tablas(bd->ts, nombreTabla);
+	if(bd->ts == NULL){
+		cout << " - Base de datos vacia" << endl;
+        return ERROR;
+	} else {
+		return dropTable_Tablas(bd->ts, nombreTabla);
+	}
 }
 
 
@@ -67,7 +72,12 @@ TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char 
 }
 
 TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){
-	return dropCol_tablas(bd->ts, nombreTabla, NombreCol);
+	if (bd->ts == NULL){
+		cout << " - Base de datos vacia" << endl;
+        return ERROR;
+	}else{
+		return dropCol_tablas(bd->ts, nombreTabla, NombreCol);
+	}
 }
 
 TipoRet alterCol (bd & bd, char * nombreTabla, char * nombreCol, char *tipoColNuevo, char *calificadorColNuevo, char *nombreColNuevo){
@@ -102,7 +112,7 @@ TipoRet alterCol (bd & bd, char * nombreTabla, char * nombreCol, char *tipoColNu
 
 TipoRet insertInto (bd & bd, char *nombreTabla, char *columnasTupla, char *valoresTupla){
 	//cout << " - insertInto " << nombreTabla << " " << columnasTupla << " " << valoresTupla<< endl;;
-	return NO_IMPLEMENTADA;
+	return insertInto_Tablas(bd->ts, nombreTabla, columnasTupla, valoresTupla);
 }
 
 TipoRet deleteFrom (bd & bd, char *nombreTabla, char *condicionEliminar){

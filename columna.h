@@ -15,9 +15,17 @@ typedef struct nodo_columna * columna;
 columna nuevaColumna();
 //Crea una columna nueva
 
+char *getNombreColumna(columna col);
+//Retorna el nomnbre de la columna col
+//Pre: col tiene que existir
+
 bool existeMasDeUnaColumna_col(columna col);
 //Pre: existe una columna
 // True si hay mas de 1 columna, cualquier otro caso false
+
+void deleteCellInColAndCol(columna col);
+//Elimina las celdas en la columna col y las siguientes luego se elimina la columna
+//Pre: col tiene que existir
 
 TipoDatoCol getTipoDato_col(columna col, char* NombreCol);
 // Pre: Tiene que existir NombreCol

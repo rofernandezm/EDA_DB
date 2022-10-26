@@ -18,11 +18,10 @@ struct nodo_celda{
 };
 
 void eliminarCeldas(celda &celda){
-	if(celda->sig == NULL){
-		delete celda;
-	} else{
+	if(celda->sig != NULL){
 		eliminarCeldas(celda->sig);
 	}
+	delete celda;
 }
 
 void insertInto_int(celda celda, int dato){

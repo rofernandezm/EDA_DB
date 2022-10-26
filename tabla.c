@@ -68,23 +68,12 @@ tabla getTableByName(tabla t, char *nombreTabla){
 }
 
 /*
-void imprimirTablas(tablas ts){
-	if (!existenTablas(ts)){
-		cout << " - No hay tablas" << endl;
-	}else{
-		cout << nombreTabla(ts->t) << endl;
-	}
-}
-*/
-
-/*
 bool isEmptyColumn_Tabla(tabla t, char *NombreCol){
 	if(existeColumnaNombre_Tabla(t, NombreCol)){
 		return isEmptyColumn_Tabla(t->col, NombreCol);
 	}
-	//Ver error
-}
-*/
+}*/
+
 
 TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoDato, Calificador calificadorCol){
 	
@@ -118,7 +107,7 @@ void printMetaData_Tabla(tabla t, char *nombreTabla){
 	printMetaData_Column(t->col);
 }
 
-TipoRet dropCol_tabla(tabla t, char *nombreCol){
+TipoRet dropCol_tabla(tabla &t, char *nombreCol){
 	if(!existeColumnaNombre_Tabla(t, nombreCol)){
 		cout << " - No existe la columna '" << nombreCol << "'" << endl;
 		return ERROR;
@@ -130,7 +119,7 @@ TipoRet dropCol_tabla(tabla t, char *nombreCol){
 
 TipoRet dropTable_tabla(tabla t, char *nombreTabla){
 	if(t->col != NULL){
-		eliminarCeldas_col(t->col);
+		deleteCellInColAndCol(t->col);
 	}
 	delete t;
 	return OK;
