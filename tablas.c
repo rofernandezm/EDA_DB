@@ -90,8 +90,9 @@ TipoRet printMetadata(tablas ts, char *nombreTabla){
 }
 
 TipoRet dropCol_tablas(tablas ts, char *nombreTabla, char *nombreCol){
-	
-	if(!existeTablaNombre_Tablas(ts, nombreTabla)){
+	if(ts->t == NULL){
+
+	}else if(!existeTablaNombre_Tablas(ts, nombreTabla)){
 		//Si no existe la tabla nombreTabla
 		cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
 		return ERROR;
@@ -101,16 +102,18 @@ TipoRet dropCol_tablas(tablas ts, char *nombreTabla, char *nombreCol){
 
 }
 
-TipoRet dropTable_Tablas(tablas ts, char *nombreTabla){
-	if(nombreTabla==NULL){
-		cout << " - No se especifico el nombre de la tabla a eliminar." << endl;
+TipoRet dropTable_Tablas(tablas &ts, char *nombreTabla){
+	if(ts->t == NULL){
+		cout << " - No existen tablas" << endl;
 		return ERROR;
 	}else if(!existeTablaNombre_Tablas(ts, nombreTabla)){
 		//Si no existe la tabla nombreTabla
-		cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
+		cout << " - No existe la tabla con el nombre: '" << nombreTabla << "'" << endl;
 		return ERROR;
 	}else{
-		return dropTable_tabla(ts->t, nombreTabla);
+		dropTable_tabla(ts->t, nombreTabla);
+		ts=NULL;
+		return OK;
 	}
 }
 
@@ -124,6 +127,15 @@ TipoRet alterCol_Tablas(tablas &ts, char *nombreTabla, char *nombreCol, TipoDato
 		}
 	} else {
 		cout << " - No existen tablas" << endl;
+		return ERROR;
+	}
+}
+
+TipoRet insertInto_Tablas(tablas &ts, char *nombreTabla, char *columnasTupla, char *valoresTupla){
+	if(existeTablaNombre_Tablas(ts, nombreTabla)){
+		return NO_IMPLEMENTADA;
+	} else{
+		cout << " - No existe la tabla con el nombre: " << nombreTabla << endl;
 		return ERROR;
 	}
 }

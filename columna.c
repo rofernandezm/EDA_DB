@@ -24,13 +24,26 @@ columna nuevaColumna(){
 	return NULL;
 }
 
-bool existeMasDeUnaColumna_col (columna col){
+char *getNombreColumna(columna col){
+	return col->nombreColumna;
+}
+
+bool existeMasDeUnaColumna_col(columna col){
 	if (col->sig != NULL) {
 		return true;
 	}
 	else {
 		return false;
 	}
+}
+
+void deleteCellInColAndCol(columna col){
+	if(col->sig == NULL){
+		eliminarCeldas_col(col);
+	}else{
+		eliminarCeldas_col(col->sig);
+	}
+	delete col;
 }
 
 TipoDatoCol getTipoDato_col(columna col, char* NombreCol) {
