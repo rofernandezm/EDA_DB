@@ -200,7 +200,80 @@ void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calif
 		
 	}
 	
-	
+
 	*/
-	
 }
+
+TipoRet insertInto_Columna(columna col, char * columna, char * dato){
+	
+	bool columnaEncontrada = false;
+	
+	while((columnaEncontrada == false) && (col->sig != NULL)){
+		if(strcmp(col->nombreColumna, columna) != 0){
+			//Si no es esta la columna, itero
+			col = col->sig;
+		}else{
+			//Estoy en la columna
+			
+			if(col->calif == PRIMARY_KEY){
+				//Si la columna es primary key hay que verificar que no exista ese dato 
+				if(col->tipo == INT){
+					//Si la columna es tipo int, parsea a int
+					int datoInsert;
+					datoInsert = atoi(dato);
+					if(existeDato_int(col->dato, datoInsert)){
+						//Si el dato se repite, no lo inserta 
+						cout << "No se puede ingresar el dato " << datoInsert << "en la columna " << columna << "porque ya existe y es primary key" << endl;
+						return ERROR;
+					}else{
+						insertInto_int(col->dato, datoInsert);
+						return OK;
+					}
+				}else{
+					//Si el dato es tipo char, 
+					if(existeDato_char(col->dato, dato)){
+						//Si el dato se repite, no lo inserta 
+						cout << "No se puede ingresar el dato " << dato << "en la columna " << columna << "porque ya existe y es primary key" << endl;
+						return ERROR;
+					}else{
+						insertInto_char(col->dato, dato);
+						return OK;
+					}
+				}	
+			}else{
+				//si la columna no es primary key
+				if(col->tipo == INT){
+					//Si la columna es tipo int, parsea a int
+					int datoInsert;
+					datoInsert = atoi(dato);
+					insertInto_int(col->dato, datoInsert);
+					return OK;
+				}else{
+					//Si el dato es tipo char, lo pasa
+					insertInto_char(col->dato, dato);
+					return OK;
+				}
+			}
+			
+			columnaEncontrada = true;
+		}
+	}
+	
+	if(!columnaEncontrada){
+		cout << "No existe la columna " << columna << endl;
+		return ERROR;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

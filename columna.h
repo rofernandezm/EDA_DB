@@ -77,4 +77,10 @@ void eliminarCeldas_col(columna col);
 void alterCol_col(columna& col, char* NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char* nombreColNuevo);
 // Modifica el nombre, tipo y calificador de la Columna NombreCol
 
+columna obtenerColumaPorNombre(columna col, char * nombreCol);
+//Devuelve una columna a partir de su nombre;
+
+TipoRet insertInto_Columna(columna col, char * columna, char * dato);
+//Inserta el dato en la columna
+
 #endif
