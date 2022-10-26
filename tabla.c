@@ -67,13 +67,6 @@ tabla getTableByName(tabla t, char *nombreTabla){
 	}
 }
 
-/*
-bool isEmptyColumn_Tabla(tabla t, char *NombreCol){
-	if(existeColumnaNombre_Tabla(t, NombreCol)){
-		return isEmptyColumn_Tabla(t->col, NombreCol);
-	}
-}*/
-
 
 TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoDato, Calificador calificadorCol){
 	
@@ -130,17 +123,15 @@ TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Cali
 	if(!existeColumnaNombre_Tabla(t, NombreCol)){
 		cout << " - No existe la columna '" << NombreCol << "'" << endl;
 		return ERROR;
-	}else if (existeColumnaNombre_Tabla(t, nombreColNuevo)) {
-		cout << " - Ya existe la columna con el nombre: '" << nombreColNuevo << "'" << endl;
-		return ERROR;
-	}
-	else {
-		if (existeMasDeUnaColumna_tabla(t) && calificadorColNuevo == PRIMARY_KEY) {
+	}else{
+		if (existeMasDeUnaColumna_tabla(t) && (calificadorColNuevo == PRIMARY_KEY)) {
 			cout << "No es posible agregar un 'PRIMARY_KEY' cuando hay mas de una columna" << endl;
 			return ERROR;
+			
 		}else if (existePrimaryKey_columna(t->col) && calificadorColNuevo == PRIMARY_KEY) {
 			cout << "Ya existe una columna con calificador 'PRIMARY_KEY'" << endl;
 			return ERROR;
+			
 		}else if (existenTuplas(t->col)) {
 			// funcion tipo getTipoDato_col (columna col, char *NombreCol)
 			// Evaluar calificador

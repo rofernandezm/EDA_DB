@@ -213,10 +213,11 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 			//Si no es esta la columna, itero
 			col = col->sig;
 		}else{
-			//Estoy en la columna
+			//Estoy en la columna en la que quiero agregar datos
 			
 			if(col->calif == PRIMARY_KEY){
 				//Si la columna es primary key hay que verificar que no exista ese dato 
+				
 				if(col->tipo == INT){
 					//Si la columna es tipo int, parsea a int
 					int datoInsert;
