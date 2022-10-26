@@ -133,7 +133,7 @@ TipoRet alterCol_Tablas(tablas &ts, char *nombreTabla, char *nombreCol, TipoDato
 
 TipoRet insertInto_Tablas(tablas &ts, char *nombreTabla, char *columnasTupla, char *valoresTupla){
 	if(existeTablaNombre_Tablas(ts, nombreTabla)){
-		return NO_IMPLEMENTADA;
+		return insertInto_Tabla(ts->t, columnasTupla, valoresTupla);
 	} else{
 		cout << " - No existe la tabla con el nombre: " << nombreTabla << endl;
 		return ERROR;
