@@ -118,21 +118,39 @@ TipoRet dropTable_tabla(tabla t, char *nombreTabla){
 	return OK;
 }
 
-TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo){
+TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo){
+	
+	/* TO-DO logica para encnotrar la tabla, revisar
+	
+	bool encontrada = false;
+	
+	//Encontrar la tabla correcta por su nombre
+	while((t != NULL) && (encontrada == false)){
+		if(strcmp(nombreTabla, t->nombre) != 0)
+			t = t->sig; //itera
+		else
+			encontrada = true; //corta el while
+	}*/
+	
 
 	if(!existeColumnaNombre_Tabla(t, NombreCol)){
+		//Si no existe una columna con el nombre NombreCol
 		cout << " - No existe la columna '" << NombreCol << "'" << endl;
 		return ERROR;
 	}else{
-		if (existeMasDeUnaColumna_tabla(t) && (calificadorColNuevo == PRIMARY_KEY)) {
+		if(existeMasDeUnaColumna_tabla(t) && (calificadorColNuevo == PRIMARY_KEY)) {
 			cout << "No es posible agregar un 'PRIMARY_KEY' cuando hay mas de una columna" << endl;
 			return ERROR;
 			
-		}else if (existePrimaryKey_columna(t->col) && calificadorColNuevo == PRIMARY_KEY) {
+		}else if(existePrimaryKey_columna(t->col) && calificadorColNuevo == PRIMARY_KEY) {
 			cout << "Ya existe una columna con calificador 'PRIMARY_KEY'" << endl;
 			return ERROR;
 			
-		}else if (existenTuplas(t->col)) {
+		}else{
+			return alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
+		}
+		
+		/*}else if (existenTuplas(t->col)) {
 			// funcion tipo getTipoDato_col (columna col, char *NombreCol)
 			// Evaluar calificador
 			// Evaluar tipo de columna nuevo 
@@ -154,7 +172,7 @@ TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Cali
 		else { // Columna vacia
 			alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
 			return OK;
-		}
+		}*/
 	}
 }
 

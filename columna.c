@@ -21,6 +21,7 @@ struct nodo_columna{
 };
 
 columna nuevaColumna(){
+	nuevaCelda();
 	return NULL;
 }
 
@@ -172,36 +173,43 @@ void dropCol_col(columna &col, char *nombreCol){
 }
 
 
-void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo) {
+TipoRet alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo) {
 
-
-
-
-
-	/* CONSULTAR POR GUIA RAZONAMIENTO
-	if (!existeTablaNombre_Tabla(t->nombre, nombreTabla)){
-	//Si la tabla no exciste
-		
-		cout << "La tabla no exciste" << endl;
-		
-	}else if (!existeColumnaNombre(col->nombre,*nombreCol)){
-	// Si la columna no exciste
-		
-		cout << "La columna no exciste" << endl;
-	}else if (nombreCol->calif == PRIMARY_KEY && Col->sig != NULL){
-	//Si nombreCol es PRIMARY_KEY y la tabla tiene más columnas.
-		
-		cout << "No se puede modificar la columna que es Primary Key si exciste al menos otra columna" << endl;
-		
-	}else // caso que modifica
-	{
-		strcpy(nombreColNuevo->nombreCol, nombreCol);
-		strcpy(nombreCol->Col->tipoDato, tipoColNuevo);
-		
+	bool encontrada = false;
+	
+	//Encontrar la columna correcta por su nombre
+	while((col != NULL) && (encontrada == false)){
+		if(strcmp(NombreCol, col->nombreColumna) != 0)
+			col = col->sig; //itera
+		else
+			encontrada = true; //corta el while
 	}
 	
-
-	*/
+	//Cambio de nombre
+	strcpy(col->nombreColumna, nombreColNuevo);
+	
+	//Cambio de Calificador
+	if(calificadorColNuevo != col->calif){
+		if((hayCeldasVacias(col->dato)) && (calificadorColNuevo == NOT_EMPTY)){
+			cout << "No puede setearse la columna " << NombreCol << " como NOT_EMPTY, existen celdas vacias" << endl;
+			return ERROR;
+		}else{
+			col->calif = calificadorColNuevo;
+		}
+	}
+	
+	//Cambio de tipo de Dato solo se puede de int a string
+	if(tipoColNuevo != col->tipo){
+		if((col->tipo == STRING) && (tipoColNuevo == INT)){
+			cout << "No se puede cambiar de un tipo de dato STRING a INT";
+			return ERROR;
+		}else{
+			valoresAString(col->dato);
+			col->tipo = STRING;
+		}
+	}
+	
+	return OK;
 }
 
 TipoRet insertInto_Columna(columna col, char * columna, char * dato){

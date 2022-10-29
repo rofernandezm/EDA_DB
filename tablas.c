@@ -121,8 +121,7 @@ TipoRet alterCol_Tablas(tablas &ts, char *nombreTabla, char *nombreCol, TipoDato
 	if(existenTablas(ts)){
 		if(existeTablaNombre_Tablas(ts, nombreTabla)){
 			//Si existe una tabla con ese nombre
-			//en este caso es la unica tabla, no hay que iterar TO-DO para parte 2
-			return alterCol_Tabla(ts->t, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
+			return alterCol_Tabla(ts->t, nombreTabla, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
 		} else{
 			cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
 			return ERROR;

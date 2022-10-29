@@ -38,8 +38,6 @@ columna addCol(columna col, char * nombreCol, TipoDatoCol tipoDato, Calificador 
 TipoRet dropCol(char *nombreTabla, char *nombreCol);
 //Elimina la columna nombreCol si existe en la tabla nombreTabla
 
-void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
-//Modifica la tabla nombreTabla si esta existe
 
 TipoRet insertInto (char *nombreTabla, char *columnasTupla, char *valoresTupla);
 //Inserta en la tabla nombreTabla una tupla con los valores dados en valoresTupla para las columnas indicadas en columnasTupla
@@ -74,7 +72,7 @@ void eliminarCeldas_col(columna col);
 //Elimina las celdas en la columna col
 //Pre: col tiene que existir
 
-void alterCol_col(columna& col, char* NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char* nombreColNuevo);
+TipoRet alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
 // Modifica el nombre, tipo y calificador de la Columna NombreCol
 
 columna obtenerColumaPorNombre(columna col, char * nombreCol);
