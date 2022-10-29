@@ -26,12 +26,12 @@ int main()
 	bool salir = false;
 	
 	do{
-		cout << "\tcreateTable(nombreTabla)\n";
+		cout << "\n\tcreateTable(nombreTabla)\n";
 		cout << "\tdropTable(nombreTabla)\n";
 		cout << "\taddCol(nombreTabla, NombreCol, tipoCol, calificadorCol)\n";
 		cout << "\tdropCol(nombreTabla, NombreCol)\n";
-		//cout << "\talterCol(nombreTabla, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo)\n";
-		//cout << "\tinsertInto(nombreTabla, columnasTupla, valoresTupla)\n";
+		cout << "\talterCol(nombreTabla, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo)\n";
+		cout << "\tinsertInto(nombreTabla, columnasTupla, valoresTupla)\n";
 		//cout << "\tdeleteFrom(nombreTabla, condicionEliminar)\n";
 		//cout << "\tupdate(nombreTabla, condicionModificar, columnaModificar, valorModificar)\n";
 		//cout << "\tselectWhere(nomTabla1, condicion, nomTabla2)\n";
