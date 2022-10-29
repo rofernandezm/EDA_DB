@@ -17,61 +17,103 @@ struct nodo_celda{
 	celda sig;
 };
 
-void eliminarCeldas(celda &celda){
-	if(celda->sig != NULL){
-		eliminarCeldas(celda->sig);
-	}
-	delete celda;
+celda nuevaCelda(){
+	return NULL;
 }
 
-void insertInto_int(celda celda, int dato){
-	
-	while(celda != NULL){
-		//Si la celda no esta vacia, itero
-		celda = celda->sig;
-	}
 
-	//Estoy en la celda en la que quiero insertar
-	celda->datoInt = dato;
-	
-	
+void eliminarCeldas(celda &cel){
+	if(cel->sig != NULL){
+		eliminarCeldas(cel->sig);
+	}
+	delete cel;
 }
 
-void insertInto_char(celda celda, char * dato){
-	
-	while(celda != NULL){
-		//Si la celda no est vaca, itero
-		celda = celda->sig;
+
+celda insertInto_int(celda cel, int dato){
+
+	if(cel == NULL){
+		celda nueva_celda = new(nodo_celda);
+		nueva_celda->datoInt = dato;
+		nueva_celda->sig = NULL;
+	}else{
+		insertInto_int(cel->sig, dato);
 	}
 	
-	//Estoy en la celda en la que quiero insertar
-	strcpy(celda->datoStr, dato);
+	return cel;
 }
 
-bool existeDato_int(celda celda, int dato){
+
+celda insertInto_char(celda cel, char * dato){
+	
+	if(cel == NULL){
+		celda nueva_celda = new(nodo_celda);
+		strcpy(nueva_celda->datoStr, dato);
+		nueva_celda->sig = NULL;
+	}else{
+		insertInto_char(cel->sig, dato);
+	}
+	
+	return cel;
+}
+
+
+bool existeDato_int(celda cel, int dato){
 	bool existe = false;
 	
-	while((celda != NULL) && (existe == false)){
-		if(celda->datoInt == dato){
+	while((cel != NULL) && (existe == false)){
+		if(cel->datoInt == dato){
 			//Si existe el dato cambia el bool
 			existe = true;
 		}
-		celda = celda->sig;
+		cel = cel->sig;
 	}
 	
 	return existe;
 }
 
-bool existeDato_char(celda celda, char * dato){
+
+bool existeDato_char(celda cel, char * dato){
 	bool existe = false;
 	
-	while((celda != NULL) && (existe == false)){
-		if(strcmp(dato, celda->datoStr)==0){
+	while((cel != NULL) && (existe == false)){
+		if(strcmp(dato, cel->datoStr)==0){
 			//Si existe el dato cambia el bool
 			existe = true;
 		}
-		celda = celda->sig;
+		cel = cel->sig;
 	}
 	
 	return existe;
 }
+
+bool hayCeldasVacias(celda cel){
+
+	bool hayVacio = false;
+	
+	while((cel != NULL) && (hayVacio == false)){
+		if((cel->datoInt == NULL) && (cel->datoStr == NULL))
+			cel = cel->sig;
+		else
+			hayVacio = true;
+	}
+	
+	return hayVacio;
+}
+
+void valoresAString(celda cel){
+
+	while(cel != NULL){
+		//cel->datoStr = static_cast<char*>(cel->datoInt);
+		cel->datoInt = NULL;
+		cel = cel->sig;
+	}
+}
+
+
+
+
+
+
+
+

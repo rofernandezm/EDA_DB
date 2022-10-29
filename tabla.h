@@ -52,7 +52,7 @@ TipoRet dropTable_tabla(tabla t, char *nombreTabla);
 //Elimina la tabla nombreTabla y las tuplas en caso de existir.
 //Pre: nombreTabla tiene que existir
 
-TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
+TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
 // Modifica la columna nombreCol de una tabla
 // Pre: t tiene que existir 
 
