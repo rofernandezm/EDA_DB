@@ -104,9 +104,12 @@ bool hayCeldasVacias(celda cel){
 void valoresAString(celda cel){
 
 	while(cel != NULL){
-		//cel->datoStr = static_cast<char*>(cel->datoInt);
+		
+		char string[25];
+		sprintf(string, "%d", cel->datoInt);
 		cel->datoInt = NULL;
 		cel = cel->sig;
+		
 	}
 }
 
