@@ -212,20 +212,25 @@ TipoRet alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Ca
 	return OK;
 }
 
+
 TipoRet insertInto_Columna(columna col, char * columna, char * dato){
-	
 	bool columnaEncontrada = false;
 	
-	while((columnaEncontrada == false) && (col->sig != NULL)){
+	while((columnaEncontrada == false) && (col != NULL)){
 		if(strcmp(col->nombreColumna, columna) != 0){
 			//Si no es esta la columna, itero
 			col = col->sig;
-		}else{
+		}else
+			columnaEncontrada = true;
+	}
+	
+	if(columnaEncontrada){
+		cout << "Columna: " << columna << " / Dato: " << dato << endl;
+		
 			//Estoy en la columna en la que quiero agregar datos
-			
 			if(col->calif == PRIMARY_KEY){
 				//Si la columna es primary key hay que verificar que no exista ese dato 
-				
+
 				if(col->tipo == INT){
 					//Si la columna es tipo int, parsea a int
 					int datoInsert;
@@ -244,11 +249,12 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 						//Si el dato se repite, no lo inserta 
 						cout << "No se puede ingresar el dato " << dato << "en la columna " << columna << "porque ya existe y es primary key" << endl;
 						return ERROR;
-					}else{
+					}else{	
 						insertInto_char(col->dato, dato);
 						return OK;
 					}
-				}	
+				}
+					
 			}else{
 				//si la columna no es primary key
 				if(col->tipo == INT){
@@ -260,21 +266,19 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 				}else{
 					//Si el dato es tipo char, lo pasa
 					insertInto_char(col->dato, dato);
+
 					return OK;
 				}
+
 			}
 			
-			columnaEncontrada = true;
+			return OK;
+		}else{
+			cout << "No existe la columna \"" << columna << "\"" << endl;
+			return ERROR;
 		}
-	}
-	
-	if(!columnaEncontrada){
-		cout << "No existe la columna " << columna << endl;
-		return ERROR;
-	}
+
 }
-
-
 
 
 

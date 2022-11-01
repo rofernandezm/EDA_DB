@@ -194,15 +194,15 @@ TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla){
 		col = &columnas[0];
 		dat = &datos[0];
 		
-		tokenCol = strtok(columnas, ":");
-		tokenDatos = strtok(datos, ":");
+		tokenCol = strtok(columnas, " : ");
+		tokenDatos = strtok(datos, " : ");
 		
 		while((tokenCol != NULL) && (tokenDatos != NULL)) {
 			insertInto_Columna(t->col, tokenCol, tokenDatos);
 			col = &col[strlen(col) +1];
         		dat = &dat[strlen(dat) +1];
-        		tokenCol = strtok(col, ":");
-        		tokenDatos = strtok(dat, ":");
+        		tokenCol = strtok(col, " : ");
+        		tokenDatos = strtok(dat, " : ");
 		}
 		
 		return OK;
