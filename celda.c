@@ -14,6 +14,7 @@ using namespace std;
 struct nodo_celda{
 	char * datoStr;
 	int datoInt;
+	bool hayDato = false;
 	celda sig;
 };
 
@@ -35,6 +36,7 @@ celda insertInto_int(celda cel, int dato){
 	if(cel == NULL){
 		celda nueva_celda = new(nodo_celda);
 		nueva_celda->datoInt = dato;
+		nueva_celda->hayDato = true;
 		nueva_celda->sig = NULL;
 	}else{
 		insertInto_int(cel->sig, dato);
@@ -49,6 +51,7 @@ celda insertInto_char(celda cel, char * dato){
 	if(cel == NULL){
 		celda nueva_celda = new(nodo_celda);
 		strcpy(nueva_celda->datoStr, dato);
+		nueva_celda->hayDato = true;
 		nueva_celda->sig = NULL;
 	}else{
 		insertInto_char(cel->sig, dato);
@@ -87,12 +90,13 @@ bool existeDato_char(celda cel, char * dato){
 	return existe;
 }
 
+
 bool hayCeldasVacias(celda cel){
 
 	bool hayVacio = false;
 	
 	while((cel != NULL) && (hayVacio == false)){
-		if((cel->datoInt == NULL) && (cel->datoStr == NULL))
+		if(cel->hayDato == true)
 			cel = cel->sig;
 		else
 			hayVacio = true;
@@ -101,13 +105,13 @@ bool hayCeldasVacias(celda cel){
 	return hayVacio;
 }
 
+
 void valoresAString(celda cel){
 
 	while(cel != NULL){
 		
 		char string[25];
 		sprintf(string, "%d", cel->datoInt);
-		cel->datoInt = NULL;
 		cel = cel->sig;
 		
 	}
