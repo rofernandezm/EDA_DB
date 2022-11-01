@@ -109,13 +109,12 @@ bool hayCeldasVacias(celda cel){
 void valoresAString(celda cel){
 
 	while(cel != NULL){
-		
 		char string[25];
 		sprintf(string, "%d", cel->datoInt);
-		cel = cel->sig;
-		
+		cel = cel->sig;	
 	}
 }
+
 
 
 
