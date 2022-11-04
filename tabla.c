@@ -67,24 +67,6 @@ tabla getTableByName(tabla t, char *nombreTabla){
 	}
 }
 
-/*
-void imprimirTablas(tablas ts){
-	if (!existenTablas(ts)){
-		cout << " - No hay tablas" << endl;
-	}else{
-		cout << nombreTabla(ts->t) << endl;
-	}
-}
-*/
-
-/*
-bool isEmptyColumn_Tabla(tabla t, char *NombreCol){
-	if(existeColumnaNombre_Tabla(t, NombreCol)){
-		return isEmptyColumn_Tabla(t->col, NombreCol);
-	}
-	//Ver error
-}
-*/
 
 TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoDato, Calificador calificadorCol){
 	
@@ -118,7 +100,7 @@ void printMetaData_Tabla(tabla t, char *nombreTabla){
 	printMetaData_Column(t->col);
 }
 
-TipoRet dropCol_tabla(tabla t, char *nombreCol){
+TipoRet dropCol_tabla(tabla &t, char *nombreCol){
 	if(!existeColumnaNombre_Tabla(t, nombreCol)){
 		cout << " - No existe la columna '" << nombreCol << "'" << endl;
 		return ERROR;
@@ -130,29 +112,45 @@ TipoRet dropCol_tabla(tabla t, char *nombreCol){
 
 TipoRet dropTable_tabla(tabla t, char *nombreTabla){
 	if(t->col != NULL){
-		eliminarCeldas_col(t->col);
+		deleteCellInColAndCol(t->col);
 	}
 	delete t;
 	return OK;
 }
 
-TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo){
+TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo){
+	
+	/* TO-DO logica para encnotrar la tabla, revisar
+	
+	bool encontrada = false;
+	
+	//Encontrar la tabla correcta por su nombre
+	while((t != NULL) && (encontrada == false)){
+		if(strcmp(nombreTabla, t->nombre) != 0)
+			t = t->sig; //itera
+		else
+			encontrada = true; //corta el while
+	}*/
+	
 
 	if(!existeColumnaNombre_Tabla(t, NombreCol)){
+		//Si no existe una columna con el nombre NombreCol
 		cout << " - No existe la columna '" << NombreCol << "'" << endl;
 		return ERROR;
-	}else if (existeColumnaNombre_Tabla(t, nombreColNuevo)) {
-		cout << " - Ya existe la columna con el nombre: '" << nombreColNuevo << "'" << endl;
-		return ERROR;
-	}
-	else {
-		if (existeMasDeUnaColumna_tabla(t) && calificadorColNuevo == PRIMARY_KEY) {
+	}else{
+		if(existeMasDeUnaColumna_tabla(t) && (calificadorColNuevo == PRIMARY_KEY)) {
 			cout << "No es posible agregar un 'PRIMARY_KEY' cuando hay mas de una columna" << endl;
 			return ERROR;
-		}else if (existePrimaryKey_columna(t->col) && calificadorColNuevo == PRIMARY_KEY) {
+			
+		}else if(existePrimaryKey_columna(t->col) && calificadorColNuevo == PRIMARY_KEY) {
 			cout << "Ya existe una columna con calificador 'PRIMARY_KEY'" << endl;
 			return ERROR;
-		}else if (existenTuplas(t->col)) {
+			
+		}else{
+			return alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
+		}
+		
+		/*}else if (existenTuplas(t->col)) {
 			// funcion tipo getTipoDato_col (columna col, char *NombreCol)
 			// Evaluar calificador
 			// Evaluar tipo de columna nuevo 
@@ -174,6 +172,53 @@ TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Cali
 		else { // Columna vacia
 			alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
 			return OK;
-		}
+		}*/
 	}
 }
+
+
+TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla){
+	
+	if(t->col == NULL){
+		//La tabla no tiene columnas
+		cout << "La tabla " << t->nombre << " no tiene columnas" << endl;
+		return ERROR;
+	}else{
+		//La tabla tiene columnas
+		
+		char columnas[200];
+		strcpy(columnas, columnasTupla);
+		char datos[200];
+		strcpy(datos, valoresTupla);
+		char *tokenCol, *col, *tokenDatos, *dat;
+		col = &columnas[0];
+		dat = &datos[0];
+		
+		tokenCol = strtok(columnas, " : ");
+		tokenDatos = strtok(datos, " : ");
+		
+		while((tokenCol != NULL) && (tokenDatos != NULL)) {
+			insertInto_Columna(t->col, tokenCol, tokenDatos);
+			col = &col[strlen(col) +1];
+        		dat = &dat[strlen(dat) +1];
+        		tokenCol = strtok(col, " : ");
+        		tokenDatos = strtok(dat, " : ");
+		}
+		
+		return OK;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

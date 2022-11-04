@@ -26,12 +26,12 @@ int main()
 	bool salir = false;
 	
 	do{
-		cout << "\tcreateTable(nombreTabla)\n";
+		cout << "\n\tcreateTable(nombreTabla)\n";
 		cout << "\tdropTable(nombreTabla)\n";
 		cout << "\taddCol(nombreTabla, NombreCol, tipoCol, calificadorCol)\n";
 		cout << "\tdropCol(nombreTabla, NombreCol)\n";
-		//cout << "\talterCol(nombreTabla, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo)\n";
-		//cout << "\tinsertInto(nombreTabla, columnasTupla, valoresTupla)\n";
+		cout << "\talterCol(nombreTabla, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo)\n";
+		cout << "\tinsertInto(nombreTabla, columnasTupla, valoresTupla)\n";
 		//cout << "\tdeleteFrom(nombreTabla, condicionEliminar)\n";
 		//cout << "\tupdate(nombreTabla, condicionModificar, columnaModificar, valorModificar)\n";
 		//cout << "\tselectWhere(nomTabla1, condicion, nomTabla2)\n";
@@ -55,22 +55,22 @@ int main()
 		pch = strtok (comando,"( ,)");
 
 		if (strcasecmp (pch, "createTable") == 0){
-			pch = strtok (NULL, "( ,)");
-			if (pch != NULL){
+			pch = strtok (NULL, "()");
+			if(strtok (NULL, "( ,)")==NULL){
+				cout << " - ERROR: Faltan Parametros.\n";
+			} else {
 				ret = createTable (bd, pch);
 				ejecutado = true;
 			}
-			else
-				cout << " - ERROR: Faltan Parametros.\n";
 		}
 		else if (strcasecmp (pch, "dropTable") == 0){
-			pch = strtok (NULL, "( ,)");
-			if (pch != NULL){
+			pch = strtok (NULL, "()");
+			if(strtok (NULL, "( ,)")==NULL){
+				cout << " - ERROR: Faltan Parametros.\n";
+			} else {
 				ret = dropTable (bd, pch);
 				ejecutado = true;
 			}
-			else
-				cout << " - ERROR: Faltan Parametros.\n";
 		}
 		else if (strcasecmp (pch, "addCol") == 0){
 			pch = strtok (NULL, "( ,)");
@@ -326,13 +326,13 @@ int main()
 				ejecutado = true;
 		}
 		else if (strcasecmp (pch, "printMetadata") == 0){
-			pch = strtok (NULL, "( ,)");
-			if (pch != NULL){
-				ret =  printMetadata (bd, pch);
+			pch = strtok (NULL, "()");
+			if(strtok (NULL, "( ,)")==NULL){
+				cout << " - ERROR: Faltan Parametros.\n";
+			} else {
+				ret = printMetadata(bd, pch);
 				ejecutado = true;
 			}
-			else
-				cout << " - ERROR: Faltan Parametros.\n";
 		}
 		else if (strcasecmp (pch, "undo") == 0){
 				ret = undo (bd);

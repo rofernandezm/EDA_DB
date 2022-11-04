@@ -21,16 +21,30 @@ struct nodo_columna{
 };
 
 columna nuevaColumna(){
+	nuevaCelda();
 	return NULL;
 }
 
-bool existeMasDeUnaColumna_col (columna col){
+char *getNombreColumna(columna col){
+	return col->nombreColumna;
+}
+
+bool existeMasDeUnaColumna_col(columna col){
 	if (col->sig != NULL) {
 		return true;
 	}
 	else {
 		return false;
 	}
+}
+
+void deleteCellInColAndCol(columna col){
+	if(col->sig == NULL){
+		eliminarCeldas_col(col);
+	}else{
+		eliminarCeldas_col(col->sig);
+	}
+	delete col;
 }
 
 TipoDatoCol getTipoDato_col(columna col, char* NombreCol) {
@@ -159,35 +173,120 @@ void dropCol_col(columna &col, char *nombreCol){
 }
 
 
-void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo) {
+TipoRet alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo) {
 
-
-
-
-
-	/* CONSULTAR POR GUIA RAZONAMIENTO
-	if (!existeTablaNombre_Tabla(t->nombre, nombreTabla)){
-	//Si la tabla no exciste
-		
-		cout << "La tabla no exciste" << endl;
-		
-	}else if (!existeColumnaNombre(col->nombre,*nombreCol)){
-	// Si la columna no exciste
-		
-		cout << "La columna no exciste" << endl;
-	}else if (nombreCol->calif == PRIMARY_KEY && Col->sig != NULL){
-	//Si nombreCol es PRIMARY_KEY y la tabla tiene más columnas.
-		
-		cout << "No se puede modificar la columna que es Primary Key si exciste al menos otra columna" << endl;
-		
-	}else // caso que modifica
-	{
-		strcpy(nombreColNuevo->nombreCol, nombreCol);
-		strcpy(nombreCol->Col->tipoDato, tipoColNuevo);
-		
+	bool encontrada = false;
+	
+	//Encontrar la columna correcta por su nombre
+	while((col != NULL) && (encontrada == false)){
+		if(strcmp(NombreCol, col->nombreColumna) != 0)
+			col = col->sig; //itera
+		else
+			encontrada = true; //corta el while
 	}
 	
+	//Cambio de nombre
+	strcpy(col->nombreColumna, nombreColNuevo);
 	
-	*/
+	//Cambio de Calificador
+	if(calificadorColNuevo != col->calif){
+		if((hayCeldasVacias(col->dato)) && (calificadorColNuevo == NOT_EMPTY)){
+			cout << "No puede setearse la columna " << NombreCol << " como NOT_EMPTY, existen celdas vacias" << endl;
+			return ERROR;
+		}else{
+			col->calif = calificadorColNuevo;
+		}
+	}
 	
+	//Cambio de tipo de Dato solo se puede de int a string
+	if(tipoColNuevo != col->tipo){
+		if((col->tipo == STRING) && (tipoColNuevo == INT)){
+			cout << "No se puede cambiar de un tipo de dato STRING a INT";
+			return ERROR;
+		}else{
+			valoresAString(col->dato);
+			col->tipo = STRING;
+		}
+	}
+	
+	return OK;
 }
+
+
+TipoRet insertInto_Columna(columna col, char * columna, char * dato){
+	bool columnaEncontrada = false;
+	
+	while((columnaEncontrada == false) && (col != NULL)){
+		if(strcmp(col->nombreColumna, columna) != 0){
+			//Si no es esta la columna, itero
+			col = col->sig;
+		}else
+			columnaEncontrada = true;
+	}
+	
+	if(columnaEncontrada){
+		cout << "Columna: " << columna << " / Dato: " << dato << endl;
+		
+			//Estoy en la columna en la que quiero agregar datos
+			if(col->calif == PRIMARY_KEY){
+				//Si la columna es primary key hay que verificar que no exista ese dato 
+
+				if(col->tipo == INT){
+					//Si la columna es tipo int, parsea a int
+					int datoInsert;
+					datoInsert = atoi(dato);
+					if(existeDato_int(col->dato, datoInsert)){
+						//Si el dato se repite, no lo inserta 
+						cout << "No se puede ingresar el dato " << datoInsert << "en la columna " << columna << "porque ya existe y es primary key" << endl;
+						return ERROR;
+					}else{
+						insertInto_int(col->dato, datoInsert);
+						return OK;
+					}
+				}else{
+					//Si el dato es tipo char, 
+					if(existeDato_char(col->dato, dato)){
+						//Si el dato se repite, no lo inserta 
+						cout << "No se puede ingresar el dato " << dato << "en la columna " << columna << "porque ya existe y es primary key" << endl;
+						return ERROR;
+					}else{	
+						insertInto_char(col->dato, dato);
+						return OK;
+					}
+				}
+					
+			}else{
+				//si la columna no es primary key
+				if(col->tipo == INT){
+					//Si la columna es tipo int, parsea a int
+					int datoInsert;
+					datoInsert = atoi(dato);
+					insertInto_int(col->dato, datoInsert);
+					return OK;
+				}else{
+					//Si el dato es tipo char, lo pasa
+					insertInto_char(col->dato, dato);
+
+					return OK;
+				}
+
+			}
+			
+			return OK;
+		}else{
+			cout << "No existe la columna \"" << columna << "\"" << endl;
+			return ERROR;
+		}
+
+}
+
+
+
+
+
+
+
+
+
+
+

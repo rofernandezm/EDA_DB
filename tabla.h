@@ -44,7 +44,7 @@ TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol t
 void printMetaData_Tabla(tabla t, char *nombreTabla);
 //Imprime los cabezales de una tabla y sus columnas
 
-TipoRet dropCol_tabla(tabla t, char *nombreCol);
+TipoRet dropCol_tabla(tabla &t, char *nombreCol);
 //Elimina la columna nombreCol de la tabla
 //Pre: nombreCol tiene que existir
 
@@ -52,7 +52,10 @@ TipoRet dropTable_tabla(tabla t, char *nombreTabla);
 //Elimina la tabla nombreTabla y las tuplas en caso de existir.
 //Pre: nombreTabla tiene que existir
 
-TipoRet alterCol_Tabla(tabla &t, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
+TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
 // Modifica la columna nombreCol de una tabla
 // Pre: t tiene que existir 
+
+TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla);
+//Inserta los valoresTupla en las columnasTupla
 #endif

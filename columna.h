@@ -15,9 +15,17 @@ typedef struct nodo_columna * columna;
 columna nuevaColumna();
 //Crea una columna nueva
 
+char *getNombreColumna(columna col);
+//Retorna el nomnbre de la columna col
+//Pre: col tiene que existir
+
 bool existeMasDeUnaColumna_col(columna col);
 //Pre: existe una columna
 // True si hay mas de 1 columna, cualquier otro caso false
+
+void deleteCellInColAndCol(columna col);
+//Elimina las celdas en la columna col y las siguientes luego se elimina la columna
+//Pre: col tiene que existir
 
 TipoDatoCol getTipoDato_col(columna col, char* NombreCol);
 // Pre: Tiene que existir NombreCol
@@ -30,8 +38,6 @@ columna addCol(columna col, char * nombreCol, TipoDatoCol tipoDato, Calificador 
 TipoRet dropCol(char *nombreTabla, char *nombreCol);
 //Elimina la columna nombreCol si existe en la tabla nombreTabla
 
-void alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
-//Modifica la tabla nombreTabla si esta existe
 
 TipoRet insertInto (char *nombreTabla, char *columnasTupla, char *valoresTupla);
 //Inserta en la tabla nombreTabla una tupla con los valores dados en valoresTupla para las columnas indicadas en columnasTupla
@@ -66,7 +72,13 @@ void eliminarCeldas_col(columna col);
 //Elimina las celdas en la columna col
 //Pre: col tiene que existir
 
-void alterCol_col(columna& col, char* NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char* nombreColNuevo);
+TipoRet alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
 // Modifica el nombre, tipo y calificador de la Columna NombreCol
+
+columna obtenerColumaPorNombre(columna col, char * nombreCol);
+//Devuelve una columna a partir de su nombre;
+
+TipoRet insertInto_Columna(columna col, char * columna, char * dato);
+//Inserta el dato en la columna
 
 #endif
