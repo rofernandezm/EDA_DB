@@ -50,9 +50,12 @@ celda insertInto_char(celda cel, char * dato){
 	
 	if(cel == NULL){
 		celda nueva_celda = new(nodo_celda);
+		nueva_celda->datoStr = new char[MAX_NOMBRE];
 		strcpy(nueva_celda->datoStr, dato);
 		nueva_celda->hayDato = true;
 		nueva_celda->sig = NULL;
+		
+		
 	}else{
 		insertInto_char(cel->sig, dato);
 	}
@@ -109,7 +112,7 @@ bool hayCeldasVacias(celda cel){
 void valoresAString(celda cel){
 
 	while(cel != NULL){
-		char string[25];
+		char string[MAX_NOMBRE];
 		sprintf(string, "%d", cel->datoInt);
 		cel = cel->sig;	
 	}
