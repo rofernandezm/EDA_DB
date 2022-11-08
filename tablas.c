@@ -140,3 +140,18 @@ TipoRet insertInto_Tablas(tablas &ts, char *nombreTabla, char *columnasTupla, ch
 		return ERROR;
 	}
 }
+
+TipoRet printDataTable_tablas(tablas ts, char *nombreTabla){
+	if(ts->t == NULL){
+		cout << "No existe ninguna tabla creada" << endl;
+		return ERROR;
+	}else if(!existeTablaNombre_Tablas(ts, nombreTabla)){
+		cout << "No existe la tabla " << nombreTabla << endl; 
+		return ERROR;
+	}else{ 
+		//TO-DO logica para encontrar la tabla
+		return printDataTable_tabla(ts->t, nombreTabla);
+	}
+}
+
+

@@ -15,6 +15,7 @@ using namespace std;
 
 struct nodo_tabla{
 	char * nombre;
+	int indice;
 	columna col;
 };
 
@@ -22,6 +23,7 @@ tabla crearTabla(char * nombreTabla){
 	tabla t = new(nodo_tabla);
 	t->nombre = new char[MAX_NOMBRE];
 	strcpy(t->nombre, nombreTabla);
+	t->indice = 0;
 	t->col = nuevaColumna();
 	return t;
 }
@@ -149,30 +151,6 @@ TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol
 		}else{
 			return alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
 		}
-		
-		/*}else if (existenTuplas(t->col)) {
-			// funcion tipo getTipoDato_col (columna col, char *NombreCol)
-			// Evaluar calificador
-			// Evaluar tipo de columna nuevo 
-			// Ver parceo de datos INT to String atoi
-			// de Any puede ir a cualquiera menos a PRIMARY_KEY si existe otra columna o si ya hay PRIMARY_KEY
-		    // VER CASO DATOS EMPTY A CALIF NOT_EMPTY
-			// existePrimaryKey_columna (t->col)
-			// getColumnCalif (t->col, nombreCol)
-			if (getTipoDato_col(t->col, NombreCol) == STRING && tipoColNuevo == INT) {
-				cout << "No es posible modificar Tipo de dato de STRING a INT" << endl;
-				return ERROR;
-			}
-			if (getTipoDato_col(t->col, NombreCol) == INT && tipoColNuevo == STRING) {
-				// ver parseo de datos (atoi) ver el caso de error en col, controlar parseo con un if
-				alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
-				return OK;
-			}
-		}
-		else { // Columna vacia
-			alterCol_col(t->col, NombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo);
-			return OK;
-		}*/
 	}
 }
 
@@ -205,8 +183,20 @@ TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla){
         		tokenDatos = strtok(dat, " : ");
 		}
 		
+		t->indice++;
+		cout << "Indice: " << t->indice << endl;
+		//completarVacios_col(t->col, t->indice);
+		
 		return OK;
 	}
+}
+
+TipoRet printDataTable_tabla(tabla t, char *nombreTabla){
+
+		cout << "Tabla: " << nombreTabla << endl;
+		printDataTable_col(t->col, t->indice);
+		return OK;
+	
 }
 
 

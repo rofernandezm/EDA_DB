@@ -280,6 +280,38 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 
 }
 
+void completarVacios_col(columna col, int indice){
+	
+	while(col != NULL){
+		completarVacios_celda(col->dato, indice);
+		col = col->sig;	
+	}
+
+}
+
+void printDataTable_col(columna col, int indice){
+	
+	columna iter = col;
+	
+	while(iter != NULL){
+		cout << iter->nombreColumna << ":";
+		iter = iter->sig;
+	}
+	
+	cout << " " << endl;
+	
+	for (int i = 0 ; i < indice ; i++){
+	
+		cout << "Entra al for de col" << endl;
+		while(col != NULL){
+			cout << "Entra al while de col" << endl;
+			printDataTable_celda(col->dato, col->tipo, i);
+			col = col->sig;
+		}
+	
+	}
+}
+
 
 
 

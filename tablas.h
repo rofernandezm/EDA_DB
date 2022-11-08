@@ -48,4 +48,7 @@ TipoRet alterCol_Tablas(tablas &ts, char *nombreTabla, char *nombreCol, TipoDato
 TipoRet insertInto_Tablas(tablas &ts, char *nombreTabla, char *columnasTupla, char *valoresTupla);
 //Valida que exista nombreTabla en ts, de ser asi llama a la funcion en "Tabla"
 
+TipoRet printDataTable_tablas(tablas ts, char *nombreTabla);
+//Imprime la informacion de una tabla
+
 #endif

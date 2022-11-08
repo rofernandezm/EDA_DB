@@ -19,22 +19,28 @@ void eliminarCeldas(celda &celda);
 //Elimina las celdas en una determinada columna
 //Pre: celda != NULL
 
-bool existeDato_char(celda celda, char * dato);
+bool existeDato_char(celda cel, char * dato);
 //Devuelve true si en una columna de tipo char existe el dato
 
-bool existeDato_int(celda celda, int dato);
+bool existeDato_int(celda cel, int dato);
 //Devuelve true si en una columna de tipo int existe el dato
 
-celda insertInto_char(celda celda, char * dato);
+celda insertInto_char(celda &cel, char * dato);
 //Inserta en una columna tipo char
 
-celda insertInto_int(celda celda, int dato);
+celda insertInto_int(celda &cel, int dato);
 //Inserta en una columna tipo int
 
-bool hayCeldasVacias(celda celda);
+bool hayCeldasVacias(celda cel);
 //Returna true si hay algun valor vacio en la columna, o false si no lo hay
 
-void valoresAString(celda celda);
+void valoresAString(celda cel);
 //Pasa todos los valores de una columna a int
+
+void completarVacios_celda(celda cel, int indice);
+//Completa una tabla con vacios
+
+void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice);
+//Imprime el valor de una celda
 
 #endif

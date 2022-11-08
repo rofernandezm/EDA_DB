@@ -168,13 +168,14 @@ TipoRet minus_(bd & bd, char * nombreTabla1, char * nombreTabla2, char * nombreT
 
 
 TipoRet printdatatable (bd bd, char *NombreTabla){
-	//cout << " - printdatatable " << NombreTabla << endl;
-	return NO_IMPLEMENTADA;
+
+	return printDataTable_tablas(bd->ts, NombreTabla);
+
 }
 
 
 TipoRet printTables(bd bd){
-	//cout << " - printTables " << endl;
+
 	imprimirTablas(bd->ts);
 	return OK;
 }
