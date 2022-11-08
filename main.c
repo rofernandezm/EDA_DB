@@ -40,9 +40,9 @@ int main()
 		//cout << "\tunion(nombreTabla1, nombreTabla2, nombreTabla3)\n";
 		//cout << "\tintersec(nombreTabla1, nombreTabla2, nombreTabla3)\n";
 		//cout << "\tminus(nombreTabla1, nombreTabla2, nombreTabla3)\n";
-		//cout << "\tprintdatatable(NombreTabla)\n";
 		cout << "\tprintTables()\n";
 		cout << "\tprintMetadata(nombreTabla)\n";
+		cout << "\tprintdatatable(NombreTabla)\n";
 		//cout << "\tundo()\n";
 		//cout << "\tredo()\n";
 		cout << "\tsalir()\n\n";

@@ -58,4 +58,9 @@ TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol
 
 TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla);
 //Inserta los valoresTupla en las columnasTupla
+
+TipoRet printDataTable_tabla(tabla t, char *nombreTabla);
+//Imprime la informacion de una tabla
+//Pre: t no puede ser vacio
+
 #endif
