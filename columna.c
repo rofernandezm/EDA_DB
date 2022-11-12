@@ -302,18 +302,23 @@ void printDataTable_col(columna col, int indice){
 	
 	cout << " " << endl;
 	
-	int cont = 0;
+	iter = col;
+	int cont = 1;
 	
 	while(cont <= indice){
-	//Repite para cada tupla
-		for (int i = 0 ; i < indice ; i++){
-		//Repite para cada columna
-			while(col != NULL){
-				printDataTable_celda(col->dato, col->tipo, i);
-				col = col->sig;
-			}
+	
+		while(iter != NULL){
+			//Imprime el valor de cada columna 
+			printDataTable_celda(iter->dato, iter->tipo, cont);
+			iter = iter->sig;
 		}
+		
+		cout << endl;
+		iter = col;
+		cont ++;
 	}
+	
+
 }
 
 

@@ -19,10 +19,6 @@ struct nodo_celda{
 	celda sig;
 };
 
-/*celda nuevaCelda(){
-	return NULL;
-}*/
-
 celda nuevaCelda(){
 	celda cel = new(nodo_celda);
 	cel->datoStr = NULL;
@@ -49,10 +45,11 @@ celda insertInto_int(celda &cel, int dato){
 		nueva_celda->hayDato = true;
 		nueva_celda->usada = true;
 		nueva_celda->sig = NULL;
-		return nueva_celda;
+		cel = nueva_celda;
 	}else{
-		insertInto_int(cel->sig, dato);
+		cel->sig = insertInto_int(cel->sig, dato);
 	}
+	return cel;
 }
 
 
@@ -65,11 +62,11 @@ celda insertInto_char(celda &cel, char * dato){
 		nueva_celda->hayDato = true;
 		nueva_celda->usada = true;
 		nueva_celda->sig = NULL;
-		return nueva_celda;	
+		cel = nueva_celda;	
 	}else{
-		insertInto_char(cel->sig, dato);
+		cel->sig = insertInto_char(cel->sig, dato);
 	}
-	
+	return cel;
 }
 
 
@@ -144,7 +141,6 @@ void completarVacios_celda(celda cel, int indice){
 }
 
 void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
-
 	
 	int i = 1;
 	
@@ -153,11 +149,14 @@ void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
 		i++;
 	}
 	
+
 	
-	if(tipo == INT){
-		cout << cel->datoInt << ":" ;
-	}else{
-		cout << cel->datoStr << ":" ;
+	if(cel != NULL){
+		if(tipo == INT){
+			cout << cel->datoInt << ":" ;
+		}else{
+			cout << cel->datoStr << ":" ;
+		}
 	}
 	
 }
