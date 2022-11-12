@@ -212,84 +212,76 @@ TipoRet alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Ca
 }
 
 
-TipoRet insertInto_Columna(columna col, char * columna, char * dato){
-	bool columnaEncontrada = false;
+TipoRet insertInto_Columna(columna col, char * columnaNombre, char * dato){
+
+	columna iter = col;
 	
-	while((columnaEncontrada == false) && (col != NULL)){
-		if(strcmp(col->nombreColumna, columna) != 0){
-			//Si no es esta la columna, itero
-			col = col->sig;
-		}else
-			columnaEncontrada = true;
+	while(iter != NULL){
+		//Crea todas las celdas de esa columna
+		iter->dato = nuevaCelda(iter->dato);
+		iter = iter->sig;
 	}
 	
-	if(columnaEncontrada){
+	
+	if(strcmp(col->nombreColumna, columnaNombre) != 0){
+		//Si no es esta la columna, itero
+		col = col->sig;
+			
+	}else{
+		//Estoy en la columna en la que quiero agregar datos
+		if(col->calif == PRIMARY_KEY){
+			//Si la columna es primary key hay que verificar que no exista ese dato 
 
-			//Estoy en la columna en la que quiero agregar datos
-			if(col->calif == PRIMARY_KEY){
-				//Si la columna es primary key hay que verificar que no exista ese dato 
-
-				if(col->tipo == INT){
-					//Si la columna es tipo int, parsea a int
-					int datoInsert;
-					datoInsert = atoi(dato);
-					if(existeDato_int(col->dato, datoInsert)){
-						//Si el dato se repite, no lo inserta 
-						cout << "No se puede ingresar el dato " << datoInsert << "en la columna " << columna << "porque ya existe y es primary key" << endl;
-						return ERROR;
-					}else{
-						cout << "El dato a insertar es " << datoInsert << endl;
-						col->dato = insertInto_int(col->dato, datoInsert);
-						return OK;
-					}
+			if(col->tipo == INT){
+				//Si la columna es tipo int, parsea a int
+				int datoInsert;
+				datoInsert = atoi(dato);
+				if(existeDato_int(col->dato, datoInsert)){
+					//Si el dato se repite, no lo inserta 
+					cout << "No se puede ingresar el dato " << datoInsert << "en la columna " << columnaNombre << "porque ya existe y es primary key" << endl;
+					return ERROR;
 				}else{
-					//Si el dato es tipo char, 
-					if(existeDato_char(col->dato, dato)){
-						//Si el dato se repite, no lo inserta 
-						cout << "No se puede ingresar el dato " << dato << "en la columna " << columna << "porque ya existe y es primary key" << endl;
-						return ERROR;
-					}else{
-						cout << "El dato a insertar es " << dato << endl;
-						col->dato = insertInto_char(col->dato, dato);
-						return OK;
-					}
-				}
-					
-			}else{
-				//si la columna no es primary key
-				if(col->tipo == INT){
-					//Si la columna es tipo int, parsea a int
-					int datoInsert;
-					datoInsert = atoi(dato);
 					cout << "El dato a insertar es " << datoInsert << endl;
 					col->dato = insertInto_int(col->dato, datoInsert);
 					return OK;
+				}
+			}else{
+				//Si el dato es tipo char, 
+				if(existeDato_char(col->dato, dato)){
+					//Si el dato se repite, no lo inserta 
+					cout << "No se puede ingresar el dato " << dato << "en la columna " << columnaNombre << "porque ya existe y es primary key" << endl;
+					return ERROR;
 				}else{
-					//Si el dato es tipo char, lo pasa
 					cout << "El dato a insertar es " << dato << endl;
 					col->dato = insertInto_char(col->dato, dato);
-
 					return OK;
 				}
-
 			}
-			
-			return OK;
+					
 		}else{
-			cout << "No existe la columna \"" << columna << "\"" << endl;
-			return ERROR;
+			//si la columna no es primary key
+			if(col->tipo == INT){
+				//Si la columna es tipo int, parsea a int
+				int datoInsert;
+				datoInsert = atoi(dato);
+				cout << "El dato a insertar es " << datoInsert << endl;
+				col->dato = insertInto_int(col->dato, datoInsert);
+				return OK;
+			}else{
+				//Si el dato es tipo char, lo pasa
+				cout << "El dato a insertar es " << dato << endl;
+				col->dato = insertInto_char(col->dato, dato);
+				return OK;
+			}
+
 		}
-
-}
-
-void completarVacios_col(columna col, int indice){
-	
-	while(col != NULL){
-		completarVacios_celda(col->dato, indice);
-		col = col->sig;	
 	}
-
+	
+	
+	return OK;
 }
+
+
 
 void printDataTable_col(columna col, int indice){
 	
@@ -321,6 +313,15 @@ void printDataTable_col(columna col, int indice){
 
 }
 
+
+/*void insertVacios_col(columna &col, int indice){
+	
+	while(col != NULL){
+		insertVacios_celda(col->dato, indice);
+		col = col->sig;
+	}	
+	
+}*/
 
 
 
