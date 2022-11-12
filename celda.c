@@ -14,23 +14,37 @@ using namespace std;
 struct nodo_celda{
 	char * datoStr;
 	int datoInt;
-	bool usada = false;
-	bool hayDato = false;
+	bool usada;
+	bool hayDato;
 	celda sig;
 };
 
-/*celda nuevaCelda(){
-	return NULL;
-}*/
-
-celda nuevaCelda(){
-	celda cel = new(nodo_celda);
-	cel->datoStr = NULL;
-	cel->usada = false;
-	cel->hayDato = false;
-	cel->sig = NULL;
+celda nuevaCelda(celda &cel){
+	if(cel == NULL){
+		celda nueva_celda = new(nodo_celda);
+		nueva_celda->hayDato = false;
+		nueva_celda->usada = true;
+		nueva_celda->sig = NULL;
+		cel = nueva_celda;
+	}else{
+		cel->sig = nuevaCelda(cel->sig);
+	}
 	return cel;
 }
+
+/*celda insertInto_vacia(celda &cel){
+
+	if(cel == NULL){
+		celda nueva_celda = nuevaCelda();
+		nueva_celda->hayDato = false;
+		nueva_celda->usada = true;
+		nueva_celda->sig = NULL;
+		cel = nueva_celda;
+	}else{
+		cel->sig = insertInto_vacia(cel->sig);
+	}
+	return cel;
+}*/
 
 
 void eliminarCeldas(celda &cel){
@@ -43,33 +57,30 @@ void eliminarCeldas(celda &cel){
 
 celda insertInto_int(celda &cel, int dato){
 
-	if(cel == NULL){
-		celda nueva_celda = nuevaCelda();
-		nueva_celda->datoInt = dato;
-		nueva_celda->hayDato = true;
-		nueva_celda->usada = true;
-		nueva_celda->sig = NULL;
-		return nueva_celda;
+	if(cel->sig == NULL){
+		cel->datoInt = dato;
+		cel->hayDato = true;
+		cel->usada = true;
+		cel->sig = NULL;
 	}else{
-		insertInto_int(cel->sig, dato);
+		cel->sig = insertInto_int(cel->sig, dato);
 	}
+	return cel;
 }
 
 
 celda insertInto_char(celda &cel, char * dato){
 	
-	if(cel == NULL){
-		celda nueva_celda = nuevaCelda();
-		nueva_celda->datoStr = new char[MAX_NOMBRE];
-		strcpy(nueva_celda->datoStr, dato);
-		nueva_celda->hayDato = true;
-		nueva_celda->usada = true;
-		nueva_celda->sig = NULL;
-		return nueva_celda;	
+	if(cel->sig == NULL){
+		cel->datoStr = new char[MAX_NOMBRE];
+		strcpy(cel->datoStr, dato);
+		cel->hayDato = true;
+		cel->usada = true;
+		cel->sig = NULL;	
 	}else{
-		insertInto_char(cel->sig, dato);
+		cel->sig = insertInto_char(cel->sig, dato);
 	}
-	
+	return cel;
 }
 
 
@@ -128,23 +139,9 @@ void valoresAString(celda cel){
 }
 
 
-void completarVacios_celda(celda cel, int indice){
-	
-	for(int i = 0 ; i < indice ; i++){
-		cel = cel->sig;
-	}
-	
-	if(cel == NULL){
-		celda nueva_celda = new(nodo_celda);
-		nueva_celda->hayDato = false;
-		nueva_celda->usada = true;
-		nueva_celda->sig = NULL;	
-	}
-	
-}
+
 
 void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
-
 	
 	int i = 1;
 	
@@ -153,14 +150,58 @@ void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
 		i++;
 	}
 	
+
 	
-	if(tipo == INT){
-		cout << cel->datoInt << ":" ;
-	}else{
-		cout << cel->datoStr << ":" ;
+	if((cel != NULL) && (cel->hayDato == true)){
+		if(tipo == INT){
+			cout << cel->datoInt << ":" ;
+		}else{
+			cout << cel->datoStr << ":" ;
+		}
+	}else if((cel != NULL) && (cel->hayDato == false)){
+		cout << "vacio:" ;
 	}
 	
 }
+
+
+/*void insertVacios_celda(celda &cel, int indice){
+
+	while((indice > 1) && (cel->sig != NULL)){
+		cel = cel->sig;
+		indice--;
+	}
+	
+	if(indice > 1){
+		celda nueva_celda = nuevaCelda();
+		nueva_celda->hayDato = false;
+		nueva_celda->usada = true;
+		nueva_celda->sig = NULL;
+		cel->sig = nueva_celda;
+	}
+
+	
+	if((indice == 1) && (cel == NULL)){
+		celda nueva_celda = nuevaCelda();
+		nueva_celda->hayDato = false;
+		nueva_celda->usada = true;
+		nueva_celda->sig = NULL;
+		cel = nueva_celda;
+	}else if(indice>1){
+		cel->sig = insertVacios_celda(cel->sig, indice-1);
+	}
+	
+	return cel;
+}*/
+
+
+
+
+
+
+
+
+
 
 
 

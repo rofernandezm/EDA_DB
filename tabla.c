@@ -161,6 +161,7 @@ TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla){
 		cout << "La tabla " << t->nombre << " no tiene columnas" << endl;
 		return ERROR;
 	}else{
+		crearCeldas(t->col);
 		//La tabla tiene columnas
 		
 		char columnas[200];
@@ -175,17 +176,19 @@ TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla){
 		tokenDatos = strtok(datos, " : ");
 		
 		while((tokenCol != NULL) && (tokenDatos != NULL)) {
-			insertInto_Columna(t->col, tokenCol, tokenDatos);
+		
+			if(existeColumnaNombre(t->col, tokenCol)){
+				//Si existe la columna, inserta los datos
+				insertInto_Columna(t->col, tokenCol, tokenDatos);
+			}
 			col = &col[strlen(col) +1];
-        		dat = &dat[strlen(dat) +1];
-        		tokenCol = strtok(col, " : ");
-        		tokenDatos = strtok(dat, " : ");
+			dat = &dat[strlen(dat) +1];
+			tokenCol = strtok(col, " : ");
+			tokenDatos = strtok(dat, " : ");
 		}
 		
 		t->indice++;
-		cout << "Indice: " << t->indice << endl;
-		//completarVacios_col(t->col, t->indice);
-		
+
 		return OK;
 	}
 }

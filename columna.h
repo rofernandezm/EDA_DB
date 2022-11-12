@@ -39,7 +39,7 @@ TipoRet dropCol(char *nombreTabla, char *nombreCol);
 //Elimina la columna nombreCol si existe en la tabla nombreTabla
 
 
-TipoRet insertInto (char *nombreTabla, char *columnasTupla, char *valoresTupla);
+TipoRet insertInto_Columna(columna col, char * columnaNombre, char * dato);
 //Inserta en la tabla nombreTabla una tupla con los valores dados en valoresTupla para las columnas indicadas en columnasTupla
 
 bool existeColumnaNombre(columna col, char *nombreCol);
@@ -81,10 +81,10 @@ columna obtenerColumaPorNombre(columna col, char * nombreCol);
 TipoRet insertInto_Columna(columna col, char * columna, char * dato);
 //Inserta el dato en la columna
 
-void completarVacios_col(columna col, int indice);
-//Completa las columnas a las que no se le agregaron datos con "Vacio" o "0"
-
 void printDataTable_col(columna col, int indice);
 //Imprime la informacion de una tabla
+
+void crearCeldas(columna col);
+//Crea todas las celdas de esa columna
 
 #endif

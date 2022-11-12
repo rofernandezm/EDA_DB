@@ -12,7 +12,7 @@
 
 typedef struct nodo_celda * celda;
 
-celda nuevaCelda();
+celda nuevaCelda(celda &cel);
 //Crea una nueva celda
 
 void eliminarCeldas(celda &celda);
@@ -37,10 +37,11 @@ bool hayCeldasVacias(celda cel);
 void valoresAString(celda cel);
 //Pasa todos los valores de una columna a int
 
-void completarVacios_celda(celda cel, int indice);
-//Completa una tabla con vacios
+celda insertInto_vacia(celda &cel);
+//Crea una celda vacia
 
 void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice);
 //Imprime el valor de una celda
+
 
 #endif
