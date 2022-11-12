@@ -21,7 +21,6 @@ struct nodo_columna{
 };
 
 columna nuevaColumna(){
-	nuevaCelda();
 	return NULL;
 }
 
@@ -225,8 +224,7 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 	}
 	
 	if(columnaEncontrada){
-		cout << "Columna: " << columna << " / Dato: " << dato << endl;
-		
+
 			//Estoy en la columna en la que quiero agregar datos
 			if(col->calif == PRIMARY_KEY){
 				//Si la columna es primary key hay que verificar que no exista ese dato 
@@ -240,7 +238,8 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 						cout << "No se puede ingresar el dato " << datoInsert << "en la columna " << columna << "porque ya existe y es primary key" << endl;
 						return ERROR;
 					}else{
-						insertInto_int(col->dato, datoInsert);
+						cout << "El dato a insertar es " << datoInsert << endl;
+						col->dato = insertInto_int(col->dato, datoInsert);
 						return OK;
 					}
 				}else{
@@ -249,8 +248,9 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 						//Si el dato se repite, no lo inserta 
 						cout << "No se puede ingresar el dato " << dato << "en la columna " << columna << "porque ya existe y es primary key" << endl;
 						return ERROR;
-					}else{	
-						insertInto_char(col->dato, dato);
+					}else{
+						cout << "El dato a insertar es " << dato << endl;
+						col->dato = insertInto_char(col->dato, dato);
 						return OK;
 					}
 				}
@@ -261,11 +261,13 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 					//Si la columna es tipo int, parsea a int
 					int datoInsert;
 					datoInsert = atoi(dato);
-					insertInto_int(col->dato, datoInsert);
+					cout << "El dato a insertar es " << datoInsert << endl;
+					col->dato = insertInto_int(col->dato, datoInsert);
 					return OK;
 				}else{
 					//Si el dato es tipo char, lo pasa
-					insertInto_char(col->dato, dato);
+					cout << "El dato a insertar es " << dato << endl;
+					col->dato = insertInto_char(col->dato, dato);
 
 					return OK;
 				}
@@ -300,15 +302,17 @@ void printDataTable_col(columna col, int indice){
 	
 	cout << " " << endl;
 	
-	for (int i = 0 ; i < indice ; i++){
+	int cont = 0;
 	
-		cout << "Entra al for de col" << endl;
-		while(col != NULL){
-			cout << "Entra al while de col" << endl;
-			printDataTable_celda(col->dato, col->tipo, i);
-			col = col->sig;
+	while(cont <= indice){
+	//Repite para cada tupla
+		for (int i = 0 ; i < indice ; i++){
+		//Repite para cada columna
+			while(col != NULL){
+				printDataTable_celda(col->dato, col->tipo, i);
+				col = col->sig;
+			}
 		}
-	
 	}
 }
 

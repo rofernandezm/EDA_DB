@@ -24,7 +24,6 @@ tabla crearTabla(char * nombreTabla){
 	t->nombre = new char[MAX_NOMBRE];
 	strcpy(t->nombre, nombreTabla);
 	t->indice = 0;
-	t->col = nuevaColumna();
 	return t;
 }
 
