@@ -14,11 +14,22 @@ using namespace std;
 struct nodo_celda{
 	char * datoStr;
 	int datoInt;
+	bool usada = false;
+	bool hayDato = false;
 	celda sig;
 };
 
-celda nuevaCelda(){
+/*celda nuevaCelda(){
 	return NULL;
+}*/
+
+celda nuevaCelda(){
+	celda cel = new(nodo_celda);
+	cel->datoStr = NULL;
+	cel->usada = false;
+	cel->hayDato = false;
+	cel->sig = NULL;
+	return cel;
 }
 
 
@@ -30,31 +41,35 @@ void eliminarCeldas(celda &cel){
 }
 
 
-celda insertInto_int(celda cel, int dato){
+celda insertInto_int(celda &cel, int dato){
 
 	if(cel == NULL){
-		celda nueva_celda = new(nodo_celda);
+		celda nueva_celda = nuevaCelda();
 		nueva_celda->datoInt = dato;
+		nueva_celda->hayDato = true;
+		nueva_celda->usada = true;
 		nueva_celda->sig = NULL;
+		return nueva_celda;
 	}else{
 		insertInto_int(cel->sig, dato);
 	}
-	
-	return cel;
 }
 
 
-celda insertInto_char(celda cel, char * dato){
+celda insertInto_char(celda &cel, char * dato){
 	
 	if(cel == NULL){
-		celda nueva_celda = new(nodo_celda);
+		celda nueva_celda = nuevaCelda();
+		nueva_celda->datoStr = new char[MAX_NOMBRE];
 		strcpy(nueva_celda->datoStr, dato);
+		nueva_celda->hayDato = true;
+		nueva_celda->usada = true;
 		nueva_celda->sig = NULL;
+		return nueva_celda;	
 	}else{
 		insertInto_char(cel->sig, dato);
 	}
 	
-	return cel;
 }
 
 
@@ -87,12 +102,13 @@ bool existeDato_char(celda cel, char * dato){
 	return existe;
 }
 
+
 bool hayCeldasVacias(celda cel){
 
 	bool hayVacio = false;
 	
 	while((cel != NULL) && (hayVacio == false)){
-		if((cel->datoInt == NULL) && (cel->datoStr == NULL))
+		if(cel->hayDato == true)
 			cel = cel->sig;
 		else
 			hayVacio = true;
@@ -101,16 +117,50 @@ bool hayCeldasVacias(celda cel){
 	return hayVacio;
 }
 
+
 void valoresAString(celda cel){
 
 	while(cel != NULL){
-		//cel->datoStr = static_cast<char*>(cel->datoInt);
-		cel->datoInt = NULL;
-		cel = cel->sig;
+		char string[MAX_NOMBRE];
+		sprintf(string, "%d", cel->datoInt);
+		cel = cel->sig;	
 	}
 }
 
 
+void completarVacios_celda(celda cel, int indice){
+	
+	for(int i = 0 ; i < indice ; i++){
+		cel = cel->sig;
+	}
+	
+	if(cel == NULL){
+		celda nueva_celda = new(nodo_celda);
+		nueva_celda->hayDato = false;
+		nueva_celda->usada = true;
+		nueva_celda->sig = NULL;	
+	}
+	
+}
+
+void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
+
+	
+	int i = 1;
+	
+	while((cel != NULL) && (i < indice)){
+		cel = cel->sig;
+		i++;
+	}
+	
+	
+	if(tipo == INT){
+		cout << cel->datoInt << ":" ;
+	}else{
+		cout << cel->datoStr << ":" ;
+	}
+	
+}
 
 
 

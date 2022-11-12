@@ -21,7 +21,6 @@ struct nodo_columna{
 };
 
 columna nuevaColumna(){
-	nuevaCelda();
 	return NULL;
 }
 
@@ -212,20 +211,24 @@ TipoRet alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Ca
 	return OK;
 }
 
+
 TipoRet insertInto_Columna(columna col, char * columna, char * dato){
-	
 	bool columnaEncontrada = false;
 	
-	while((columnaEncontrada == false) && (col->sig != NULL)){
+	while((columnaEncontrada == false) && (col != NULL)){
 		if(strcmp(col->nombreColumna, columna) != 0){
 			//Si no es esta la columna, itero
 			col = col->sig;
-		}else{
+		}else
+			columnaEncontrada = true;
+	}
+	
+	if(columnaEncontrada){
+
 			//Estoy en la columna en la que quiero agregar datos
-			
 			if(col->calif == PRIMARY_KEY){
 				//Si la columna es primary key hay que verificar que no exista ese dato 
-				
+
 				if(col->tipo == INT){
 					//Si la columna es tipo int, parsea a int
 					int datoInsert;
@@ -235,7 +238,8 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 						cout << "No se puede ingresar el dato " << datoInsert << "en la columna " << columna << "porque ya existe y es primary key" << endl;
 						return ERROR;
 					}else{
-						insertInto_int(col->dato, datoInsert);
+						cout << "El dato a insertar es " << datoInsert << endl;
+						col->dato = insertInto_int(col->dato, datoInsert);
 						return OK;
 					}
 				}else{
@@ -245,36 +249,72 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato){
 						cout << "No se puede ingresar el dato " << dato << "en la columna " << columna << "porque ya existe y es primary key" << endl;
 						return ERROR;
 					}else{
-						insertInto_char(col->dato, dato);
+						cout << "El dato a insertar es " << dato << endl;
+						col->dato = insertInto_char(col->dato, dato);
 						return OK;
 					}
-				}	
+				}
+					
 			}else{
 				//si la columna no es primary key
 				if(col->tipo == INT){
 					//Si la columna es tipo int, parsea a int
 					int datoInsert;
 					datoInsert = atoi(dato);
-					insertInto_int(col->dato, datoInsert);
+					cout << "El dato a insertar es " << datoInsert << endl;
+					col->dato = insertInto_int(col->dato, datoInsert);
 					return OK;
 				}else{
 					//Si el dato es tipo char, lo pasa
-					insertInto_char(col->dato, dato);
+					cout << "El dato a insertar es " << dato << endl;
+					col->dato = insertInto_char(col->dato, dato);
+
 					return OK;
 				}
+
 			}
 			
-			columnaEncontrada = true;
+			return OK;
+		}else{
+			cout << "No existe la columna \"" << columna << "\"" << endl;
+			return ERROR;
 		}
-	}
-	
-	if(!columnaEncontrada){
-		cout << "No existe la columna " << columna << endl;
-		return ERROR;
-	}
+
 }
 
+void completarVacios_col(columna col, int indice){
+	
+	while(col != NULL){
+		completarVacios_celda(col->dato, indice);
+		col = col->sig;	
+	}
 
+}
+
+void printDataTable_col(columna col, int indice){
+	
+	columna iter = col;
+	
+	while(iter != NULL){
+		cout << iter->nombreColumna << ":";
+		iter = iter->sig;
+	}
+	
+	cout << " " << endl;
+	
+	int cont = 0;
+	
+	while(cont <= indice){
+	//Repite para cada tupla
+		for (int i = 0 ; i < indice ; i++){
+		//Repite para cada columna
+			while(col != NULL){
+				printDataTable_celda(col->dato, col->tipo, i);
+				col = col->sig;
+			}
+		}
+	}
+}
 
 
 

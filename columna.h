@@ -81,4 +81,10 @@ columna obtenerColumaPorNombre(columna col, char * nombreCol);
 TipoRet insertInto_Columna(columna col, char * columna, char * dato);
 //Inserta el dato en la columna
 
+void completarVacios_col(columna col, int indice);
+//Completa las columnas a las que no se le agregaron datos con "Vacio" o "0"
+
+void printDataTable_col(columna col, int indice);
+//Imprime la informacion de una tabla
+
 #endif
