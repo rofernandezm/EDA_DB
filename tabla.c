@@ -161,6 +161,7 @@ TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla){
 		cout << "La tabla " << t->nombre << " no tiene columnas" << endl;
 		return ERROR;
 	}else{
+		crearCeldas(t->col);
 		//La tabla tiene columnas
 		
 		char columnas[200];

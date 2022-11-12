@@ -211,71 +211,85 @@ TipoRet alterCol_col(columna &col, char *NombreCol, TipoDatoCol tipoColNuevo, Ca
 	return OK;
 }
 
+void crearCeldas(columna col){
+	
+	while(col != NULL){
+	//Crea todas las celdas de esa columna
+		col->dato = nuevaCelda(col->dato);
+		col = col->sig;
+	}
+
+}
+
 
 TipoRet insertInto_Columna(columna col, char * columnaNombre, char * dato){
-
-	columna iter = col;
 	
-	while(iter != NULL){
-		//Crea todas las celdas de esa columna
-		iter->dato = nuevaCelda(iter->dato);
-		iter = iter->sig;
+	bool columnaEncontrada = false;
+	
+	while((columnaEncontrada == false) && (col != NULL)){
+		if(strcmp(col->nombreColumna, columnaNombre) != 0){
+			//Si no es esta la columna, itero
+			col = col->sig;
+		}else
+			columnaEncontrada = true;
 	}
 	
-	
-	if(strcmp(col->nombreColumna, columnaNombre) != 0){
-		//Si no es esta la columna, itero
-		col = col->sig;
-			
-	}else{
-		//Estoy en la columna en la que quiero agregar datos
-		if(col->calif == PRIMARY_KEY){
-			//Si la columna es primary key hay que verificar que no exista ese dato 
+	if(columnaEncontrada){
 
-			if(col->tipo == INT){
-				//Si la columna es tipo int, parsea a int
-				int datoInsert;
-				datoInsert = atoi(dato);
-				if(existeDato_int(col->dato, datoInsert)){
-					//Si el dato se repite, no lo inserta 
-					cout << "No se puede ingresar el dato " << datoInsert << "en la columna " << columnaNombre << "porque ya existe y es primary key" << endl;
-					return ERROR;
+			//Estoy en la columna en la que quiero agregar datos
+			if(col->calif == PRIMARY_KEY){
+				//Si la columna es primary key hay que verificar que no exista ese dato 
+
+				if(col->tipo == INT){
+					//Si la columna es tipo int, parsea a int
+					int datoInsert;
+					datoInsert = atoi(dato);
+					if(existeDato_int(col->dato, datoInsert)){
+						//Si el dato se repite, no lo inserta 
+						cout << "No se puede ingresar el dato " << datoInsert << "en la columna " << columnaNombre << "porque ya existe y es primary key" << endl;
+						return ERROR;
+					}else{
+						cout << "El dato a insertar es " << datoInsert << endl;
+						insertInto_int(col->dato, datoInsert);
+						return OK;
+					}
 				}else{
-					cout << "El dato a insertar es " << datoInsert << endl;
-					col->dato = insertInto_int(col->dato, datoInsert);
-					return OK;
+					//Si el dato es tipo char, 
+					if(existeDato_char(col->dato, dato)){
+						//Si el dato se repite, no lo inserta 
+						cout << "No se puede ingresar el dato " << dato << "en la columna " << columnaNombre << "porque ya existe y es primary key" << endl;
+						return ERROR;
+					}else{
+						cout << "El dato a insertar es " << dato << endl;
+						insertInto_char(col->dato, dato);
+						return OK;
+					}
 				}
-			}else{
-				//Si el dato es tipo char, 
-				if(existeDato_char(col->dato, dato)){
-					//Si el dato se repite, no lo inserta 
-					cout << "No se puede ingresar el dato " << dato << "en la columna " << columnaNombre << "porque ya existe y es primary key" << endl;
-					return ERROR;
-				}else{
-					cout << "El dato a insertar es " << dato << endl;
-					col->dato = insertInto_char(col->dato, dato);
-					return OK;
-				}
-			}
 					
-		}else{
-			//si la columna no es primary key
-			if(col->tipo == INT){
-				//Si la columna es tipo int, parsea a int
-				int datoInsert;
-				datoInsert = atoi(dato);
-				cout << "El dato a insertar es " << datoInsert << endl;
-				col->dato = insertInto_int(col->dato, datoInsert);
-				return OK;
 			}else{
-				//Si el dato es tipo char, lo pasa
-				cout << "El dato a insertar es " << dato << endl;
-				col->dato = insertInto_char(col->dato, dato);
-				return OK;
-			}
+				//si la columna no es primary key
+				if(col->tipo == INT){
+					//Si la columna es tipo int, parsea a int
+					int datoInsert;
+					datoInsert = atoi(dato);
+					cout << "El dato a insertar es " << datoInsert << endl;
+					insertInto_int(col->dato, datoInsert);
+					return OK;
+				}else{
+					//Si el dato es tipo char, lo pasa
+					cout << "El dato a insertar es " << dato << endl;
+					insertInto_char(col->dato, dato);
 
+					return OK;
+				}
+
+			}
+			
+			return OK;
+		}else{
+			cout << "No existe la columna \"" << columnaNombre << "\" desde col" << endl;
+			return ERROR;
 		}
-	}
 	
 	
 	return OK;

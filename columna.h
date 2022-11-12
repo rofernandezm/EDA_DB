@@ -84,7 +84,7 @@ TipoRet insertInto_Columna(columna col, char * columna, char * dato);
 void printDataTable_col(columna col, int indice);
 //Imprime la informacion de una tabla
 
-void insertVacios_col(columna &col, int indice);
-//Crea las celdas vacias
+void crearCeldas(columna col);
+//Crea todas las celdas de esa columna
 
 #endif
