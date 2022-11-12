@@ -19,8 +19,17 @@ struct nodo_celda{
 	celda sig;
 };
 
-celda nuevaCelda(){
+/*celda nuevaCelda(){
 	return NULL;
+}*/
+
+celda nuevaCelda(){
+	celda cel = new(nodo_celda);
+	cel->datoStr = NULL;
+	cel->usada = false;
+	cel->hayDato = false;
+	cel->sig = NULL;
+	return cel;
 }
 
 
@@ -35,35 +44,32 @@ void eliminarCeldas(celda &cel){
 celda insertInto_int(celda &cel, int dato){
 
 	if(cel == NULL){
-		celda nueva_celda = new(nodo_celda);
+		celda nueva_celda = nuevaCelda();
 		nueva_celda->datoInt = dato;
 		nueva_celda->hayDato = true;
 		nueva_celda->usada = true;
 		nueva_celda->sig = NULL;
+		return nueva_celda;
 	}else{
 		insertInto_int(cel->sig, dato);
 	}
-	
-	return cel;
 }
 
 
 celda insertInto_char(celda &cel, char * dato){
 	
 	if(cel == NULL){
-		celda nueva_celda = new(nodo_celda);
+		celda nueva_celda = nuevaCelda();
 		nueva_celda->datoStr = new char[MAX_NOMBRE];
 		strcpy(nueva_celda->datoStr, dato);
 		nueva_celda->hayDato = true;
 		nueva_celda->usada = true;
 		nueva_celda->sig = NULL;
-		
-		
+		return nueva_celda;	
 	}else{
 		insertInto_char(cel->sig, dato);
 	}
 	
-	return cel;
 }
 
 
@@ -138,25 +144,19 @@ void completarVacios_celda(celda cel, int indice){
 }
 
 void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
-	
-	cout << "Entra a celda" << endl;
+
 	
 	int i = 1;
 	
 	while((cel != NULL) && (i < indice)){
-		cout << "Busca la celda que tiene que imprimir" << endl;
 		cel = cel->sig;
 		i++;
 	}
 	
-	cout << "Pasa el while" << endl;
-
 	
 	if(tipo == INT){
-		cout << "Entra a imprimir a int" << endl;
 		cout << cel->datoInt << ":" ;
 	}else{
-		cout << "Entra a imprimir a string" << endl;
 		cout << cel->datoStr << ":" ;
 	}
 	
