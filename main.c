@@ -32,7 +32,7 @@ int main()
 		cout << "\tdropCol(nombreTabla, NombreCol)\n";
 		cout << "\talterCol(nombreTabla, nombreCol, tipoColNuevo, calificadorColNuevo, nombreColNuevo)\n";
 		cout << "\tinsertInto(nombreTabla, columnasTupla, valoresTupla)\n";
-		//cout << "\tdeleteFrom(nombreTabla, condicionEliminar)\n";
+		cout << "\tdeleteFrom(nombreTabla, condicionEliminar)\n";
 		//cout << "\tupdate(nombreTabla, condicionModificar, columnaModificar, valorModificar)\n";
 		//cout << "\tselectWhere(nomTabla1, condicion, nomTabla2)\n";
 		//cout << "\tselect(nomTabla1, nomColumnas, nomTabla2)\n";

@@ -328,14 +328,27 @@ void printDataTable_col(columna col, int indice){
 }
 
 
-/*void insertVacios_col(columna &col, int indice){
+TipoRet deleteFrom_col(columna col, char *nombreCol, char simbolo, char *condicion){
+
+	//Encontrar la columna nombreCol
+	bool colEncontrada = false;
 	
-	while(col != NULL){
-		insertVacios_celda(col->dato, indice);
-		col = col->sig;
-	}	
+	while((colEncontrada == false) && (col != NULL)){
+		if(strcmp(nombreCol, col->nombreColumna) == 0)
+			colEncontrada = true;
+		else
+			col = col->sig;
+	}
+
 	
-}*/
+	if(col->dato == NULL){
+		cout << "No existe ninguna tupla en la columna " << nombreCol << endl;
+		return ERROR;
+	}else{
+		deleteFrom_celda(col->dato, col->tipo, simbolo, condicion);
+		return OK;
+	}
+}
 
 
 

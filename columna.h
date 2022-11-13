@@ -87,4 +87,9 @@ void printDataTable_col(columna col, int indice);
 void crearCeldas(columna col);
 //Crea todas las celdas de esa columna
 
+TipoRet deleteFrom_col(columna col, char *nombreCol, char simbolo, char *condicion);
+//Elimina las tuplas que cumplan la condicion
+//Pre: Existe la columna nombreCol
+
+
 #endif

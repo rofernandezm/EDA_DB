@@ -63,4 +63,8 @@ TipoRet printDataTable_tabla(tabla t, char *nombreTabla);
 //Imprime la informacion de una tabla
 //Pre: t no puede ser vacio
 
+TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar);
+//Elimina las tuplas que cumplan la condicion
+//Pre: nombreTabla existe 
+
 #endif

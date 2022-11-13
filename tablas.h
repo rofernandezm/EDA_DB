@@ -51,4 +51,7 @@ TipoRet insertInto_Tablas(tablas &ts, char *nombreTabla, char *columnasTupla, ch
 TipoRet printDataTable_tablas(tablas ts, char *nombreTabla);
 //Imprime la informacion de una tabla
 
+TipoRet deleteFrom_tablas(tablas ts, char *nombreTabla, char *condicionEliminar);
+//Elimina las tuplas segun la condicion
+
 #endif

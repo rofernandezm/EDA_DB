@@ -32,20 +32,6 @@ celda nuevaCelda(celda &cel){
 	return cel;
 }
 
-/*celda insertInto_vacia(celda &cel){
-
-	if(cel == NULL){
-		celda nueva_celda = nuevaCelda();
-		nueva_celda->hayDato = false;
-		nueva_celda->usada = true;
-		nueva_celda->sig = NULL;
-		cel = nueva_celda;
-	}else{
-		cel->sig = insertInto_vacia(cel->sig);
-	}
-	return cel;
-}*/
-
 
 void eliminarCeldas(celda &cel){
 	if(cel->sig != NULL){
@@ -165,34 +151,145 @@ void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
 }
 
 
-/*void insertVacios_celda(celda &cel, int indice){
-
-	while((indice > 1) && (cel->sig != NULL)){
+void deleteFrom_celda(celda cel, TipoDatoCol tipo, char simbolo, char *condicion){
+	celda anter = NULL;
+	
+	while(cel != NULL){
+	
+		if(tipo == INT){
+			//La celda es de tipo INT
+			int dato;
+			dato = atoi(condicion);
+			
+			if(simbolo == '='){
+				if((cel->hayDato == true) && (cel->datoInt == dato)){
+					//Quiero borrar
+					if(anter == NULL){
+						//Estoy en el primer elemento
+						anter = cel;
+						cel = cel->sig;
+						delete anter;
+					}else{
+						anter->sig = cel->sig;
+						delete cel;
+						cel = anter->sig;
+					}
+				}
+			}else if(simbolo == '!'){
+				if((cel->hayDato == true) && (cel->datoInt != dato)){
+					//Quiero borrar
+					if(anter == NULL){
+						//Estoy en el primer elemento
+						anter = cel;
+						cel = cel->sig;
+						delete anter;
+					}else{
+						anter->sig = cel->sig;
+						delete cel;
+						cel = anter->sig;
+					}
+				}
+			
+			}else if(simbolo == '>'){
+				if((cel->hayDato == true) && (cel->datoInt > dato)){
+					//Quiero borrar
+					if(anter == NULL){
+						//Estoy en el primer elemento
+						anter = cel;
+						cel = cel->sig;
+						delete anter;
+					}else{
+						anter->sig = cel->sig;
+						delete cel;
+						cel = anter->sig;
+					}
+				}
+			}else if((cel->hayDato == true) && (simbolo == '<')){
+				if(cel->datoInt < dato){
+					//Quiero borrar
+					if(anter == NULL){
+						//Estoy en el primer elemento
+						anter = cel;
+						cel = cel->sig;
+						delete anter;
+					}else{
+						anter->sig = cel->sig;
+						delete cel;
+						cel = anter->sig;
+					}
+				}
+			}
+			
+		}else{
+			//La celda es de tipo string
+			if((cel->hayDato == true) && (simbolo == '=')){
+				if(strcmp(cel->datoStr, condicion) == 0){
+					//Quiero borrar
+					if(anter == NULL){
+						//Estoy en el primer elemento
+						anter = cel;
+						cel = cel->sig;
+						delete anter;
+					}else{
+						anter->sig = cel->sig;
+						delete cel;
+						cel = anter->sig;
+					}
+				}
+			
+			}else if((cel->hayDato == true) && (simbolo == '!')){
+				if(strcmp(cel->datoStr, condicion) != 0){
+					//Quiero borrar
+					if(anter == NULL){
+						//Estoy en el primer elemento
+						anter = cel;
+						cel = cel->sig;
+						delete anter;
+					}else{
+						anter->sig = cel->sig;
+						delete cel;
+						cel = anter->sig;
+					}
+				}
+			
+			}else if((cel->hayDato == true) && (simbolo == '>')){
+				if(strcmp(cel->datoStr, condicion) > 0){
+					//Quiero borrar
+					if(anter == NULL){
+						//Estoy en el primer elemento
+						anter = cel;
+						cel = cel->sig;
+						delete anter;
+					}else{
+						anter->sig = cel->sig;
+						delete cel;
+						cel = anter->sig;
+					}
+				}
+			}else if((cel->hayDato == true) && (simbolo == '<')){
+				if(strcmp(cel->datoStr, condicion) < 0){
+					//Quiero borrar
+					if(anter == NULL){
+						//Estoy en el primer elemento
+						anter = cel;
+						cel = cel->sig;
+						delete anter;
+					}else{
+						anter->sig = cel->sig;
+						delete cel;
+						cel = anter->sig;
+					}
+				}
+			}
+		}
+		
+		
+		anter = cel;
 		cel = cel->sig;
-		indice--;
 	}
-	
-	if(indice > 1){
-		celda nueva_celda = nuevaCelda();
-		nueva_celda->hayDato = false;
-		nueva_celda->usada = true;
-		nueva_celda->sig = NULL;
-		cel->sig = nueva_celda;
-	}
+}
 
-	
-	if((indice == 1) && (cel == NULL)){
-		celda nueva_celda = nuevaCelda();
-		nueva_celda->hayDato = false;
-		nueva_celda->usada = true;
-		nueva_celda->sig = NULL;
-		cel = nueva_celda;
-	}else if(indice>1){
-		cel->sig = insertVacios_celda(cel->sig, indice-1);
-	}
-	
-	return cel;
-}*/
+
 
 
 
