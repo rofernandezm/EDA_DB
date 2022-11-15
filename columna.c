@@ -330,6 +330,8 @@ void printDataTable_col(columna col, int indice){
 
 TipoRet deleteFrom_col(columna col, int &indice, char *nombreCol, char simbolo, char *condicion){
 
+	columna primeraCol = col;
+	
 	//Encontrar la columna nombreCol
 	bool colEncontrada = false;
 	
@@ -345,11 +347,21 @@ TipoRet deleteFrom_col(columna col, int &indice, char *nombreCol, char simbolo, 
 		cout << "No existe ninguna tupla en la columna " << nombreCol << endl;
 		return ERROR;
 	}else{
-		deleteFrom_celda(col->dato, indice, col->tipo, simbolo, condicion);
+		deleteFrom_celda(primeraCol, nombreCol, col->dato, indice, col->tipo, simbolo, condicion);
 		return OK;
 	}
 }
 
+
+
+void borrarPorIndiceMenosUna_col(columna col, char *nombreCol, int indiceABorrar){
+	while(col != NULL){
+		if(strcmp(col->nombreColumna, nombreCol) != 0){
+			borrarPorIndiceMenosUna_celda(col->dato, indiceABorrar);
+		}
+		col = col->sig;
+	}
+}
 
 
 

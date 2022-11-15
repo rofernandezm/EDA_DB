@@ -9,6 +9,7 @@
 #define CELDA_H
 
 #include "define.h"
+#include "columna.h"
 
 typedef struct nodo_celda * celda;
 
@@ -43,9 +44,12 @@ celda insertInto_vacia(celda &cel);
 void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice);
 //Imprime el valor de una celda
 
-void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, char *condicion);
+void deleteFrom_celda(columna col, char *nombreCol, celda &cel, int &indice, TipoDatoCol tipo, char simbolo, char *condicion);
 //Elimina las celdas que cumplan la condicion
 //Pre: celda no es vacio
+
+void borrarPorIndiceMenosUna_celda(celda &cel, int indiceABorrar);
+//Borra la celda en la posicion indiceABorrar
 
 
 #endif
