@@ -25,16 +25,16 @@ bd createBD(){
 
 
 TipoRet createTable(bd & bd, char *nombreTabla){
-	//cout << " - createTable " << nombreTabla << endl
+	
 	return crearTabla_Tablas(bd->ts, nombreTabla);
 }
 
 
 TipoRet dropTable(bd & bd, char *nombreTabla){
-	//cout << " - dropTable " << nombreTabla << endl
+
 	if(bd->ts == NULL){
 		cout << " - Base de datos vacia" << endl;
-        return ERROR;
+        	return ERROR;
 	} else {
 		return dropTable_Tablas(bd->ts, nombreTabla);
 	}
@@ -42,38 +42,43 @@ TipoRet dropTable(bd & bd, char *nombreTabla){
 
 
 TipoRet addCol(bd & bd, char *nombreTabla, char *NombreCol, char *tipoCol, char *calificadorCol){
-	//cout << " - addCol " << nombreTabla << " " << NombreCol << " " << tipoCol << " " << calificadorCol << endl;
 
-	TipoDatoCol tipo;
-	Calificador cal;
+	if(bd->ts == NULL){
+		cout << " - Base de datos vacia" << endl;
+        	return ERROR;
+        }else{
+		TipoDatoCol tipo;
+		Calificador cal;
 
-	//Valida que el tipo de dato sea correcto
-	if (strcasecmp(tipoCol, "string") == 0){
-        tipo = STRING;
-	} else if (strcasecmp(tipoCol, "int") == 0){
-        tipo = INT;
-    }else{
-		cout << " - Tipo de columna ingresado es incorrecto" << endl;
-        return ERROR;
-    }
-	
-	//Valida que el calificador sea correcto
-	if (strcasecmp(calificadorCol, "ANY") == 0){
-        	cal = ANY;
-	} else if (strcasecmp(calificadorCol, "NOT_EMPTY") == 0){
-        	cal = NOT_EMPTY;
-	} else if (strcasecmp(calificadorCol, "PRIMARY_KEY") == 0){
-	   	cal = PRIMARY_KEY;
-    	}else{
-		cout << " - Calificador ingresado es incorrecto" << endl;
-        return ERROR;
-    }
+		//Valida que el tipo de dato sea correcto
+		if (strcasecmp(tipoCol, "string") == 0){
+		tipo = STRING;
+		} else if (strcasecmp(tipoCol, "int") == 0){
+		tipo = INT;
+	    }else{
+			cout << " - Tipo de columna ingresado es incorrecto" << endl;
+		return ERROR;
+	    }
+		
+		//Valida que el calificador sea correcto
+		if (strcasecmp(calificadorCol, "ANY") == 0){
+			cal = ANY;
+		} else if (strcasecmp(calificadorCol, "NOT_EMPTY") == 0){
+			cal = NOT_EMPTY;
+		} else if (strcasecmp(calificadorCol, "PRIMARY_KEY") == 0){
+		   	cal = PRIMARY_KEY;
+	    	}else{
+			cout << " - Calificador ingresado es incorrecto" << endl;
+		return ERROR;
+	    }
 
-	return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipo, cal);
+		return addCol_tablas(bd->ts, nombreTabla, NombreCol, tipo, cal);
+	}
 }
 
 
 TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){
+
 	if (bd->ts == NULL){
 		cout << " - Base de datos vacia" << endl;
         	return ERROR;
@@ -84,44 +89,56 @@ TipoRet dropCol (bd & bd, char *nombreTabla, char *NombreCol){
 
 
 TipoRet alterCol (bd & bd, char * nombreTabla, char * nombreCol, char *tipoColNuevo, char *calificadorColNuevo, char *nombreColNuevo){
-
-	TipoDatoCol tipo;
-	Calificador cal;
-
-	//Valida que el tipo de dato sea correcto
-	if (strcasecmp(tipoColNuevo, "string") == 0){
-        	tipo = STRING;
-	} else if (strcasecmp(tipoColNuevo, "int") == 0){
-        	tipo = INT;
+	if(bd->ts == NULL){
+		cout << " - Base de datos vacia" << endl;
+        	return ERROR;
         }else{
-		cout << " - Tipo de columna ingresado es incorrecto" << endl;
-        	return ERROR;
-	}
-	
-	//Valida que el calificador sea correcto
-	if (strcasecmp(calificadorColNuevo, "ANY") == 0){
-        	cal = ANY;
-	}else if (strcasecmp(calificadorColNuevo, "NOT_EMPTY") == 0){
-        	cal = NOT_EMPTY;
-	}else if (strcasecmp(calificadorColNuevo, "PRIMARY_KEY") == 0){
-	   	cal = PRIMARY_KEY;
-    	}else{
-		cout << " - Calificador ingresado es incorrecto" << endl;
-        	return ERROR;
-	}
+		TipoDatoCol tipo;
+		Calificador cal;
 
-	return alterCol_Tablas(bd->ts, nombreTabla, nombreCol, tipo, cal, nombreColNuevo);
+		//Valida que el tipo de dato sea correcto
+		if (strcasecmp(tipoColNuevo, "string") == 0){
+			tipo = STRING;
+		} else if (strcasecmp(tipoColNuevo, "int") == 0){
+			tipo = INT;
+		}else{
+			cout << " - Tipo de columna ingresado es incorrecto" << endl;
+			return ERROR;
+		}
+		
+		//Valida que el calificador sea correcto
+		if (strcasecmp(calificadorColNuevo, "ANY") == 0){
+			cal = ANY;
+		}else if (strcasecmp(calificadorColNuevo, "NOT_EMPTY") == 0){
+			cal = NOT_EMPTY;
+		}else if (strcasecmp(calificadorColNuevo, "PRIMARY_KEY") == 0){
+		   	cal = PRIMARY_KEY;
+	    	}else{
+			cout << " - Calificador ingresado es incorrecto" << endl;
+			return ERROR;
+		}
+
+		return alterCol_Tablas(bd->ts, nombreTabla, nombreCol, tipo, cal, nombreColNuevo);
+	}
 }
 
 
 TipoRet insertInto (bd & bd, char *nombreTabla, char *columnasTupla, char *valoresTupla){
-	return insertInto_Tablas(bd->ts, nombreTabla, columnasTupla, valoresTupla);
+	if(bd->ts == NULL){
+		cout << " - Base de datos vacia" << endl;
+        	return ERROR;
+        }else
+		return insertInto_Tablas(bd->ts, nombreTabla, columnasTupla, valoresTupla);
 }
 
 
 TipoRet deleteFrom (bd & bd, char *nombreTabla, char *condicionEliminar){
-	//cout << " - deletefrom " << nombreTabla << " " << condicionEliminar << endl;;
-	return NO_IMPLEMENTADA;
+	
+	if(bd->ts == NULL){
+		cout << " - Base de datos vacia" << endl;
+        	return ERROR;
+        }else
+		return deleteFrom_tablas(bd->ts, nombreTabla, condicionEliminar);
 }
 
 

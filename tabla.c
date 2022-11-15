@@ -17,6 +17,7 @@ struct nodo_tabla{
 	char * nombre;
 	int indice;
 	columna col;
+	tabla sig; 
 };
 
 tabla crearTabla(char * nombreTabla){
@@ -201,6 +202,57 @@ TipoRet printDataTable_tabla(tabla t, char *nombreTabla){
 	
 }
 
+TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar){
+
+	
+	char str[100];
+	char *columna1;
+   	char simbolo;
+   	char *condicion;
+   	int i = 0;
+
+   	strcpy(str, condicionEliminar);
+   	
+   	
+   	//Obtener el simbolo
+   	while((str[i] != '=') && (str[i] != '!') && (str[i] != '>') && (str[i] != '<')){
+   		//Itera en el string hasta encontrar el simbolo
+        	i++;
+    	}
+    	
+    	simbolo = str[i];
+    	
+    	
+    	//Obtener los datos de las columnas
+    	columna1 = strtok(str, " = ! > < ");
+    	condicion = strtok(NULL, " = ! > < ");
+    	
+    	
+    	//Encontrar la tabla nombreTabla
+    	bool tablaEncontrada = false;
+    	
+    	while((t != NULL) && tablaEncontrada == false){
+    		if(strcmp(nombreTabla, t->nombre) == 0)
+    			tablaEncontrada = true;
+    		else
+    			t = t->sig;
+    	}
+    	
+
+    	//Se da por sentado que la tabla nombreTabla existe porque se controla en tablas.c
+    	if(!existenColumnas(t)){
+    		cout << "La tabla " << t->nombre << " no tiene columnas" << endl;
+    		return ERROR;	
+    	}else if(!existeColumnaNombre_Tabla(t, columna1)){
+    		cout << "No existe columna con el nombre " << columna1 << " en la tabla " << t->nombre << endl; 
+    		return ERROR;
+    	}else{
+    		return deleteFrom_col(t->col, t->indice, columna1, simbolo, condicion);
+    	}
+    	
+    	
+    	
+}
 
 
 

@@ -43,5 +43,9 @@ celda insertInto_vacia(celda &cel);
 void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice);
 //Imprime el valor de una celda
 
+void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, char *condicion);
+//Elimina las celdas que cumplan la condicion
+//Pre: celda no es vacio
+
 
 #endif
