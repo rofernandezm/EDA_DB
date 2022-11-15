@@ -91,5 +91,8 @@ TipoRet deleteFrom_col(columna col, int &indice, char *nombreCol, char simbolo, 
 //Elimina las tuplas que cumplan la condicion
 //Pre: Existe la columna nombreCol
 
+void borrarPorIndiceMenosUna_col(columna col, char *nombreCol, int indiceABorrar);
+//Borra las celdas en la posicion indiceABorrar de todas las columnas, menos de nombreCol
+
 
 #endif

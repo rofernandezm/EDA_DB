@@ -8,6 +8,7 @@
 #include <string.h>
 #include <iostream>
 #include "celda.h"
+#include "columna.h"
 
 using namespace std;
 
@@ -151,9 +152,10 @@ void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
 }
 
 
-void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, char *condicion){
+void deleteFrom_celda(columna col, char *nombreCol, celda &cel, int &indice, TipoDatoCol tipo, char simbolo, char *condicion){
 	celda anter = NULL;
 	celda iter = cel;
+	int indiceBorrado = 1;
 	
 		if(tipo == INT){
 			//La celda es de tipo INT
@@ -169,16 +171,19 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 							cel = cel->sig;
 							delete iter;
 							iter = cel;
+							borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 							indice--;
 						}else{
 							anter->sig = iter->sig;
 							delete iter;
 							iter = anter->sig;
+							borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 							indice--;
 						}
 					}else{
 						anter = iter;
 						iter = anter->sig;
+						indiceBorrado++;
 					}
 				}
 			}else if(simbolo == '!'){
@@ -197,9 +202,11 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 							iter = anter->sig;
 							indice--;
 						}
+						borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 					}else{
 						anter = iter;
 						iter = anter->sig;
+						indiceBorrado++;
 					}
 				}
 			
@@ -219,9 +226,11 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 							iter = anter->sig;
 							indice--;
 						}
+						borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 					}else{
 						anter = iter;
 						iter = anter->sig;
+						indiceBorrado++;
 					}
 				}
 				
@@ -241,9 +250,11 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 							iter = anter->sig;
 							indice--;
 						}
+						borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 					}else{
 						anter = iter;
 						iter = iter->sig;
+						indiceBorrado++;
 					}
 			}
 		}
@@ -266,9 +277,11 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 							iter = anter->sig;
 							indice--;
 						}
+						borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 					}else{
 						anter = iter;
 						iter = iter->sig;
+						indiceBorrado++;
 					}
 				}
 			
@@ -288,9 +301,11 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 							iter = anter->sig;
 							indice--;
 						}
+						borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 					}else{
 						anter = iter;
 						iter = iter->sig;
+						indiceBorrado++;
 					}
 				}
 			
@@ -310,9 +325,11 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 							iter = anter->sig;
 							indice--;
 						}
+						borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 					}else{
 						anter = iter;
 						iter = iter->sig;
+						indiceBorrado++;
 					}
 				}
 				
@@ -332,9 +349,11 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 							iter = anter->sig;
 							indice--;
 						}
+						borrarPorIndiceMenosUna_col(col, nombreCol, indiceBorrado);
 					}else{
 						anter = iter;
 						iter = iter->sig;
+						indiceBorrado++;
 					}
 				}
 			}
@@ -344,7 +363,29 @@ void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, c
 
 
 
+void borrarPorIndiceMenosUna_celda(celda &cel, int indiceABorrar){
 
+	celda anter = NULL;
+	celda iter = cel;
+	
+	while((iter != NULL) && (indiceABorrar > 1)){
+		anter = cel;
+		iter = iter->sig;
+		indiceABorrar--;
+	}
+	
+	if(anter == NULL){
+		//Estoy en el primer elemento
+		cel = cel->sig;
+		delete iter;
+		iter = cel;
+	}else{
+		anter->sig = iter->sig; 
+		delete iter;
+		iter = anter->sig;
+	}
+
+}
 
 
 
