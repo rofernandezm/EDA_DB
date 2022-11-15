@@ -203,6 +203,7 @@ TipoRet printDataTable_tabla(tabla t, char *nombreTabla){
 }
 
 TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar){
+
 	
 	char str[100];
 	char *columna1;
@@ -246,7 +247,7 @@ TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar){
     		cout << "No existe columna con el nombre " << columna1 << " en la tabla " << t->nombre << endl; 
     		return ERROR;
     	}else{
-    		return deleteFrom_col(t->col, t->nombre, simbolo, condicion);
+    		return deleteFrom_col(t->col, t->indice, columna1, simbolo, condicion);
     	}
     	
     	

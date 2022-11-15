@@ -151,10 +151,9 @@ void printDataTable_celda(celda cel, TipoDatoCol tipo, int indice){
 }
 
 
-void deleteFrom_celda(celda cel, TipoDatoCol tipo, char simbolo, char *condicion){
+void deleteFrom_celda(celda &cel, int &indice, TipoDatoCol tipo, char simbolo, char *condicion){
 	celda anter = NULL;
-	
-	while(cel != NULL){
+	celda iter = cel;
 	
 		if(tipo == INT){
 			//La celda es de tipo INT
@@ -162,131 +161,185 @@ void deleteFrom_celda(celda cel, TipoDatoCol tipo, char simbolo, char *condicion
 			dato = atoi(condicion);
 			
 			if(simbolo == '='){
-				if((cel->hayDato == true) && (cel->datoInt == dato)){
-					//Quiero borrar
-					if(anter == NULL){
-						//Estoy en el primer elemento
-						anter = cel;
-						cel = cel->sig;
-						delete anter;
+				while(iter != NULL){
+					if((iter->hayDato == true) && (iter->datoInt == dato)){
+						//Quiero borrar
+						if(anter == NULL){
+							//Estoy en el primer elemento
+							cel = cel->sig;
+							delete iter;
+							iter = cel;
+							indice--;
+						}else{
+							anter->sig = iter->sig;
+							delete iter;
+							iter = anter->sig;
+							indice--;
+						}
 					}else{
-						anter->sig = cel->sig;
-						delete cel;
-						cel = anter->sig;
+						anter = iter;
+						iter = anter->sig;
 					}
 				}
 			}else if(simbolo == '!'){
-				if((cel->hayDato == true) && (cel->datoInt != dato)){
-					//Quiero borrar
-					if(anter == NULL){
-						//Estoy en el primer elemento
-						anter = cel;
-						cel = cel->sig;
-						delete anter;
+				while(iter != NULL){
+					if((iter->hayDato == true) && (iter->datoInt != dato)){
+						//Quiero borrar
+						if(anter == NULL){
+							//Estoy en el primer elemento
+							cel = cel->sig;
+							delete iter;
+							iter = cel;
+							indice--;
+						}else{
+							anter->sig = iter->sig;
+							delete iter;
+							iter = anter->sig;
+							indice--;
+						}
 					}else{
-						anter->sig = cel->sig;
-						delete cel;
-						cel = anter->sig;
+						anter = iter;
+						iter = anter->sig;
 					}
 				}
 			
 			}else if(simbolo == '>'){
-				if((cel->hayDato == true) && (cel->datoInt > dato)){
-					//Quiero borrar
-					if(anter == NULL){
-						//Estoy en el primer elemento
-						anter = cel;
-						cel = cel->sig;
-						delete anter;
+				while(iter != NULL){
+					if((iter->hayDato == true) && (iter->datoInt > dato)){
+						//Quiero borrar
+						if(anter == NULL){
+							//Estoy en el primer elemento
+							cel = cel->sig;
+							delete iter;
+							iter = cel;
+							indice--;
+						}else{
+							anter->sig = iter->sig;
+							delete iter;
+							iter = anter->sig;
+							indice--;
+						}
 					}else{
-						anter->sig = cel->sig;
-						delete cel;
-						cel = anter->sig;
+						anter = iter;
+						iter = anter->sig;
 					}
 				}
-			}else if((cel->hayDato == true) && (simbolo == '<')){
-				if(cel->datoInt < dato){
-					//Quiero borrar
-					if(anter == NULL){
-						//Estoy en el primer elemento
-						anter = cel;
-						cel = cel->sig;
-						delete anter;
+				
+			}else if(simbolo == '<'){
+				while(iter != NULL){
+					if((iter->hayDato == true) && (iter->datoInt < dato)){
+						//Quiero borrar
+						if(anter == NULL){
+							//Estoy en el primer elemento
+							cel = cel->sig;
+							delete iter;
+							iter = cel;
+							indice--;
+						}else{
+							anter->sig = iter->sig;
+							delete iter;
+							iter = anter->sig;
+							indice--;
+						}
 					}else{
-						anter->sig = cel->sig;
-						delete cel;
-						cel = anter->sig;
+						anter = iter;
+						iter = iter->sig;
 					}
-				}
 			}
+		}
 			
 		}else{
 			//La celda es de tipo string
-			if((cel->hayDato == true) && (simbolo == '=')){
-				if(strcmp(cel->datoStr, condicion) == 0){
-					//Quiero borrar
-					if(anter == NULL){
-						//Estoy en el primer elemento
-						anter = cel;
-						cel = cel->sig;
-						delete anter;
+			if(simbolo == '='){
+				while(iter != NULL){
+					if((iter->hayDato == true) && (strcmp(iter->datoStr, condicion) == 0)){
+						//Quiero borrar
+						if(anter == NULL){
+							//Estoy en el primer elemento
+							cel = cel->sig;
+							delete iter;
+							iter = cel;
+							indice--;
+						}else{
+							anter->sig = iter->sig;
+							delete iter;
+							iter = anter->sig;
+							indice--;
+						}
 					}else{
-						anter->sig = cel->sig;
-						delete cel;
-						cel = anter->sig;
+						anter = iter;
+						iter = iter->sig;
 					}
 				}
 			
-			}else if((cel->hayDato == true) && (simbolo == '!')){
-				if(strcmp(cel->datoStr, condicion) != 0){
-					//Quiero borrar
-					if(anter == NULL){
-						//Estoy en el primer elemento
-						anter = cel;
-						cel = cel->sig;
-						delete anter;
+			}else if(simbolo == '!'){
+				while(iter != NULL){
+					if((iter->hayDato == true) && (strcmp(iter->datoStr, condicion) != 0)){
+						//Quiero borrar
+						if(anter == NULL){
+							//Estoy en el primer elemento
+							cel = cel->sig;
+							delete iter;
+							iter = cel;
+							indice--;
+						}else{
+							anter->sig = iter->sig;
+							delete iter;
+							iter = anter->sig;
+							indice--;
+						}
 					}else{
-						anter->sig = cel->sig;
-						delete cel;
-						cel = anter->sig;
+						anter = iter;
+						iter = iter->sig;
 					}
 				}
 			
-			}else if((cel->hayDato == true) && (simbolo == '>')){
-				if(strcmp(cel->datoStr, condicion) > 0){
-					//Quiero borrar
-					if(anter == NULL){
-						//Estoy en el primer elemento
-						anter = cel;
-						cel = cel->sig;
-						delete anter;
+			}else if(simbolo == '>'){
+				while(iter != NULL){
+					if((iter->hayDato == true) && (strcmp(iter->datoStr, condicion) > 0)){
+						//Quiero borrar
+						if(anter == NULL){
+							//Estoy en el primer elemento
+							cel = cel->sig;
+							delete iter;
+							iter = cel;
+							indice--;
+						}else{
+							anter->sig = iter->sig;
+							delete iter;
+							iter = anter->sig;
+							indice--;
+						}
 					}else{
-						anter->sig = cel->sig;
-						delete cel;
-						cel = anter->sig;
+						anter = iter;
+						iter = iter->sig;
 					}
 				}
-			}else if((cel->hayDato == true) && (simbolo == '<')){
-				if(strcmp(cel->datoStr, condicion) < 0){
-					//Quiero borrar
-					if(anter == NULL){
-						//Estoy en el primer elemento
-						anter = cel;
-						cel = cel->sig;
-						delete anter;
+				
+			}else if(simbolo == '<'){
+				while(iter != NULL){
+					if((iter->hayDato == true) && (strcmp(iter->datoStr, condicion) < 0)){
+						//Quiero borrar
+						if(anter == NULL){
+							//Estoy en el primer elemento
+							cel = cel->sig;
+							delete iter;
+							iter = cel;
+							indice--;
+						}else{
+							anter->sig = iter->sig;
+							delete iter;
+							iter = anter->sig;
+							indice--;
+						}
 					}else{
-						anter->sig = cel->sig;
-						delete cel;
-						cel = anter->sig;
+						anter = iter;
+						iter = iter->sig;
 					}
 				}
 			}
 		}
-		
-		
-		anter = cel;
-		cel = cel->sig;
-	}
+	
 }
 
 
