@@ -14,27 +14,20 @@ using namespace std;
 
 struct nodo_tablas{
 	tabla t;
-	tablas iz;
-	tablas de;
 };
 
 tablas crearTablas(){
-	return NULL;
+	tablas ts = new(nodo_tablas);
+	return ts;
 }
 
 TipoRet crearTabla_Tablas(tablas & ts, char *nombreTabla){
 	if(nombreTabla==NULL){
 		cout << " - No se especifico el nombre de la tabla a crear." << endl;
 		return ERROR;
-	}else if (!existenTablas(ts)){
-		ts = new(nodo_tablas);
-		ts->t = crearTabla(nombreTabla);
-		ts->iz=crearTablas();
-		ts->de=crearTablas();
-		return OK;
 	}else{
-		cout << " - Imposible crear tabla '" << nombreTabla << "', ya exite una creada y el sistema soporta solo una" << endl;
-		return ERROR;
+		ts->t = crearTabla(ts->t, nombreTabla);
+		return OK;
 	}
 }
 
@@ -42,7 +35,7 @@ void imprimirTablas(tablas ts){
 	if (!existenTablas(ts)){
 		cout << "No existe ninguna tabla creada" << endl;
 	}else{
-		cout << " - " << nombreTabla(ts->t) << endl;
+		nombreTabla(ts->t);
 	}
 }
 
@@ -98,7 +91,7 @@ TipoRet dropCol_tablas(tablas ts, char *nombreTabla, char *nombreCol){
 		cout << " - No existe la tabla '" << nombreTabla << "'" << endl;
 		return ERROR;
 	}else{
-		return dropCol_tabla(ts->t, nombreCol);
+		return dropCol_tabla(ts->t, nombreTabla, nombreCol);
 	}
 
 }
@@ -135,7 +128,7 @@ TipoRet alterCol_Tablas(tablas &ts, char *nombreTabla, char *nombreCol, TipoDato
 
 TipoRet insertInto_Tablas(tablas &ts, char *nombreTabla, char *columnasTupla, char *valoresTupla){
 	if(existeTablaNombre_Tablas(ts, nombreTabla)){
-		return insertInto_Tabla(ts->t, columnasTupla, valoresTupla);
+		return insertInto_Tabla(ts->t, nombreTabla, columnasTupla, valoresTupla);
 	} else{
 		cout << " - No existe la tabla con el nombre: " << nombreTabla << endl;
 		return ERROR;
