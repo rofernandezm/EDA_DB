@@ -15,11 +15,11 @@
 
 typedef struct nodo_tabla * tabla;
 
-tabla crearTabla(char * nombreTabla);
+tabla crearTabla(tabla t, char * nombreTabla);
 // Crea una tabla de nombre "nombreTabla".
 
-char * nombreTabla(tabla t);
-// Retorna el nombre de t.
+void nombreTabla(tabla t);
+// Imprime los nombres de todas las tablas
 // Pre: t creada previamente.
 
 bool existeTablaNombre_Tabla(tabla t, char *nombreTabla);
@@ -35,36 +35,36 @@ bool existenColumnas(tabla t);
 bool existeColumnaNombre_Tabla(tabla t, char *NombreCol);
 // True si existe la columna de nombre "NombreCol" en la tabla "t". Cualquier otro caso False
 
-tabla getTableByName(tabla t, char *nombreTabla);
-// Retorna la tabla de nombre "nombreTabla"
-
 TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoCol, Calificador calificadorCol);
 //Agrega la columna a la tabla
+//Pre: La tabla nombreTabla debe existir
 
 void printMetaData_Tabla(tabla t, char *nombreTabla);
 //Imprime los cabezales de una tabla y sus columnas
+//Pre: La tabla nombreTabla debe existir
 
-TipoRet dropCol_tabla(tabla &t, char *nombreCol);
+TipoRet dropCol_tabla(tabla &t, char *nombreTabla, char *nombreCol);
 //Elimina la columna nombreCol de la tabla
-//Pre: nombreCol tiene que existir
+//Pre: La tabla nombreTabla debe existir
 
 TipoRet dropTable_tabla(tabla t, char *nombreTabla);
 //Elimina la tabla nombreTabla y las tuplas en caso de existir.
-//Pre: nombreTabla tiene que existir
+//Pre: La tabla nombreTabla debe existir
 
 TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo);
 // Modifica la columna nombreCol de una tabla
-// Pre: t tiene que existir 
+//Pre: La tabla nombreTabla debe existir
 
-TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla);
+TipoRet insertInto_Tabla(tabla &t, char *nombreTabla, char *columnasTupla, char * valoresTupla);
 //Inserta los valoresTupla en las columnasTupla
+//Pre: La tabla nombreTabla debe existir
 
 TipoRet printDataTable_tabla(tabla t, char *nombreTabla);
 //Imprime la informacion de una tabla
-//Pre: t no puede ser vacio
+//Pre: La tabla nombreTabla debe existir
 
 TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar);
 //Elimina las tuplas que cumplan la condicion
-//Pre: nombreTabla existe 
+//Pre: La tabla nombreTabla debe existir
 
 #endif

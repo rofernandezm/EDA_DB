@@ -20,24 +20,38 @@ struct nodo_tabla{
 	tabla sig; 
 };
 
-tabla crearTabla(char * nombreTabla){
-	tabla t = new(nodo_tabla);
-	t->nombre = new char[MAX_NOMBRE];
-	strcpy(t->nombre, nombreTabla);
-	t->indice = 0;
+tabla crearTabla(tabla t, char * nombreTabla){
+	if(t == NULL){
+		tabla nueva_tabla = new(nodo_tabla);
+		nueva_tabla->nombre = new char[MAX_NOMBRE];
+		strcpy(nueva_tabla->nombre, nombreTabla);
+		nueva_tabla->indice = 0;
+		nueva_tabla->sig = NULL;
+		t = nueva_tabla;
+	}else{
+		t->sig = crearTabla(t->sig, nombreTabla);
+	}
 	return t;
 }
 
-char * nombreTabla(tabla t){
-	return t->nombre;
+void nombreTabla(tabla t){
+	while(t != NULL){
+		cout << " - " << t->nombre << endl;
+		t = t->sig;
+	}
 }
 
 bool existeTablaNombre_Tabla(tabla t, char *nombreTabla){
-	if(strcmp(t->nombre, nombreTabla)==0){
-		return true;
-	} else{
-		return false;
+	bool existe = false;
+	while((t != NULL) && (existe == false)){
+		if(strcmp(t->nombre, nombreTabla)==0){
+			existe = true;
+		}else{
+			t = t->sig;
+		}
 	}
+	
+	return existe;
 }
 
 bool existenColumnas(tabla t){
@@ -61,16 +75,13 @@ bool existeColumnaNombre_Tabla(tabla t, char *NombreCol){
 	}
 }
 
-tabla getTableByName(tabla t, char *nombreTabla){
-	if(strcmp(t->nombre, nombreTabla)==0){
-		return t;
-	} else {
-		return NULL;
-	}
-}
-
 
 TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoDato, Calificador calificadorCol){
+	
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, nombreTabla) != 0)){
+		t = t->sig;
+	}
 	
 	if(!existenColumnas(t)){ 
 	//Verifica que no existan columnas en la tabla "currentTable"
@@ -97,12 +108,24 @@ TipoRet addCol_tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol t
 }
 
 void printMetaData_Tabla(tabla t, char *nombreTabla){
-	//No se realiza iteracin sobre tablas porque hay una unica tabla
+
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, nombreTabla) != 0)){
+		t = t->sig;
+	}
+	
 	cout << " - Tabla: " << t->nombre << endl;
 	printMetaData_Column(t->col);
+	
 }
 
-TipoRet dropCol_tabla(tabla &t, char *nombreCol){
+TipoRet dropCol_tabla(tabla &t, char *nombreTabla, char *nombreCol){
+	
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, nombreTabla) != 0)){
+		t = t->sig;
+	}
+	
 	if(!existeColumnaNombre_Tabla(t, nombreCol)){
 		cout << " - No existe la columna '" << nombreCol << "'" << endl;
 		return ERROR;
@@ -113,6 +136,13 @@ TipoRet dropCol_tabla(tabla &t, char *nombreCol){
 }
 
 TipoRet dropTable_tabla(tabla t, char *nombreTabla){
+
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, nombreTabla) != 0)){
+		t = t->sig;
+	}
+	
+	
 	if(t->col != NULL){
 		deleteCellInColAndCol(t->col);
 	}
@@ -122,17 +152,10 @@ TipoRet dropTable_tabla(tabla t, char *nombreTabla){
 
 TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol tipoColNuevo, Calificador calificadorColNuevo, char *nombreColNuevo){
 	
-	/* TO-DO logica para encnotrar la tabla, revisar
-	
-	bool encontrada = false;
-	
-	//Encontrar la tabla correcta por su nombre
-	while((t != NULL) && (encontrada == false)){
-		if(strcmp(nombreTabla, t->nombre) != 0)
-			t = t->sig; //itera
-		else
-			encontrada = true; //corta el while
-	}*/
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, nombreTabla) != 0)){
+		t = t->sig;
+	}
 	
 
 	if(!existeColumnaNombre_Tabla(t, NombreCol)){
@@ -155,7 +178,12 @@ TipoRet alterCol_Tabla(tabla &t, char *nombreTabla, char *NombreCol, TipoDatoCol
 }
 
 
-TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla){
+TipoRet insertInto_Tabla(tabla &t, char *nombreTabla, char *columnasTupla, char * valoresTupla){
+
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, nombreTabla) != 0)){
+		t = t->sig;
+	}
 	
 	if(t->col == NULL){
 		//La tabla no tiene columnas
@@ -196,6 +224,11 @@ TipoRet insertInto_Tabla(tabla &t, char *columnasTupla, char * valoresTupla){
 
 TipoRet printDataTable_tabla(tabla t, char *nombreTabla){
 
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, nombreTabla) != 0)){
+		t = t->sig;
+	}
+
 		cout << "Tabla: " << nombreTabla << endl;
 		printDataTable_col(t->col, t->indice);
 		return OK;
@@ -203,6 +236,11 @@ TipoRet printDataTable_tabla(tabla t, char *nombreTabla){
 }
 
 TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar){
+
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, nombreTabla) != 0)){
+		t = t->sig;
+	}
 
 	
 	char str[100];
