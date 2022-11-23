@@ -54,4 +54,7 @@ TipoRet printDataTable_tablas(tablas ts, char *nombreTabla);
 TipoRet deleteFrom_tablas(tablas ts, char *nombreTabla, char *condicionEliminar);
 //Elimina las tuplas segun la condicion
 
+TipoRet selectWhere_tablas(tablas ts, char *tabla1, char *condicion, char *tabla2);
+//Crea la tabla dos a partir de las tuplas de la tabla1 que cumplan la condicion
+
 #endif

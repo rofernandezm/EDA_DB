@@ -9,15 +9,27 @@
 #define COLUMNA_H
 
 #include "define.h"
+#include "tabla.h"
 
 typedef struct nodo_columna * columna;
 
 columna nuevaColumna();
 //Crea una columna nueva
 
+
 char *getNombreColumna(columna col);
 //Retorna el nomnbre de la columna col
 //Pre: col tiene que existir
+
+TipoDatoCol getTipoDato_col(columna col);
+//Retorna el tipo de dato de la columna col
+
+Calificador getCalificador_col(columna col);
+//Retorna el calificador de la columna col
+
+columna getColByIndice(columna col, int indice);
+//Retorna la columna en la posicion indice
+
 
 bool existeMasDeUnaColumna_col(columna col);
 //Pre: existe una columna
@@ -27,9 +39,6 @@ void deleteCellInColAndCol(columna col);
 //Elimina las celdas en la columna col y las siguientes luego se elimina la columna
 //Pre: col tiene que existir
 
-TipoDatoCol getTipoDato_col(columna col, char* NombreCol);
-// Pre: Tiene que existir NombreCol
-// Retorna el tipo de dato de la columna NombreCol
 
 columna addCol(columna col, char * nombreCol, TipoDatoCol tipoDato, Calificador calificador);
 // Crea una columna de nombre "nombreCol"
@@ -48,9 +57,6 @@ bool existeColumnaNombre(columna col, char *nombreCol);
 bool existePrimaryKey_columna(columna col);
 //Retorna true si existe una primary key entre las columnas o false en caso contrario
 
-Calificador getColumnCalif(columna col, char *NombreCol);
-//retorna el calificador de la columna "NombreCol"
-//Pre: NombreCol debe existir.
 
 bool existenTuplas(columna col);
 //Retorna true si existe alguna tupla en la columna, false si no
@@ -93,6 +99,10 @@ TipoRet deleteFrom_col(columna col, int &indice, char *nombreCol, char simbolo, 
 
 void borrarPorIndiceMenosUna_col(columna col, char *nombreCol, int indiceABorrar);
 //Borra las celdas en la posicion indiceABorrar de todas las columnas, menos de nombreCol
+
+
+/*void selectWhere_col(tabla tabla1, tabla nuevaT, columna col, char *nombreCol, char *condicion, char simbolo);
+//Copia en nuevaT los datos de tabla1 que cumplan la condicion*/
 
 
 #endif

@@ -34,7 +34,7 @@ int main()
 		cout << "\tinsertInto(nombreTabla, columnasTupla, valoresTupla)\n";
 		cout << "\tdeleteFrom(nombreTabla, condicionEliminar)\n";
 		//cout << "\tupdate(nombreTabla, condicionModificar, columnaModificar, valorModificar)\n";
-		//cout << "\tselectWhere(nomTabla1, condicion, nomTabla2)\n";
+		cout << "\tselectWhere(nomTabla1, condicion, nomTabla2)\n";
 		//cout << "\tselect(nomTabla1, nomColumnas, nomTabla2)\n";
 		//cout << "\tjoin(nomTabla1, nomTabla2, nomTabla3)\n";
 		//cout << "\tunion(nombreTabla1, nombreTabla2, nombreTabla3)\n";

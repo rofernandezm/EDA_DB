@@ -149,8 +149,7 @@ TipoRet update(bd & bd, char * nombreTabla, char * condicionModificar, char * co
 
 
 TipoRet selectWhere (bd & bd,char * nomTabla1, char * condicion, char * nomTabla2){
-	//cout << " - selectWhere " << nomTabla1 << " " << condicion << " " << nomTabla2 << endl;
-	return NO_IMPLEMENTADA;
+	return selectWhere_tablas(bd->ts, nomTabla1, condicion, nomTabla2);
 }
 
 

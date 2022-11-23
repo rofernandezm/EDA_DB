@@ -7,6 +7,7 @@
 
 #include "columna.h"
 #include "celda.h"
+#include "tabla.h"
 #include <string.h>
 #include <iostream>
 
@@ -28,6 +29,26 @@ char *getNombreColumna(columna col){
 	return col->nombreColumna;
 }
 
+
+TipoDatoCol getTipoDato_col(columna col) {
+	return col->tipo;
+}
+
+
+Calificador getCalificador_col(columna col){
+	return col->calif;
+}
+
+
+columna getColByIndice(columna col, int indice){
+	while(indice > 1){
+		col = col->sig;
+		indice--;
+	}
+	return col;
+}
+
+
 bool existeMasDeUnaColumna_col(columna col){
 	if (col->sig != NULL) {
 		return true;
@@ -44,16 +65,6 @@ void deleteCellInColAndCol(columna col){
 		eliminarCeldas_col(col->sig);
 	}
 	delete col;
-}
-
-TipoDatoCol getTipoDato_col(columna col, char* NombreCol) {
-	// Pre: Tiene que existir NombreCol
-	if(strcmp(col->nombreColumna, NombreCol) == 0) {
-		return col->tipo;
-	}
-	else {
-		return getTipoDato_col(col-> sig, NombreCol);
-	}
 }
 
 bool existeColumnaNombre(columna col, char *nombreCol){
@@ -77,13 +88,6 @@ bool existePrimaryKey_columna(columna col){
 	}
 }
 
-Calificador getColumnCalif(columna col, char *NombreCol){
-	if(strcmp(col->nombreColumna, NombreCol)==0){
-		return col->calif;
-	}else {
-		return getColumnCalif(col->sig, NombreCol);
-	}
-}
 
 columna addCol(columna col, char * nombreCol, TipoDatoCol tipoDato, Calificador calificador){
 	
@@ -362,6 +366,35 @@ void borrarPorIndiceMenosUna_col(columna col, char *nombreCol, int indiceABorrar
 		col = col->sig;
 	}
 }
+
+
+/*void selectWhere_col(tabla tabla1, tabla nuevaT, columna col, char *nombreCol, char *condicion, char simbolo){
+
+	int indiceCopia = 1;
+	columna primeraCol = col;
+	
+	while()
+	
+	//Itero hasta llegar a la columna de la condicion
+	while((col != NULL) && (strcmp(col->nombreColumna, nombreCol) != 0)){
+		col = col->sig;
+	}
+	
+	while(col != NULL){
+    		addCol_tabla(nuevaT, nuevaT->nombre, col->nombreColumna, col->tipo, col->calif);
+    		col = col->sig;
+    	}
+
+
+}*/
+
+
+
+
+
+
+
+
 
 
 

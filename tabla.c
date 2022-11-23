@@ -264,17 +264,7 @@ TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar){
     	//Obtener los datos de las columnas
     	columna1 = strtok(str, " = ! > < ");
     	condicion = strtok(NULL, " = ! > < ");
-    	
-    	
-    	//Encontrar la tabla nombreTabla
-    	bool tablaEncontrada = false;
-    	
-    	while((t != NULL) && tablaEncontrada == false){
-    		if(strcmp(nombreTabla, t->nombre) == 0)
-    			tablaEncontrada = true;
-    		else
-    			t = t->sig;
-    	}
+
     	
 
     	//Se da por sentado que la tabla nombreTabla existe porque se controla en tablas.c
@@ -294,10 +284,72 @@ TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar){
 
 
 
+TipoRet selectWhere_tabla(tabla t, char *tabla1, char *condicionCopiar, char *tabla2){
 
+	//Itero entre las tablas para llegar a la tabla nombreTabla
+	while((t != NULL) && (strcmp(t->nombre, tabla1) != 0)){
+		t = t->sig;
+	}
 
+	
+	char str[100];
+	char *columna1 = new char[20];
+   	char simbolo;
+   	char *condicion = new char[50];
+   	int i = 0;
 
+	//Guarda lo que viene por parametro en una variable
+   	strcpy(str, condicionCopiar);
+   	
+   	
+   	//Obtener el simbolo
+   	while((str[i] != '=') && (str[i] != '!') && (str[i] != '>') && (str[i] != '<')){
+   		//Itera en el string hasta encontrar el simbolo
+        	i++;
+    	}
+    	
+    	//Guarda el valor del simbolo
+    	simbolo = str[i];
+    	
+    	
+    	//Guarda la columna y la condicion
+    	columna1 = strtok(str, " = ! > < ");
+    	condicion = strtok(NULL, " = ! > < ");
 
+    	
+
+    	//Se da por sentado que la tabla nombreTabla existe porque se controla en tablas.c
+    	if(!existenColumnas(t)){
+    		cout << "La tabla " << t->nombre << " no tiene columnas" << endl;
+    		return ERROR;	
+    		
+    	}else if(!existeColumnaNombre_Tabla(t, columna1)){
+    		cout << "No existe columna con el nombre " << columna1 << " en la tabla " << t->nombre << endl; 
+    		return ERROR;
+    		
+    	}else{
+    		tabla nuevaT = crearTabla(t, tabla2);
+    		columna colACopiar = t->col;
+    		int i = 1;
+    		char *nombreCol2 = new char[20];
+    		TipoDatoCol tipoCol2;
+    		Calificador califCol2;
+    		
+    		while(colACopiar != NULL){
+    		
+    			strcpy(nombreCol2, getNombreColumna(colACopiar));
+    			tipoCol2 = getTipoDato_col(colACopiar);
+    			califCol2 = getCalificador_col(colACopiar);
+    			
+    			addCol(nuevaT->col, nombreCol2, tipoCol2, califCol2);
+    			
+    			i++;
+    			colACopiar = getColByIndice(t->col, i);
+    		}
+    		
+    	}
+
+}
 
 
 

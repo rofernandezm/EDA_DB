@@ -148,6 +148,7 @@ TipoRet printDataTable_tablas(tablas ts, char *nombreTabla){
 	}
 }
 
+
 TipoRet deleteFrom_tablas(tablas ts, char *nombreTabla, char *condicionEliminar){
 
 	if(ts->t == NULL){
@@ -162,7 +163,21 @@ TipoRet deleteFrom_tablas(tablas ts, char *nombreTabla, char *condicionEliminar)
 }
 
 
-
+TipoRet selectWhere_tablas(tablas ts, char *tabla1, char *condicion, char *tabla2){
+	
+	if(ts->t == NULL){
+		cout << "No existe ninguna tabla creada" << endl;
+		return ERROR;
+	}else if(!existeTablaNombre_Tablas(ts, tabla1)){
+		cout << " - No existe la tabla '" << tabla1 << "'" << endl;
+		return ERROR;
+	}else if(existeTablaNombre_Tablas(ts, tabla2)){
+		cout << " - Ya existe una tabla con el nombre '" << tabla2 << "'" << endl;
+		return ERROR;
+	}else{
+		return selectWhere_tabla(ts->t, tabla1, condicion, tabla2);
+	}
+}
 
 
 

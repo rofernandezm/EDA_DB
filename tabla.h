@@ -67,4 +67,9 @@ TipoRet deleteFrom_tabla(tabla t, char *nombreTabla, char *condicionEliminar);
 //Elimina las tuplas que cumplan la condicion
 //Pre: La tabla nombreTabla debe existir
 
+TipoRet selectWhere_tabla(tabla t, char *tabla1, char *condicionCopiar, char *tabla2);
+//Crea la tabla dos a partir de las tuplas de la tabla1 que cumplan la condicion
+//Pre: la tabla1 debe existir
+//Pre: la tabla2 no debe existir
+
 #endif
